@@ -1,0 +1,20 @@
+nav{
+  height: 140px;
+}
+
+.div-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #ffffff;
+  align-items: center;
+  }
+
+.div-logo {
+  padding: 0 20 px;
+}
+
+.div-name {
+  color: rgb(13, 82, 172);
+  background-color: #ffffff;
+}
