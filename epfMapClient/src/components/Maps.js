@@ -4,7 +4,7 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 const mapStyles = {
     width: '100%',
     height: '100%',
-  };
+};
 
 class Maps extends Component {
 
@@ -16,9 +16,8 @@ class Maps extends Component {
                 style={mapStyles}
                 initialCenter={{ lat: 38.6, lng: 24.2 }}
             >
-              <Marker position={{ lat: 38.6, lng: 24.2}} />
-              <Marker position={{ lat: 35.6, lng: 22.2}} />
-        </Map>  
+                <Marker position={{ lat: this.props.markerLocation.split(',')[0].replace('[', ''), lng: this.props.markerLocation.split(',')[1].replace(']', '') }} />
+            </Map>
         )
     }
 }
