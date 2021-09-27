@@ -24,10 +24,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p>{this.state.apiResponse}</p>
         <Header />
         <Maps markerLocation={this.state.apiResponse} />
-        <p>{this.state.apiResponse}</p>
       </div>
     );
   }
