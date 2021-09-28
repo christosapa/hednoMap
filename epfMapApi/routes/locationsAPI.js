@@ -9,7 +9,10 @@ var _ = require('underscore');
 locationsDictionary = {
     "kilkis": [40.99402872045363, 22.873970191401646],
     "i.p. mesologgiou": [38.37313816540975, 21.436854304810463],
-    "naupaktou": [38.39401424524524, 21.839038306784772]
+    "naupaktou": [38.39401424524524, 21.839038306784772],
+    "filiaton": [39.60117826874078, 20.310472261428593],
+    // "sikyonion/kryoneri": [37.86751045855157, 22.582955566223802],
+    // "loutrakiou-ag.theodoron/pisia": [38.02077359673312, 22.987254907272625]
 };
 
 // value="9" > ΑΡΤΑΣ 
@@ -60,7 +63,7 @@ locationsDictionary = {
 // value="54" > ΧΑΛΚΙΔΙΚΗΣ
 // value="55" > ΧΑΝΙΩΝ
 // value="56" > ΧΙΟΥ
-cityNumLocations = [67,30]//, 96, 62].concat(_.range(6, 21), _.range(23, 31),  _.range(33, 41), _.range(43, 56))
+cityNumLocations = [67, 30, 96]//, 62]//.concat(_.range(6, 21), _.range(23, 31),  _.range(33, 41), _.range(43, 56))
 
 
 function string_to_slug(str) {

@@ -8,44 +8,22 @@ const mapStyles = {
 
 class Maps extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            stores: [{ lat: 47.49855629475769, lng: -122.14184416996333 },
-            { latitude: 47.359423, longitude: -122.021071 },
-            { latitude: 47.2052192687988, longitude: -121.988426208496 },
-            { latitude: 47.6307081, longitude: -122.1434325 },
-            { latitude: 47.3084488, longitude: -122.2140121 },
-            { latitude: 47.5524695, longitude: -122.0425407 }]
-        }
-    }
-
-    //   displayMarkers = () => {
-    //     return this.state.stores.map((store, index) => {
-    //       return <Marker key={index} id={index} position={{
-    //        lat: store.latitude,
-    //        lng: store.longitude
-    //      }}
-    //      onClick={() => console.log("You clicked me!")} />
-    //     })
-    //   }
-
     seperateCoords(Locations) {
-        // let latitude = Locations.split('\n')[0].split(',')[0].replace('[', '')
-        // let longitude = Locations.split('\n')[0].split(',')[1].replace(']', '')
-        // return latitude, longitude
-        return 10,11
+        let coords = [];
+        for (let i=0; i < Locations.split('\n').length - 1; i++) {
+            coords[i] = [];
+            coords[i][0] = [parseFloat(Locations.split('\n')[i].split(',')[0].replace('[', ''))]
+            coords[i][1] = [parseFloat(Locations.split('\n')[i].split(',')[1].replace(']', ''))]
+        }
+        return coords
     }
 
-    displayMarkers(Locations) {
-        // let latitude = Locations.split('\n')[0].split(',')[0].replace('[', '')
-        // let longitude = Locations.split('\n')[0].split(',')[1].replace(']', '')
-        let latitude = 10
-        let longitude = 11
+
+    displayMarkers(coords) {
+        console.log(coords)
         return <Marker position={{
-            lat: latitude,
-            lng: longitude
+            lat: coords[0],
+            lng: coords[1]
         }} />
 
     }
@@ -63,9 +41,7 @@ class Maps extends Component {
                 style={mapStyles}
                 initialCenter={{ lat: 38.6, lng: 24.2 }}
             >
-                {this.displayMarkers(this.props.markerLocation)}
-                {/* {this.displayMarkers(10,11)} */}
-                {/* <Marker position={{ lat: this.props.markerLocation.split('\n')[0].split(',')[0].replace('[',''), lng: this.props.markerLocation.split('\n')[0].split(',')[1].replace(']','')}} /> */}
+                {this.seperateCoords(this.props.markerLocation).map((object, i) => this.displayMarkers(object))}
             </Map>
         )
 
