@@ -4,16 +4,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const colors = require("colors");
 var _ = require('underscore');
-
-// TODO write all municipalities with coords
-locationsDictionary = {
-    "kilkis": [40.99402872045363, 22.873970191401646],
-    "i.p. mesologgiou": [38.37313816540975, 21.436854304810463],
-    "naupaktou": [38.39401424524524, 21.839038306784772],
-    "filiaton": [39.60117826874078, 20.310472261428593],
-    // "sikyonion/kryoneri": [37.86751045855157, 22.582955566223802],
-    // "loutrakiou-ag.theodoron/pisia": [38.02077359673312, 22.987254907272625]
-};
+const NodeGeocoder = require('node-geocoder');
 
 // value="9" > ΑΡΤΑΣ 
 // value="10"> ΑΤΤΙΚΗΣ
@@ -63,8 +54,15 @@ locationsDictionary = {
 // value="54" > ΧΑΛΚΙΔΙΚΗΣ
 // value="55" > ΧΑΝΙΩΝ
 // value="56" > ΧΙΟΥ
-cityNumLocations = [67, 30, 96]//, 62]//.concat(_.range(6, 21), _.range(23, 31),  _.range(33, 41), _.range(43, 56))
+cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 21), _.range(23, 31), _.range(33, 41), _.range(43, 56))
 
+const options = {
+    provider: 'google',
+    apiKey: 'AIzaSyDWbxY8wOy9rYue9YsyJAVO9VpYFqkVSZ8', // for Mapquest, OpenCage, Google Premier
+    formatter: null,// 'gpx', 'string', ...
+};
+
+const geocoder = NodeGeocoder(options);
 
 function string_to_slug(str) {
 
@@ -90,12 +88,10 @@ function string_to_slug(str) {
 coordsArray = [];
 
 for (cityNum of cityNumLocations) {
-    console.log(cityNum)
-    for (let pageNum = 1; pageNum<2; pageNum++) {
-        console.log(pageNum)
+    for (let pageNum = 1; pageNum < 2; pageNum++) {
+        //console.log(pageNum)
         url = "https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=" + pageNum + "&municipalityID=&prefectureID=" + cityNum
-        console.log(url);
-        
+
         axios
             .get(url)
             .then((response) => {
@@ -103,9 +99,15 @@ for (cityNum of cityNumLocations) {
 
                 $("body > div > div > table > tbody > tr").each((index, element) => {
                     // TODO find duplicate entries
-                    console.log($($(element).find("td")[2]).text()/*.trim().replace(" ","-")*/);
-                    coordsArray = coordsArray + "[" + locationsDictionary[string_to_slug($($(element).find("td")[2]).text())] + "]\n";
-                    console.log(coordsArray);
+                    geocoder.geocode(string_to_slug($($(element).find("td")[2]).text()))
+                        .then(function (res) {
+                            // console.log(string_to_slug($($(element).find("td")[2]).text()))
+                            // console.log(res[0].latitude);
+                            coordsArray = coordsArray + "[" + String(res[0].latitude) + ',' + String(res[0].longitude) + "]\n";
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                        });
                 });
             })
             .catch((err) => console.log("Fetch error " + err));
