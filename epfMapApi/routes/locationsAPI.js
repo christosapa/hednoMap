@@ -7,6 +7,7 @@ var _ = require('underscore');
 const NodeGeocoder = require('node-geocoder');
 const helper = require("../lib/helpers");
 
+// numbers of citys according to hedno site
 /* value="9" > ΑΡΤΑΣ value="10"> ΑΤΤΙΚΗΣ value="11" > ΑΧΑΙΑΣ value="12" > ΒΟΙΩΤΙΑΣ value="13" > ΓΡΕΒΕΝΩΝ value="14" > ΔΡΑΜΑΣ value="15" > ΔΩΔΕΚΑΝΗΣΟΥ
    value="6" > ΕΒΡΟΥ value="16" > ΕΥΒΟΙΑΣ value="17" > ΕΥΡΥΤΑΝΙΑΣ value="18" > ΖΑΚΥΝΘΟΥ value="19" > ΗΛΕΙΑΣ value="20" > ΗΜΑΘΙΑΣ value="21" > ΗΡΑΚΛΕΙΟΥ
    value="96" > ΘΕΣΠΡΩΤΙΑ value="23" > ΘΕΣΣΑΛΟΝΙΚΗΣ value="24" > ΙΩΑΝΝΙΝΩΝ value="25" > ΚΑΒΑΛΑΣ value="26" > ΚΑΡΔΙΤΣΑΣ value="27" > ΚΑΣΤΟΡΙΑΣ value="28" > ΚΕΡΚΥΡΑΣ
@@ -16,6 +17,7 @@ const helper = require("../lib/helpers");
    value="50" > ΤΡΙΚΑΛΩΝ value="51" > ΦΘΙΩΤΙΔΑΣ value="52" > ΦΛΩΡΙΝΑΣ value="53" > ΦΩΚΙΔΑΣ value="54" > ΧΑΛΚΙΔΙΚΗΣ value="55" > ΧΑΝΙΩΝ value="56" > ΧΙΟΥ */
 cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 21), _.range(23, 31), _.range(33, 41), _.range(43, 56))
 
+// options for geocoder
 const options = {
     provider: 'google',
     apiKey: 'AIzaSyDWbxY8wOy9rYue9YsyJAVO9VpYFqkVSZ8', // for Mapquest, OpenCage, Google Premier
@@ -25,32 +27,47 @@ const options = {
 const geocoder = NodeGeocoder(options);
 
 coordsArray = [];
+locations = [];
 
 for (cityNum of cityNumLocations) {
+    // TODO find pageNum length from html
     for (let pageNum = 1; pageNum < 2; pageNum++) {
+
         url = "https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=" + pageNum + "&municipalityID=&prefectureID=" + cityNum
-
-        axios
-            .get(url)
-            .then((response) => {
+        axios.get(url).then(
+            (response) => {
+                // parse html
                 const $ = cheerio.load(response.data);
-
                 $("body > div > div > table > tbody > tr").each((index, element) => {
-                    // TODO find duplicate entries
-                    geocoder.geocode(helper.string_to_slug($($(element).find("td")[2]).text()))
-                        .then(function (res) {
-                            coordsArray.push({ latitude: res[0].latitude, longitude: res[0].longitude })
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        });
+
+                    // check for duplicates
+                    location = helper.string_to_slug($($(element).find("td")[2]).text())
+                    const found = locations.some(el => el === location);
+                    locations.push(location)
+                    locations = [...new Set(locations)]
+
+                    // is location is new
+                    if (!found) {
+
+                        // get coords from location
+                        geocoder.geocode({ "address": location + ', Greece' })
+                            .then(function (res) {
+                                coordsArray.push({ latitude: res[0].latitude, longitude: res[0].longitude })
+                            })
+                            .catch(function (err) {
+                                console.log(err);
+                            });
+                    }
+
                 });
             })
             .catch((err) => console.log("Fetch error " + err));
     }
 }
 
-    router.get("/", function (req, res, next) {
-        res.send(JSON.stringify(coordsArray));
-    });
+// send coords
+router.get("/", function (req, res, next) {
+    res.send(JSON.stringify(coordsArray));
+});
+
 module.exports = router;
