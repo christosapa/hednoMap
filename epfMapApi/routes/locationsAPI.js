@@ -27,7 +27,6 @@ const options = {
 const geocoder = NodeGeocoder(options);
 
 coordsArray = [];
-locations = [];
 
 for (cityNum of cityNumLocations) {
     // TODO find pageNum length from html
@@ -40,24 +39,26 @@ for (cityNum of cityNumLocations) {
                 const $ = cheerio.load(response.data);
                 $("body > div > div > table > tbody > tr").each((index, element) => {
 
-                    // check for duplicates
                     location = helper.string_to_slug($($(element).find("td")[2]).text())
-                    const found = locations.some(el => el === location);
-                    locations.push(location)
-                    locations = [...new Set(locations)]
 
-                    // is location is new
-                    if (!found) {
-
-                        // get coords from location
-                        geocoder.geocode({ "address": location + ', Greece' })
-                            .then(function (res) {
-                                coordsArray.push({ latitude: res[0].latitude, longitude: res[0].longitude })
+                    // get coords from location
+                    // isLive(): checks if power cut is live or planned
+                    geocoder.geocode({ "address": location + ', Greece' })
+                        .then(function (res) {
+                            coordsArray.push({
+                                latitude: res[0].latitude, longitude: res[0].longitude,
+                                isLive: helper.islive($($(element).find("td")[0]).text(), $($(element).find("td")[1]).text()),
+                                fromDateTime:$($(element).find("td")[0]).text(),
+                                toDateTime:$($(element).find("td")[1]).text(),
+                                faultLocation: $($(element).find("td")[2]).text(),
+                                locationDetails:$($(element).find("td")[3]).text()
                             })
-                            .catch(function (err) {
-                                console.log(err);
-                            });
-                    }
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                        });
+                    //}
+
 
                 });
             })

@@ -19,4 +19,32 @@ function string_to_slug(str) {
     return str;
 }
 
-module.exports = { string_to_slug };
+// TODO check for minutes in time and month/year in date
+function islive(fromDateTime, toDateTime) {
+
+    var today = new Date();
+    var currentDate = today.getDate() //+ '/' +(today.getMonth()+1)+ '/' + today.getFullYear();
+    var currentTime = today.getHours() //+ ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    fromDate = parseInt(fromDateTime.split(" ")[0].split("/")[0])
+    toDate = parseInt(toDateTime.split(" ")[0].split("/")[0])
+
+    // convert time to 24-hour format
+    fromTime = parseInt(fromDateTime.split(" ")[1].split(":")[0])
+    toTime = parseInt(toDateTime.split(" ")[1].split(":")[0])
+    if (fromDateTime.split(" ")[2] == "μμ" && fromTime != 12) {
+        fromTime = fromTime + 12
+    }
+    if (toDateTime.split(" ")[2] == "μμ" && toTime != 12) {
+        toTime = toTime + 12
+    }
+
+    if (currentDate >= fromDate && currentDate <= toDate) {
+        if (currentTime >= fromTime && currentTime <= toTime) {
+            return true
+        }
+    }
+    return false
+}
+
+module.exports = { string_to_slug, islive };
