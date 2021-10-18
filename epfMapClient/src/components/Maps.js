@@ -1,19 +1,9 @@
 import React, { Component } from 'react'
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import styles from './mystyle.module.css';
 
-const MapLegend = ({ text }) => (
-    <div style={{
-        color: 'black',
-        background: 'white',
-        padding: '0px 10px',
-        display: 'inline-flex',
-        textAlign: 'left',
-        // borderRadius: '10%',
-        position: 'fixed',
-        left: '5px',
-        top: '590px',
-        border: '0.1px solid gray'
-    }}>
+const MapButton = ({ text }) => (
+    <div className={styles.table}>
         {text}
     </div>
 );
@@ -23,7 +13,9 @@ class Maps extends Component {
     state = {
         showingInfoWindow: false,  // Hides or shows the InfoWindow
         activeMarker: {},          // Shows the active marker upon click
-        selectedPlace: {}          // Shows the InfoWindow to the selected place upon a marker
+        selectedPlace: {},          // Shows the InfoWindow to the selected place upon a marker
+        showBlueMarkers: true,
+        showRedMarkers: true
     };
 
     onMarkerClick = (props, marker, e) =>
@@ -49,8 +41,7 @@ class Maps extends Component {
     }
 
     displayMarkers(coords, i) {
-        console.log(coords)
-        if (coords.isLive) {
+        if (coords.isLive && this.state.showRedMarkers) {
             return <Marker
                 key={i}
                 position={{
@@ -69,7 +60,7 @@ class Maps extends Component {
                 animation={2}
             />
         }
-        else {
+        else if(!coords.isLive && this.state.showBlueMarkers) {
             return <Marker
                 key={i}
                 position={{
@@ -90,6 +81,26 @@ class Maps extends Component {
         }
     }
 
+    buttonClicked(type) {
+        if (type === 'red') {
+            if(this.state.showRedMarkers){
+                this.setState({showRedMarkers: false})
+            }
+            else{
+                this.setState({showRedMarkers: true})
+            }
+        }
+        else {
+            if(this.state.showBlueMarkers){
+                this.setState({showBlueMarkers: false})
+            }
+            else{
+                this.setState({showBlueMarkers: true})
+            }
+        }
+    }
+
+
     render() {
         if (!this.props.loaded) {
             return <div>Loading...</div>
@@ -101,6 +112,7 @@ class Maps extends Component {
                 initialCenter={{ lat: 38.6, lng: 24.2 }}
             >
                 {this.seperateCoords(JSON.parse(this.props.markerLocation)).map((object, i) => this.displayMarkers(object, i))}
+
                 <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
@@ -110,12 +122,30 @@ class Maps extends Component {
                         <h4>{this.state.selectedPlace.name}</h4>
                     </div>
                 </InfoWindow>
-                <MapLegend
-                    text={<div>
-                        <p>Red Markers: Live</p>
-                        <p>Blue Markers: Planned</p>
-                    </div>}
+
+                <MapButton
+                    text={
+                        <button
+                            className={styles.button}
+                            onClick={this.buttonClicked.bind(this, 'red')}>
+                            <img src="https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png" alt=""></img>
+                            <p>Live</p>
+                        </button>
+                    }
                 />
+
+                <MapButton
+                    text={
+                        <button
+                            className={styles.button}
+                            onClick={this.buttonClicked.bind(this, 'blue')}>
+                            <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt=""></img>
+                            <p>Planned</p>
+                        </button>
+                    }
+                />
+
+
             </Map>
         )
     }
