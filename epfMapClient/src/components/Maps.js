@@ -60,7 +60,7 @@ class Maps extends Component {
                 animation={2}
             />
         }
-        else if(!coords.isLive && this.state.showBlueMarkers) {
+        else if (!coords.isLive && this.state.showBlueMarkers) {
             return <Marker
                 key={i}
                 position={{
@@ -82,29 +82,22 @@ class Maps extends Component {
     }
 
     buttonClicked(type) {
-        if (type === 'red') {
-            if(this.state.showRedMarkers){
-                this.setState({showRedMarkers: false})
-            }
-            else{
-                this.setState({showRedMarkers: true})
-            }
+        if (type === 'red' && this.state.showBlueMarkers) {
+            this.setState({ showBlueMarkers: false })
+            this.setState({ showRedMarkers: true })
         }
-        else {
-            if(this.state.showBlueMarkers){
-                this.setState({showBlueMarkers: false})
-            }
-            else{
-                this.setState({showBlueMarkers: true})
-            }
+        else if (type === 'blue' && this.state.showRedMarkers) {
+            this.setState({ showBlueMarkers: true })
+            this.setState({ showRedMarkers: false })
+        }
+        else if (type === 'all' && (!this.state.showBlueMarkers || !this.state.showRedMarkers)) {
+            this.setState({ showBlueMarkers: true })
+            this.setState({ showRedMarkers: true })
         }
     }
 
 
     render() {
-        if (!this.props.loaded) {
-            return <div>Loading...</div>
-        }
         return (
             <Map
                 google={this.props.google}
@@ -145,6 +138,16 @@ class Maps extends Component {
                     }
                 />
 
+                <MapButton
+                    text={
+                        <button
+                            className={styles.button}
+                            onClick={this.buttonClicked.bind(this, 'all')}>
+                            <img src="http://maps.google.com/mapfiles/kml/pal4/icon57.png" alt=""></img>
+                            <p>All</p>
+                        </button>
+                    }
+                />
 
             </Map>
         )
