@@ -29,9 +29,11 @@ function islive(fromDateTime, toDateTime) {
     fromDate = parseInt(fromDateTime.split(" ")[0].split("/")[0])
     toDate = parseInt(toDateTime.split(" ")[0].split("/")[0])
 
-    // convert time to 24-hour format
+
     fromTime = parseInt(fromDateTime.split(" ")[1].split(":")[0])
     toTime = parseInt(toDateTime.split(" ")[1].split(":")[0])
+
+    // convert time to 24-hour format
     if (fromDateTime.split(" ")[2] == "μμ" && fromTime != 12) {
         fromTime = fromTime + 12
     }

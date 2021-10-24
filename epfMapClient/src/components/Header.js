@@ -10,7 +10,7 @@ const Header = () => {
                     <img src={mainLogo} alt="logo" />
                 </div>
                 <div className='div-name'>
-                    <h1>Faults and planned power interruptions</h1>
+                    <h1>Live and planned power outages</h1>
                 </div>
             </div>
         </nav>
