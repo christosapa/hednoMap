@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
@@ -21,7 +22,7 @@ cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 22), _.range(23, 32), _.ra
 // options for geocoder
 const options = {
     provider: 'google',
-    apiKey: 'AIzaSyDWbxY8wOy9rYue9YsyJAVO9VpYFqkVSZ8', // for Mapquest, OpenCage, Google Premier
+    apiKey: process.env.API_KEY, // for Mapquest, OpenCage, Google Premier
     formatter: null,// 'gpx', 'string', ...
 };
 

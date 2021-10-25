@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import styles from './mystyle.module.css';
+require('dotenv').config()
 
 const MapButton = ({ text }) => (
     <div className={styles.table}>
@@ -153,7 +154,7 @@ class Maps extends Component {
         )
     }
 }
-
+console.log(process.env.API_KEY)
 export default GoogleApiWrapper({
     apiKey: 'AIzaSyDWbxY8wOy9rYue9YsyJAVO9VpYFqkVSZ8'
 })(Maps);
