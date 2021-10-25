@@ -154,7 +154,7 @@ class Maps extends Component {
         )
     }
 }
-console.log(process.env.API_KEY)
+
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyDWbxY8wOy9rYue9YsyJAVO9VpYFqkVSZ8'
+    apiKey: process.env.REACT_APP_GOOGLE_API_KEY
 })(Maps);
