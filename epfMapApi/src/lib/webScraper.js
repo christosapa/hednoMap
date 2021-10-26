@@ -1,6 +1,4 @@
 require('dotenv').config()
-var express = require("express");
-var router = express.Router();
 const axios = require("axios");
 const cheerio = require("cheerio");
 const colors = require("colors");
@@ -8,7 +6,6 @@ var _ = require('underscore');
 const NodeGeocoder = require('node-geocoder');
 const helper = require("../lib/helpers");
 
-// TODO something is wrong with city numbers
 // numbers of citys according to hedno site
 /* value="9" > ΑΡΤΑΣ value="10"> ΑΤΤΙΚΗΣ value="11" > ΑΧΑΙΑΣ value="12" > ΒΟΙΩΤΙΑΣ value="13" > ΓΡΕΒΕΝΩΝ value="14" > ΔΡΑΜΑΣ value="15" > ΔΩΔΕΚΑΝΗΣΟΥ
    value="6" > ΕΒΡΟΥ value="16" > ΕΥΒΟΙΑΣ value="17" > ΕΥΡΥΤΑΝΙΑΣ value="18" > ΖΑΚΥΝΘΟΥ value="19" > ΗΛΕΙΑΣ value="20" > ΗΜΑΘΙΑΣ value="21" > ΗΡΑΚΛΕΙΟΥ
@@ -96,16 +93,4 @@ const findCoordsOfOutages = async () => {
     }
 };
 
-run2functions = async () => {
-    await findNumOfPages();
-    await findCoordsOfOutages();
-};
-
-run2functions();
-
-// send coords
-router.get("/", function (req, res, next) {
-    res.send(JSON.stringify(coordsArray));
-});
-
-module.exports = router;
+module.exports = { findNumOfPages, findCoordsOfOutages };
