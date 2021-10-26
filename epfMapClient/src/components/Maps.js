@@ -102,8 +102,8 @@ class Maps extends Component {
         return (
             <Map
                 google={this.props.google}
-                zoom={7}
-                initialCenter={{ lat: 38.6, lng: 24.2 }}
+                zoom={6.7}
+                initialCenter={{ lat: 38, lng: 24.2 }}
             >
                 {this.seperateCoords(JSON.parse(this.props.markerLocation)).map((object, i) => this.displayMarkers(object, i))}
 
