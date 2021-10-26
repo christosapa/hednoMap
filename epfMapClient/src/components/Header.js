@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import mainLogo from '../assets/logo.png';
 import './Header.css'
 
@@ -7,7 +7,7 @@ const Header = () => {
         <nav>
             <div className='div-header'>
                 <div className='div-logo'>
-                    <img src={mainLogo} alt="logo" />
+                    <img src={mainLogo} alt='logo' />
                 </div>
                 <div className='div-name'>
                     <h1>Live and planned power outages.</h1>

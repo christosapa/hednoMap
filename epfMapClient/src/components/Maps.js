@@ -76,7 +76,7 @@ class Maps extends Component {
                         <p>Location: {coords.faultLocation}</p>
                         <p>Details: {coords.locationDetails}</p>
                     </div>}
-                icon={"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
+                icon={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}
                 animation={2}
             />
         }
@@ -122,7 +122,7 @@ class Maps extends Component {
                         <button
                             className={styles.button}
                             onClick={this.buttonClicked.bind(this, 'red')}>
-                            <img src="https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png" alt=""></img>
+                            <img src='https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png' alt=''></img>
                             <p>Live</p>
                         </button>
                     }
@@ -133,7 +133,7 @@ class Maps extends Component {
                         <button
                             className={styles.button}
                             onClick={this.buttonClicked.bind(this, 'blue')}>
-                            <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt=""></img>
+                            <img src='http://maps.google.com/mapfiles/ms/icons/blue-dot.png' alt=''></img>
                             <p>Planned</p>
                         </button>
                     }
@@ -144,7 +144,7 @@ class Maps extends Component {
                         <button
                             className={styles.button}
                             onClick={this.buttonClicked.bind(this, 'all')}>
-                            <img src="http://maps.google.com/mapfiles/kml/pal4/icon57.png" alt=""></img>
+                            <img src='http://maps.google.com/mapfiles/kml/pal4/icon57.png' alt=''></img>
                             <p>All</p>
                         </button>
                     }
