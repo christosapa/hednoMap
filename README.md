@@ -1,5 +1,6 @@
-# hednoMap
-Hellenic Electricity Distribution Network Operator outages map
+![logo](https://user-images.githubusercontent.com/71548592/138826534-0a1635f1-f495-4695-a676-bf32ff642b9e.png)
+
+HEDNO(Hellenic Electricity Distribution Network Operator) power outages map.
 
 
 
