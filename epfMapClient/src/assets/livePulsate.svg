@@ -1,0 +1,44 @@
+<div>
+   <svg width="60px" height="60px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+     <animate 
+        href="#back"
+        attributeName="r"
+        from="5.3"
+        to="10"
+        dur="1.5s"
+        begin="0s"
+        repeatCount="indefinite"
+        fill="freeze" 
+        id="circ-anim"
+        />
+	<style type="text/css"><![CDATA[
+      body {
+      text-align: center;
+      padding-top: 5em;
+      }
+
+      .front {
+      fill: #0033ff;
+      opacity: 0.9;
+      }
+      #back {
+      fill: transparent;
+      stroke: #0033ff;
+      opacity: 0.7;
+      }
+    ]]></style>
+    <animate 
+        href="#back"
+        attributeType="CSS" attributeName="opacity"
+        from="1"
+        to="0"
+        dur="1.5s"
+        begin="0s"
+        repeatCount="indefinite"
+        fill="freeze" 
+        id="circ-anim"
+        />
+    <circle id="back" cx="10" cy="10" r="6.5" stroke-width="1"/>
+    <circle class="front" cx="10" cy="10" r="5.5"/>
+  </svg>
+</div>
