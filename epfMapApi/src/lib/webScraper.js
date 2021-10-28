@@ -6,7 +6,7 @@ var _ = require('underscore');
 const NodeGeocoder = require('node-geocoder');
 const helper = require('../lib/helpers');
 
-// numbers of citys according to hedno site
+/* numbers of cities according to hedno site */
 /* value='9' > ΑΡΤΑΣ value='10'> ΑΤΤΙΚΗΣ value='11' > ΑΧΑΙΑΣ value='12' > ΒΟΙΩΤΙΑΣ value='13' > ΓΡΕΒΕΝΩΝ value='14' > ΔΡΑΜΑΣ value='15' > ΔΩΔΕΚΑΝΗΣΟΥ
    value='6' > ΕΒΡΟΥ value='16' > ΕΥΒΟΙΑΣ value='17' > ΕΥΡΥΤΑΝΙΑΣ value='18' > ΖΑΚΥΝΘΟΥ value='19' > ΗΛΕΙΑΣ value='20' > ΗΜΑΘΙΑΣ value='21' > ΗΡΑΚΛΕΙΟΥ
    value='96' > ΘΕΣΠΡΩΤΙΑ value='23' > ΘΕΣΣΑΛΟΝΙΚΗΣ value='24' > ΙΩΑΝΝΙΝΩΝ value='25' > ΚΑΒΑΛΑΣ value='26' > ΚΑΡΔΙΤΣΑΣ value='27' > ΚΑΣΤΟΡΙΑΣ value='28' > ΚΕΡΚΥΡΑΣ
@@ -16,16 +16,19 @@ const helper = require('../lib/helpers');
    value='50' > ΤΡΙΚΑΛΩΝ value='51' > ΦΘΙΩΤΙΔΑΣ value='52' > ΦΛΩΡΙΝΑΣ value='53' > ΦΩΚΙΔΑΣ value='54' > ΧΑΛΚΙΔΙΚΗΣ value='55' > ΧΑΝΙΩΝ value='56' > ΧΙΟΥ */
 cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 22), _.range(23, 32), _.range(33, 42), _.range(43, 57))
 
-// options for geocoder
+/* options for geocoder */
 const options = {
     provider: 'google',
     apiKey: process.env.API_KEY, // for Mapquest, OpenCage, Google Premier
-    formatter: null,// 'gpx', 'string', ...
+    formatter: null // 'gpx', 'string', ...
 };
 
 const geocoder = NodeGeocoder(options);
 
 cityPage = [];
+coordsArray = [];
+
+/* find the number of pages for each city */
 const findNumOfPages = async () => {
     try {
         for (cityNum of cityNumLocations) {
@@ -54,8 +57,7 @@ const findNumOfPages = async () => {
     }
 };
 
-
-coordsArray = [];
+/* find coordinates of event location */
 const findCoordsOfOutages = async () => {
     try {
         for (let i = 0; i <= cityPage.length; i++) {
