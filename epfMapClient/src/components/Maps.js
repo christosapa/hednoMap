@@ -35,12 +35,6 @@ class Maps extends Component {
         }
     };
 
-    // TODO is this function needed?
-    seperateCoords(Locations) {
-        let coords = Locations;
-        return coords
-    }
-
     displayMarkers(coords, i) {
         if (coords.isLive && this.state.showRedMarkers) {
             return <Marker
@@ -105,7 +99,7 @@ class Maps extends Component {
                 zoom={6.7}
                 initialCenter={{ lat: 38, lng: 24.2 }}
             >
-                {this.seperateCoords(JSON.parse(this.props.markerLocation)).map((object, i) => this.displayMarkers(object, i))}
+                {JSON.parse(this.props.markerLocation).map((object, i) => this.displayMarkers(object, i))}
 
                 <InfoWindow
                     marker={this.state.activeMarker}
