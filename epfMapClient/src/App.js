@@ -11,7 +11,7 @@ class App extends Component {
   }
 
   callAPI() {
-    fetch('http://localhost:9000/locationsAPI')
+      fetch('https://hedno-map-api.herokuapp.com/locationsAPI')
       .then(res => res.text())
       .then(res => this.setState({ apiResponse: res }));
   }
