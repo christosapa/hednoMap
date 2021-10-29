@@ -25,8 +25,8 @@ const options = {
 
 const geocoder = NodeGeocoder(options);
 
-cityPage = [];
-coordsArray = [];
+var cityPage = [];
+var coordsArray = [];
 
 /* find the number of pages for each city */
 const findNumOfPages = async () => {
