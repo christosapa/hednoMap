@@ -19,7 +19,7 @@ cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 22), _.range(23, 32), _.ra
 /* options for geocoder */
 const options = {
     provider: 'google',
-    apiKey: process.env.API_KEY, // for Mapquest, OpenCage, Google Premier
+    apiKey: ENV['GOOGLE_API_KEY'], // for Mapquest, OpenCage, Google Premier
     formatter: null // 'gpx', 'string', ...
 };
 
