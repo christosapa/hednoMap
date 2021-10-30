@@ -32,9 +32,7 @@ function islive(fromDateTime, toDateTime) {
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
-    console.log('c',currentDate)
-    console.log('f',fromDate)
-    console.log('t',toDate)
+
     console.log('live',(currentDate >= fromDate && currentDate <= toDate))
     fromTime = fromDateTime.split(' ')[1].substr(0, 5)
     toTime = toDateTime.split(' ')[1].substr(0, 5)
@@ -58,9 +56,13 @@ function islive(fromDateTime, toDateTime) {
         toTimeHH = String(parseInt(toTime) + 12)
         toTime = toTimeHH + ':' + toTime.substr(3, 4)
     }
-
+    console.log('c',currentTime)
+    console.log('f',fromTime)
+    console.log('t',toTime)
     if (currentDate >= fromDate && currentDate <= toDate) {
+        console.log('date live')
         if (currentTime >= fromTime && currentTime <= toTime) {
+            console.log('time live')
             return true
         }
     }
