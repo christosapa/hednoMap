@@ -25,7 +25,8 @@ function string_to_slug(str) {
 /* check if event is live or planned */
 // TODO what happens with past events in same day?
 function islive(fromDateTime, toDateTime) {
-
+    
+    // TODO current date and time should be Greek not Server time
     var today = new Date();
     var currentDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
     var currentTime = today.toTimeString().substr(0, 5)
