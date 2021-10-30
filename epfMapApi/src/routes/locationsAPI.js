@@ -7,11 +7,10 @@ run2functions = async () => {
     await webScraper.findCoordsOfOutages();
 };
 
-// run2functions();
+run2functions();
 
 // send coords
 router.get('/', function (req, res, next) {
-    run2functions();
     res.send(JSON.stringify(coordsArray));
 });
 
