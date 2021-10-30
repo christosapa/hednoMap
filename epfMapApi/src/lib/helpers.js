@@ -56,7 +56,6 @@ function islive(fromDateTime, toDateTime) {
         toTime = toTimeHH + ':' + toTime.substr(3, 4)
     }
 
-
     if (currentDate >= fromDate && currentDate <= toDate) {
         if (currentTime >= fromTime && currentTime <= toTime) {
             return true
