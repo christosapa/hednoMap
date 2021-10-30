@@ -28,8 +28,7 @@ function islive(fromDateTime, toDateTime) {
 
     var today = new Date();
     var currentDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-    //var currentTime = today.toTimeString().substr(0, 5)
-    var currentTime = '11:06'
+    var currentTime = today.toTimeString().substr(0, 5)
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
