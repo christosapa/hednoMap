@@ -30,8 +30,8 @@ function islive(fromDateTime, toDateTime) {
     var currentDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
     var currentTime = today.toTimeString().substr(0, 5)
 
-    fromDate = new Date(fromDateTime.split(' ')[0].substr(0, 10))
-    toDate = new Date(toDateTime.split(' ')[0].substr(0, 10))
+    fromDate = fromDateTime.split(' ')[0].substr(0, 10)
+    toDate = toDateTime.split(' ')[0].substr(0, 10)
 
     fromTime = fromDateTime.split(' ')[1].substr(0, 5)
     toTime = toDateTime.split(' ')[1].substr(0, 5)
@@ -55,6 +55,7 @@ function islive(fromDateTime, toDateTime) {
         toTimeHH = String(parseInt(toTime) + 12)
         toTime = toTimeHH + ':' + toTime.substr(3, 4)
     }
+
 
     if (currentDate >= fromDate && currentDate <= toDate) {
         if (currentTime >= fromTime && currentTime <= toTime) {
