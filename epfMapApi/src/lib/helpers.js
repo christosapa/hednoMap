@@ -28,12 +28,11 @@ function islive(fromDateTime, toDateTime) {
 
     var today = new Date();
     var currentDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-    var currentTime = today.toTimeString().substr(0, 5)
+    var currentTime = today.toTimeString().substr(0, 5) + 3
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
 
-    console.log('live',(currentDate >= fromDate && currentDate <= toDate))
     fromTime = fromDateTime.split(' ')[1].substr(0, 5)
     toTime = toDateTime.split(' ')[1].substr(0, 5)
 
@@ -57,8 +56,6 @@ function islive(fromDateTime, toDateTime) {
         toTime = toTimeHH + ':' + toTime.substr(3, 4)
     }
     console.log('c',currentTime)
-    console.log('f',fromTime)
-    console.log('t',toTime)
     if (currentDate >= fromDate && currentDate <= toDate) {
         console.log('date live')
         if (currentTime >= fromTime && currentTime <= toTime) {
