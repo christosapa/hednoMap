@@ -29,7 +29,6 @@ function islive(fromDateTime, toDateTime) {
     var today = new Date().toLocaleString('el-GR', {timeZone: 'Europe/Athens'});
     var currentDate = today.substr(0,10);
     var currentTime = today.substr(12, 8)
-    console.log(currentTime)
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
@@ -58,9 +57,7 @@ function islive(fromDateTime, toDateTime) {
     }
     console.log('c',currentTime)
     if (currentDate >= fromDate && currentDate <= toDate) {
-        console.log('date live')
         if (currentTime >= fromTime && currentTime <= toTime) {
-            console.log('time live')
             return true
         }
     }
