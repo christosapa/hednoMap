@@ -26,10 +26,11 @@ function string_to_slug(str) {
 // TODO what happens with past events in same day?
 function islive(fromDateTime, toDateTime) {
     
-    // TODO current date and time should be Greek not Server time
-    var today = new Date().toLocaleString('el-GR', {timeZone: 'Europe/Athens'});
+    // current date and time are Greek (romanian because of 24H format)
+    var today = new Date().toLocaleString('ro-RO', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false});
     var currentDate = today.substr(0,10);
-    var currentTime = today.substr(12, 8)
+    currentDate = currentDate.replace(/[.]/g, '/')
+    var currentTime = today.substr(12, 5)
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
