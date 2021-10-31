@@ -26,9 +26,10 @@ function string_to_slug(str) {
 // TODO what happens with past events in same day?
 function islive(fromDateTime, toDateTime) {
 
-    var today = new Date();
-    var currentDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-    var currentTime = today.toTimeString().substr(0, 5)
+    var today = new Date().toLocaleString('el-GR', {timeZone: 'Europe/Athens'});
+    var currentDate = today.substr(0,10);
+    var currentTime = today.substr(12, 8)
+    console.log(currentTime)
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
