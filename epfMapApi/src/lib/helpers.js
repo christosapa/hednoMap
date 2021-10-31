@@ -55,7 +55,7 @@ function islive(fromDateTime, toDateTime) {
         toTimeHH = String(parseInt(toTime) + 12)
         toTime = toTimeHH + ':' + toTime.substr(3, 4)
     }
-    console.log('c',currentTime)
+
     if (currentDate >= fromDate && currentDate <= toDate) {
         if (currentTime >= fromTime && currentTime <= toTime) {
             return true
