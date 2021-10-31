@@ -27,9 +27,9 @@ function string_to_slug(str) {
 function islive(fromDateTime, toDateTime) {
     
     // TODO current date and time should be Greek not Server time
-    var today = new Date();
-    var currentDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-    var currentTime = today.toTimeString().substr(0, 5)
+    var today = new Date().toLocaleString('el-GR', {timeZone: 'Europe/Athens'});
+    var currentDate = today.substr(0,10);
+    var currentTime = today.substr(12, 8)
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
