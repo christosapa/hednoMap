@@ -12,6 +12,7 @@ nav{
 
 .div-logo {
   padding: 0 20 px;
+  cursor: pointer;
 }
 
 .div-name {
