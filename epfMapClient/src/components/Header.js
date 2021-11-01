@@ -1,5 +1,5 @@
 import React from 'react'
-import mainLogo from '../assets/logo.png';
+import mainLogo from '../assets/logo_tr.png';
 import './Header.css'
 
 function reloadPage() {
