@@ -30,6 +30,9 @@ function islive(fromDateTime, toDateTime) {
     var today = new Date().toLocaleString('ro-RO', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false});
     var currentDate = today.substr(0,10);
     currentDate = currentDate.replace(/[.]/g, '/')
+    if(currentDate[0] == '0'){
+        currentDate = currentDate.substr(1,9)
+    }
     var currentTime = today.substr(12, 5)
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
