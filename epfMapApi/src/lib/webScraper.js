@@ -69,11 +69,11 @@ const findCoordsOfOutages = async () => {
 
             $('body > div > div > table > tbody > tr').each((index, element) => {
 
-                location = helper.string_to_slug($($(element).find('td')[2]).text())
+                location = $($(element).find('td')[2]).text()
 
                 // get coords from location
                 // isLive(): checks if power cut is live or planned
-                geocoder.geocode({ 'address': location + ', Greece' })
+                geocoder.geocode({ 'address': location + ', GR' })
                     .then(function (res) {
                         coordsArray.push({
                             latitude: res[0].latitude, longitude: res[0].longitude,
