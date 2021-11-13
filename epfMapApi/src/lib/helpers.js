@@ -28,12 +28,13 @@ function islive(fromDateTime, toDateTime) {
     
     // current date and time are Greek (romanian because of 24H format)
     var today = new Date().toLocaleString('ro-RO', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false});
-    var currentDate = today.substr(0,10);
-    currentDate = currentDate.replace(/[.]/g, '/')
-    if(currentDate[0] == '0'){
-        currentDate = currentDate.substr(1,9)
-    }
-    var currentTime = today.substr(12, 5)
+
+    // match date ant time from today
+    var currentDate = today.match(/[0-9]+.[0-9]+.[0-9]+/)[0].replace(/[.]/g, '/');
+    var currentTime = today.match(/[0-9]+:[0-9]+/)[0];
+
+    // strip leading zero from date
+    (currentDate[0] == '0') && (currentDate = currentDate.match(/[0-9].[0-9]+.[0-9]+/)[0]) 
 
     fromDate = fromDateTime.split(' ')[0].substr(0, 10)
     toDate = toDateTime.split(' ')[0].substr(0, 10)
