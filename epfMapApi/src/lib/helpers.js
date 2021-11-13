@@ -36,38 +36,33 @@ function islive(fromDateTime, toDateTime) {
     // strip leading zero from date
     (currentDate[0] == '0') && (currentDate = currentDate.match(/[0-9].[0-9]+.[0-9]+/)[0]) 
 
-    fromDate = fromDateTime.split(' ')[0].substr(0, 10)
-    toDate = toDateTime.split(' ')[0].substr(0, 10)
+    fromDate = fromDateTime.match(/[0-9]+\/[0-9]+\/[0-9]+/)[0];
+    toDate = toDateTime.match(/[0-9]+\/[0-9]+\/[0-9]+/)[0];
 
-    fromTime = fromDateTime.split(' ')[1].substr(0, 5)
-    toTime = toDateTime.split(' ')[1].substr(0, 5)
+    fromTime = fromDateTime.match(/[0-9]+:[0-9]+/)[0];
+    toTime = toDateTime.match(/[0-9]+:[0-9]+/)[0];
 
+    // CHECK
     // convert time to hh:mm format
-    if (fromTime[4] == ':') {
-        fromTime = fromTime.substr(0, 4)
-        fromTime = '0' + fromTime
-    }
-    if (toTime[4] == ':') {
-        toTime = toTime.substr(0, 4)
-        toTime = '0' + toTime
-    }
+    (fromTime[1] == ':') && (fromTime = '0' + fromTime);
+    (toTime[1] == ':') && (toTime = '0' + toTime);
 
     // convert time to 24-hour format
     if (fromDateTime.split(' ')[2] == 'μμ' && fromTime < '12:00') {
-        fromTimeHH = String(parseInt(fromTime) + 12)
-        fromTime = fromTimeHH + ':' + fromTime.substr(3, 4)
+        fromTimeHH = String(parseInt(fromTime) + 12);
+        fromTime = fromTimeHH + ':' + fromTime.substr(3, 4);
     }
     if (toDateTime.split(' ')[2] == 'μμ' && toTime < '12:00') {
-        toTimeHH = String(parseInt(toTime) + 12)
-        toTime = toTimeHH + ':' + toTime.substr(3, 4)
+        toTimeHH = String(parseInt(toTime) + 12);
+        toTime = toTimeHH + ':' + toTime.substr(3, 4);
     }
 
     if (currentDate >= fromDate && currentDate <= toDate) {
         if (currentTime >= fromTime && currentTime <= toTime) {
-            return true
+            return true;
         }
     }
-    return false
+    return false;
 }
 
 module.exports = { string_to_slug, islive };
