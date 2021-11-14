@@ -14,7 +14,7 @@ const helper = require('../lib/helpers');
    value='36' > ΛΑΣIΘΙΟΥ value='37' > ΛΕΣΒΟΥ value='38' > ΛΕΥΚΑΔΑΣ value='39' > ΜΑΓΝΗΣΙΑΣ value='40' > ΜΕΣΣΗΝΙΑΣ value='41' > ΞΑΝΘΗΣ
    value='43' > ΠΕΛΛΗΣ value='44' > ΠΙΕΡΙΑΣ value='45' > ΠΡΕΒΕΖΗΣ value='46' > ΡΕΘΥΜΝΟΥ value='47' > ΡΟΔΟΠΗΣ value='48' > ΣΑΜΟΥ value='49' > ΣΕΡΡΩΝ
    value='50' > ΤΡΙΚΑΛΩΝ value='51' > ΦΘΙΩΤΙΔΑΣ value='52' > ΦΛΩΡΙΝΑΣ value='53' > ΦΩΚΙΔΑΣ value='54' > ΧΑΛΚΙΔΙΚΗΣ value='55' > ΧΑΝΙΩΝ value='56' > ΧΙΟΥ */
-cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 22), _.range(23, 32), _.range(33, 42), _.range(43, 57))
+cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 22), _.range(23, 32), _.range(33, 42), _.range(43, 57));
 
 /* options for geocoder */
 const options = {
@@ -34,14 +34,14 @@ const findNumOfPages = async () => {
         for (cityNum of cityNumLocations) {
             // parse only the first page and collect number of pages
             for (let pageNum = 1; pageNum < 2; pageNum++) {
-                url = 'https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=' + pageNum + '&municipalityID=&prefectureID=' + cityNum
+                url = 'https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=' + pageNum + '&municipalityID=&prefectureID=' + cityNum;
                 const resp = await axios.get(url);
 
                 // parse html
                 const $ = cheerio.load(resp.data);
 
                 $('body > div > div > div > ul > li').each((index, element) => {
-                    cityChar = parseInt($($(element).find('a')).text())
+                    cityChar = parseInt($($(element).find('a')).text());
                     if (Number.isInteger(cityChar)) {
                         cityPage.push({
                             cityNum: cityNum,
@@ -69,7 +69,7 @@ const findCoordsOfOutages = async () => {
 
             $('body > div > div > table > tbody > tr').each((index, element) => {
 
-                location = $($(element).find('td')[2]).text()
+                location = $($(element).find('td')[2]).text();
 
                 // get coords from location
                 // isLive(): checks if power cut is live or planned

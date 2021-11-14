@@ -25,47 +25,43 @@ function string_to_slug(str) {
 /* check if event is live or planned */
 // TODO what happens with past events in same day?
 function islive(fromDateTime, toDateTime) {
-
+    
+    // current date and time are Greek (romanian because of 24H format)
     var today = new Date().toLocaleString('ro-RO', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false});
-    var currentDate = today.substr(0,10);
-    currentDate = currentDate.replace(/[.]/g, '/')
-    if(currentDate[0] == '0'){
-        currentDate = currentDate.substr(1,9)
-    }
-    var currentTime = today.substr(12, 8)
 
-    fromDate = fromDateTime.split(' ')[0].substr(0, 10)
-    toDate = toDateTime.split(' ')[0].substr(0, 10)
+    // match date ant time from today
+    var currentDate = today.match(/[0-9]+.[0-9]+.[0-9]+/)[0].replace(/[.]/g, '/');
+    var currentTime = today.match(/[0-9]+:[0-9]+/)[0];
 
-    fromTime = fromDateTime.split(' ')[1].substr(0, 5)
-    toTime = toDateTime.split(' ')[1].substr(0, 5)
+    // strip leading zero from date
+    (currentDate[0] == '0') && (currentDate = currentDate.match(/[0-9].[0-9]+.[0-9]+/)[0]) 
 
+    fromDate = fromDateTime.match(/[0-9]+\/[0-9]+\/[0-9]+/)[0];
+    toDate = toDateTime.match(/[0-9]+\/[0-9]+\/[0-9]+/)[0];
+
+    fromTime = fromDateTime.match(/[0-9]+:[0-9]+/)[0];
+    toTime = toDateTime.match(/[0-9]+:[0-9]+/)[0];
+
+    // CHECK
     // convert time to hh:mm format
-    if (fromTime[4] == ':') {
-        fromTime = fromTime.substr(0, 4)
-        fromTime = '0' + fromTime
-    }
-    if (toTime[4] == ':') {
-        toTime = toTime.substr(0, 4)
-        toTime = '0' + toTime
-    }
+    (fromTime[1] == ':') && (fromTime = '0' + fromTime);
+    (toTime[1] == ':') && (toTime = '0' + toTime);
 
     // convert time to 24-hour format
-    if (fromDateTime.split(' ')[2] == 'μμ' && fromTime < '12:00') {
-        fromTimeHH = String(parseInt(fromTime) + 12)
-        fromTime = fromTimeHH + ':' + fromTime.substr(3, 4)
+    if (fromDateTime.match(/[α-ω]{2}/)[0] == 'μμ' && fromTime < '12:00') {
+        fromTimeHH = String(parseInt(fromTime) + 12);
+        fromTime = fromTimeHH + fromTime.match(/:[0-9]{2}/)[0];
     }
-    if (toDateTime.split(' ')[2] == 'μμ' && toTime < '12:00') {
-        toTimeHH = String(parseInt(toTime) + 12)
-        toTime = toTimeHH + ':' + toTime.substr(3, 4)
+    if (toDateTime.match(/[α-ω]{2}/)[0] == 'μμ' && toTime < '12:00') {
+        toTimeHH = String(parseInt(toTime) + 12);
+        toTime = toTimeHH + toTime.match(/:[0-9]{2}/)[0];
     }
 
     if (currentDate >= fromDate && currentDate <= toDate) {
         if (currentTime >= fromTime && currentTime <= toTime) {
-            return true
+            return true;
         }
     }
-    return false
+    return false;
 }
-
 module.exports = { string_to_slug, islive };
