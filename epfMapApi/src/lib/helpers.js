@@ -48,13 +48,13 @@ function islive(fromDateTime, toDateTime) {
     (toTime[1] == ':') && (toTime = '0' + toTime);
 
     // convert time to 24-hour format
-    if (fromDateTime.split(' ')[2] == 'μμ' && fromTime < '12:00') {
+    if (fromDateTime.match(/[α-ω]{2}/)[0] == 'μμ' && fromTime < '12:00') {
         fromTimeHH = String(parseInt(fromTime) + 12);
-        fromTime = fromTimeHH + ':' + fromTime.substr(3, 4);
+        fromTime = fromTimeHH + fromTime.match(/:[0-9]{2}/)[0];
     }
-    if (toDateTime.split(' ')[2] == 'μμ' && toTime < '12:00') {
+    if (toDateTime.match(/[α-ω]{2}/)[0] == 'μμ' && toTime < '12:00') {
         toTimeHH = String(parseInt(toTime) + 12);
-        toTime = toTimeHH + ':' + toTime.substr(3, 4);
+        toTime = toTimeHH + toTime.match(/:[0-9]{2}/)[0];
     }
 
     if (currentDate >= fromDate && currentDate <= toDate) {
