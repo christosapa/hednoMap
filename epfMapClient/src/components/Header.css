@@ -1,5 +1,5 @@
 nav{
-  height: 140px;
+  height: auto;
 }
 
 .div-header {
@@ -11,12 +11,12 @@ nav{
   }
 
 .div-logo {
-  padding: 0 20 px;
   cursor: pointer;
+  height: auto;
 }
 
 .div-name {
   color: rgb(0, 117, 191);
   background-color: #ffffff;
-  font-size: 18px;
+  font-size: auto;
 }
