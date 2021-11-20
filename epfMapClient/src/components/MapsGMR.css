@@ -14,5 +14,7 @@
   }
   
   .marker img {
-    width: 38px;
+    width: 26px;
+    position: absolute;
+    bottom: +2px; left: -13px;
   }
