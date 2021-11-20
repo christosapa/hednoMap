@@ -6,6 +6,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: -30px; 
+    right: -20px;
   }
   
   .marker {
@@ -16,5 +19,6 @@
   .marker img {
     width: 26px;
     position: absolute;
-    bottom: +2px; left: -13px;
+    bottom: 5px; 
+    left: -13px;
   }
