@@ -8,7 +8,35 @@ import plannedMarkerImg from '../assets/planned.png'
 
 const fetcher = (...args) => fetch(...args).then(response => response.json());
 
+// Marker component
 const Marker = ({ children }) => children;
+
+// InfoWindow component
+const InfoWindow = (props) => {
+  const { info } = props;
+  const infoWindowStyle = {
+    position: "absolute",
+    bottom: 50,
+    left: "-100px",
+    width: 200,
+    backgroundColor: "white",
+    boxShadow: "0 2px 7px 1px rgba(0, 0, 0, 0.3)",
+    padding: 10,
+    fontSize: 14,
+    zIndex: 100
+  };
+
+  return (
+    <div style={infoWindowStyle}>
+      <div>
+        <p>From: {info}</p>
+        <p>To: {info.toDateTime}</p>
+        <p>Location: {info.faultLocation}</p>
+        <p>Details: {info.locationDetails}</p>
+      </div>
+    </div >
+  );
+};
 
 export default function Maps() {
   // setup map
@@ -20,13 +48,15 @@ export default function Maps() {
   const url = 'http://localhost:9000/locationsAPI';
   const { data, error } = useSwr(url, { fetcher });
   const locations = data && !error ? data : [];
-  //liveLocations=...
-  //plannedLocations=...
 
   //get clusters
   const points = locations.map(location => ({
     type: 'Feature',
-    properties: { cluster: false, locationId: location.id, isLive: location.isLive },
+    properties: {
+      cluster: false, locationId: location.id, isLive: location.isLive,
+      fromDateTime: location.fromDateTime, toDateTime: location.toDateTime,
+      faultLocation: location.faultLocation, locationDetails: location.locationDetails
+    },
     geometry: {
       type: 'Point',
       coordinates: [
@@ -70,7 +100,12 @@ export default function Maps() {
           const {
             cluster: isCluster,
             point_count: pointCount,
-            isLive: liveMarker
+            isLive: liveMarker,
+            fromDateTime: fromDT, 
+            toDateTime: toDT,
+            faultLocation: faultLoc, 
+            locationDetails: locDetails
+            
           } = cluster.properties;
 
           if (isCluster) {
@@ -117,8 +152,9 @@ export default function Maps() {
                 lat={latitude}
                 lng={longitude}
               >
-                <button className="marker">
+                <button className="marker" onClick={() => mapRef.current.panTo({ lat: latitude, lng: longitude })}>
                   <img src={plannedMarkerImg} alt="plannedMarker" />
+                  {<InfoWindow info={fromDT} />}
                 </button>
               </Marker>
             );

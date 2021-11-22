@@ -52,6 +52,10 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "webpack": "^4.42.0",
+    "webpack-dev-middleware": "^5.2.2",
+    "webpack-dev-server": "^4.5.0",
+    "webpack-hot-middleware": "^2.25.1"
   }
 }
