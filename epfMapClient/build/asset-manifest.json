@@ -1,45 +1,26 @@
 {
   "files": {
-<<<<<<< HEAD
-    "main.css": "/hednoMap/static/css/main.ded520bd.chunk.css",
-    "main.js": "/hednoMap/static/js/main.cdd7a0b8.chunk.js",
-    "main.js.map": "/hednoMap/static/js/main.cdd7a0b8.chunk.js.map",
-    "runtime-main.js": "/hednoMap/static/js/runtime-main.df3a4747.js",
-    "runtime-main.js.map": "/hednoMap/static/js/runtime-main.df3a4747.js.map",
-    "static/js/2.43f2ec16.chunk.js": "/hednoMap/static/js/2.43f2ec16.chunk.js",
-    "static/js/2.43f2ec16.chunk.js.map": "/hednoMap/static/js/2.43f2ec16.chunk.js.map",
-    "static/js/3.1d3c7d7a.chunk.js": "/hednoMap/static/js/3.1d3c7d7a.chunk.js",
-    "static/js/3.1d3c7d7a.chunk.js.map": "/hednoMap/static/js/3.1d3c7d7a.chunk.js.map",
-=======
     "main.css": "/hednoMap/static/css/main.deee2be1.chunk.css",
-    "main.js": "/hednoMap/static/js/main.b1cff439.chunk.js",
-    "main.js.map": "/hednoMap/static/js/main.b1cff439.chunk.js.map",
+    "main.js": "/hednoMap/static/js/main.07257a6e.chunk.js",
+    "main.js.map": "/hednoMap/static/js/main.07257a6e.chunk.js.map",
     "runtime-main.js": "/hednoMap/static/js/runtime-main.ad42bead.js",
     "runtime-main.js.map": "/hednoMap/static/js/runtime-main.ad42bead.js.map",
     "static/js/2.2022b9a3.chunk.js": "/hednoMap/static/js/2.2022b9a3.chunk.js",
     "static/js/2.2022b9a3.chunk.js.map": "/hednoMap/static/js/2.2022b9a3.chunk.js.map",
     "static/js/3.98906285.chunk.js": "/hednoMap/static/js/3.98906285.chunk.js",
     "static/js/3.98906285.chunk.js.map": "/hednoMap/static/js/3.98906285.chunk.js.map",
->>>>>>> develop
     "index.html": "/hednoMap/index.html",
-    "precache-manifest.8526af046ccc389814b3dbb7d31768f9.js": "/hednoMap/precache-manifest.8526af046ccc389814b3dbb7d31768f9.js",
+    "precache-manifest.249c743a4616636f3c2dcc354d60b43f.js": "/hednoMap/precache-manifest.249c743a4616636f3c2dcc354d60b43f.js",
     "service-worker.js": "/hednoMap/service-worker.js",
     "static/css/main.deee2be1.chunk.css.map": "/hednoMap/static/css/main.deee2be1.chunk.css.map",
     "static/js/2.2022b9a3.chunk.js.LICENSE.txt": "/hednoMap/static/js/2.2022b9a3.chunk.js.LICENSE.txt",
-    "static/media/logo_tr.png": "/hednoMap/static/media/logo_tr.2601473b.png",
+    "static/media/logo_tr.png": "/hednoMap/static/media/logo_tr.3a2ed7cb.png",
     "static/media/showAll.png": "/hednoMap/static/media/showAll.bcecfede.png"
   },
   "entrypoints": [
-<<<<<<< HEAD
-    "static/js/runtime-main.df3a4747.js",
-    "static/js/2.43f2ec16.chunk.js",
-    "static/css/main.ded520bd.chunk.css",
-    "static/js/main.cdd7a0b8.chunk.js"
-=======
     "static/js/runtime-main.ad42bead.js",
     "static/js/2.2022b9a3.chunk.js",
     "static/css/main.deee2be1.chunk.css",
-    "static/js/main.b1cff439.chunk.js"
->>>>>>> develop
+    "static/js/main.07257a6e.chunk.js"
   ]
 }
