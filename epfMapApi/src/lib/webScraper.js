@@ -27,6 +27,7 @@ const geocoder = NodeGeocoder(options);
 
 cityPage = [];
 coordsArray = [];
+locationId = 0;
 
 /* find the number of pages for each city */
 const findNumOfPages = async () => {
@@ -81,7 +82,8 @@ const findCoordsOfOutages = async () => {
                             fromDateTime: $($(element).find('td')[0]).text(),
                             toDateTime: $($(element).find('td')[1]).text(),
                             faultLocation: $($(element).find('td')[2]).text(),
-                            locationDetails: $($(element).find('td')[3]).text()
+                            locationDetails: $($(element).find('td')[3]).text(),
+                            id: locationId++
                         })
                     })
                     .catch(function (err) {
