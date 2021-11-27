@@ -1,10 +1,11 @@
-import React, { useState, /*useRef*/ } from 'react';
+import React, { useState, useRef } from 'react';
 import useSwr from 'swr';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 //import useSupercluster from 'use-supercluster';
 import './MapsGMR.css';
 import liveMarkerImg from '../assets/live.png'
 import plannedMarkerImg from '../assets/planned.png'
+import showAllImg from '../assets/showAll.png'
 
 const fetcher = (...args) => fetch(...args).then(response => response.json());
 
@@ -15,6 +16,11 @@ const containerStyle = {
   height: '100vh'
 };
 
+const mapCenter = {
+  lat: 38,
+  lng: 24.4
+}
+
 const MapButton = ({ text }) => (
   <div className='table'>
     {text}
@@ -23,9 +29,12 @@ const MapButton = ({ text }) => (
 
 export default function Maps() {
   // setup map
-  // const mapRef = useRef();
+  const mapRef = useRef();
+  const onMapLoad = React.useCallback((map) => {
+    mapRef.current = map;
+  })
   // const [bounds, setBounds] = useState(null);
-  // const [zoom, setZoom] = useState(6.7);
+  const [mapZoom, setZoom] = useState(6.7);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [showLiveMarkers, setLiveMarkers] = useState(true);
   const [showPlannedMarkers, setPlannedMarkers] = useState(true);
@@ -62,9 +71,10 @@ export default function Maps() {
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={{ lat: 38, lng: 24.4 }}
-        zoom={6.7}
+        center={mapCenter}
+        zoom={mapZoom}
         options={{ scrollwheel: true }}
+        onLoad={onMapLoad}
       // yesIWantToUseGoogleMapApiInternals
       // onGoogleApiLoaded={({ map }) => {
       //   mapRef.current = map;
@@ -149,7 +159,23 @@ export default function Maps() {
                 onClick={() => {
                   setSelectedMarker(location);
                 }}
-              />
+              >
+                {selectedMarker===location &&
+                  <InfoWindow
+                    onCloseClick={() => {
+                      setSelectedMarker(null);
+                    }}
+                  >
+                    <div>
+                      <h1>{selectedMarker.faultLocation}</h1>
+                      <p>From: {selectedMarker.fromDateTime}</p>
+                      <p>To: {selectedMarker.toDateTime}</p>
+                      <p>Location: {selectedMarker.faultLocation}</p>
+                      <p>Details: {selectedMarker.locationDetails}</p>
+                    </div>
+                  </InfoWindow>
+                }
+              </Marker>
             );
           }
           else if (showPlannedMarkers) {
@@ -162,27 +188,26 @@ export default function Maps() {
                 onClick={() => {
                   setSelectedMarker(location);
                 }}
-              />
+              >
+                {selectedMarker===location &&
+                  <InfoWindow
+                    onCloseClick={() => {
+                      setSelectedMarker(null);
+                    }}
+                  >
+                    <div>
+                      <h1>{selectedMarker.faultLocation}</h1>
+                      <p>From: {selectedMarker.fromDateTime}</p>
+                      <p>To: {selectedMarker.toDateTime}</p>
+                      <p>Location: {selectedMarker.faultLocation}</p>
+                      <p>Details: {selectedMarker.locationDetails}</p>
+                    </div>
+                  </InfoWindow>
+                }
+              </Marker>
             );
           }
         })}
-         {/* TODO: map recenters after every click on info window */}
-        {selectedMarker &&
-          <InfoWindow
-            position={{ lat: selectedMarker.latitude, lng: selectedMarker.longitude }}
-            onCloseClick={() => {
-              setSelectedMarker(null);
-            }}
-          >
-            <div>
-              <h1>{selectedMarker.faultLocation}</h1>
-              <p>From: {selectedMarker.fromDateTime}</p>
-              <p>To: {selectedMarker.toDateTime}</p>
-              <p>Location: {selectedMarker.faultLocation}</p>
-              <p>Details: {selectedMarker.locationDetails}</p>
-            </div>
-          </InfoWindow>
-        }
 
         <MapButton
           text={
@@ -211,17 +236,16 @@ export default function Maps() {
             </button>
           }
         />
-        {/* TODO: align 'all' button */}
+
         <MapButton
           text={
             <button
-              className='button'
+              className='showAllButton'
               onClick={() => {
                 setLiveMarkers(true);
                 setPlannedMarkers(true);
               }}>
-              <img src='http://maps.google.com/mapfiles/kml/pal4/icon57.png' alt=''></img>
-              <p>All</p>
+              <img src={showAllImg} alt=''></img>
             </button>
           }
         />
