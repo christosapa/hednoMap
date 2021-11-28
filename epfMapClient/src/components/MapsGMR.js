@@ -64,7 +64,7 @@ export default function Maps() {
                   setSelectedMarker(location);
                 }}
               >
-                {selectedMarker == location &&
+                {selectedMarker === location &&
                   <InfoWindow
                     onCloseClick={() => {
                       setSelectedMarker(null);
@@ -93,7 +93,7 @@ export default function Maps() {
                   setSelectedMarker(location);
                 }}
               >
-                {selectedMarker == location &&
+                {selectedMarker === location &&
                   <InfoWindow
                     onCloseClick={() => {
                       setSelectedMarker(null);
@@ -110,6 +110,9 @@ export default function Maps() {
                 }
               </Marker>
             );
+          }
+          else {
+            return null;
           }
         })}
 
