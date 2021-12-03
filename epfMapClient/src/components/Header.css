@@ -6,17 +6,18 @@ nav{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  background-color: #ffffff;
   align-items: center;
   }
 
 .div-logo {
   cursor: pointer;
-  height: auto;
-}
-
-.div-name {
-  color: rgb(0, 117, 191);
-  background-color: #ffffff;
-  font-size: auto;
+  background: white;
+  border-radius: 10%;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
 }

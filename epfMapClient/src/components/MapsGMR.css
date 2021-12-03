@@ -1,34 +1,28 @@
 .table {
   display: inline-flex;
-  position: relative;
-  top: 10px;
-  left: 10px;
+  position: absolute;
+  top: 9.5rem;
+  left: 1rem;
 }
 
 .liveButton {
-  color: rgb(0, 0, 0);
-  background: none padding-box rgb(255, 255, 255);
+  color: rgb(0, 119, 192);
+  background: rgb(255, 255, 255);
   display: inline-flex;
-  border: none;
-  margin: 0px;
-  padding: 3px 5px;
-  position: relative;
-  direction: ltr;
-  overflow: hidden;
-  text-transform: none;
-  vertical-align: middle;
+  position: absolute;
+  top: 9rem;
+  left: 7.3rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
-  border-bottom-left-radius: 1px;
-  border-top-left-radius: 1px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
-  min-width: 0px;
+  border-radius: 10%;
   font-weight: 400;
   min-height: 30px;
   float: left;
   cursor: pointer;
   transition-duration: 0.2s; 
-  }
+  border: none;
+}
 
 .liveButton img {
   margin-right: 2px;
@@ -48,29 +42,23 @@
 }
 
 .plannedButton {
-  color: rgb(0, 0, 0);
-  background: none padding-box rgb(255, 255, 255);
+  color: rgb(0, 119, 192);
+  background: rgb(255, 255, 255);
   display: inline-flex;
-  border: none;
-  margin: 0px;
-  padding: 3px 5px;
-  position: relative;
-  direction: ltr;
-  overflow: hidden;
-  text-transform: none;
-  vertical-align: middle;
+  position: absolute;
+  top: 9rem;
+  left: 1rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
-  border-bottom-left-radius: 1px;
-  border-top-left-radius: 1px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
-  min-width: 0px;
+  border-radius: 10%;
   font-weight: 400;
   min-height: 30px;
   float: left;
   cursor: pointer;
   transition-duration: 0.2s; 
-  }
+  border: none;
+}
 
 .plannedButton img {
   margin-right: 2px;
@@ -91,36 +79,71 @@
 
 .showAllButton {
   color: rgb(0, 0, 0);
-  background: none padding-box rgb(255, 255, 255);
+  background: rgb(255, 255, 255);
   display: inline-flex;
-  border: none;
-  margin: 0px;
-  padding: 3px 5px;
-  position: relative;
-  direction: ltr;
-  overflow: hidden;
-  text-transform: none;
-  vertical-align: middle;
+  position: absolute;
+  top: 9rem;
+  left: 11.55rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
-  border-bottom-left-radius: 1px;
-  border-top-left-radius: 1px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
-  min-width: 0px;
+  border-radius: 10%;
   font-weight: 400;
   min-height: 30px;
   float: left;
   cursor: pointer;
   transition-duration: 0.2s; 
-  }
+  border: none;
+}
 
-  .showAllButton img {
-    margin-right: 2px;
-    margin-bottom: 2px;
-    float: left;
-    width: 30px;
-  }
+.showAllButton img {
+  margin-right: 2px;
+  margin-bottom: 2px;
+  float: left;
+  width: 30px;
+}
 
-  .showAllButton:hover {
-    background-color: #ebe5e5;
-  }
+.showAllButton:hover {
+  background-color: #ebe5e5;
+}
+
+.reportButton {
+  color: rgb(0, 119, 192);
+  background: rgb(255, 255, 255);
+  display: inline-flex;
+  position: absolute;
+  top: 11.5rem;
+  left: 1rem;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 18px;
+  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
+  border-radius: 10%;
+  font-weight: 400;
+  min-height: 30px;
+  float: left;
+  cursor: pointer;
+  transition-duration: 0.2s; 
+  border: none;
+
+}
+
+.reportButton p{
+  display: block;
+  margin: 4px 4px 4px 4px;
+}
+
+.reportButton:hover {
+  background-color: #ebe5e5;
+}
+
+.arrow {
+  border: solid rgb(0, 0, 0);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}

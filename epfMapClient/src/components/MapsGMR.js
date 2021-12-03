@@ -16,13 +16,15 @@ const containerStyle = {
 const mapCenter = {
   lat: 38,
   lng: 24.4
-}
+};
 
 const MapButton = ({ text }) => (
-  <div className='table'>
+  <div>
     {text}
   </div>
 );
+
+const libraries = ['places'];
 
 export default function Maps() {
   // setup map
@@ -30,7 +32,7 @@ export default function Maps() {
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
   })
-  const [mapZoom, setZoom] = useState(6.7);
+  const [mapZoom, setZoom] = useState(6.8);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [showLiveMarkers, setLiveMarkers] = useState(true);
   const [showPlannedMarkers, setPlannedMarkers] = useState(true);
@@ -44,12 +46,16 @@ export default function Maps() {
   return (
     <LoadScript
       googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+      libraries
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={mapCenter}
         zoom={mapZoom}
-        options={{ scrollwheel: true }}
+        options={{
+          scrollwheel: true,
+          disableDefaultUI: true
+        }}
         onLoad={onMapLoad}
       >
         {locations.map((location) => {
@@ -100,7 +106,7 @@ export default function Maps() {
                     }}
                   >
                     <div>
-                      <h1>{selectedMarker.faultLocation}</h1>
+                      <h2>{selectedMarker.faultLocation}</h2>
                       <p>From: {selectedMarker.fromDateTime}</p>
                       <p>To: {selectedMarker.toDateTime}</p>
                       <p>Location: {selectedMarker.faultLocation}</p>
@@ -156,6 +162,19 @@ export default function Maps() {
             </button>
           }
         />
+
+        <MapButton
+          text={
+            <button
+              className='reportButton'
+              onClick={() => {
+                console.log('report')
+              }}>
+              <p>Report Event <i class="arrow right"></i></p>
+            </button>
+          }
+        />
+
       </GoogleMap>
     </LoadScript>
   );
