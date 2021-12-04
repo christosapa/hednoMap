@@ -107,35 +107,6 @@
   background-color: #ebe5e5;
 }
 
-.reportButton {
-  color: rgb(0, 119, 192);
-  background: rgb(255, 255, 255);
-  display: inline-flex;
-  position: absolute;
-  top: 11.5rem;
-  left: 1rem;
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 18px;
-  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
-  border-radius: 10%;
-  font-weight: 400;
-  min-height: 30px;
-  float: left;
-  cursor: pointer;
-  transition-duration: 0.2s; 
-  border: none;
-
-}
-
-.reportButton p{
-  display: block;
-  margin: 4px 4px 4px 4px;
-}
-
-.reportButton:hover {
-  background-color: #ebe5e5;
-}
-
 .arrow {
   border: solid rgb(0, 0, 0);
   border-width: 0 3px 3px 0;
@@ -146,4 +117,25 @@
 .right {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
+}
+
+.searchBox {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  z-index: 10;
+}
+
+.myLocation {
+  position: absolute;
+  top: 0.5rem;
+  left: 56%;
+  z-index: 10;
+  background: white;
+  border-radius: 10%;
+  border:  none;
+  cursor: pointer;
 }
