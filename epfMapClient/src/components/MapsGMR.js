@@ -1,15 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import useSwr from 'swr';
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-//import useSupercluster from 'use-supercluster';
+import { GoogleMap, LoadScriptNext, Marker, InfoWindow } from '@react-google-maps/api';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
+import '@reach/combobox/styles.css';
 import './MapsGMR.css';
 import liveMarkerImg from '../assets/live.png'
 import plannedMarkerImg from '../assets/planned.png'
 import showAllImg from '../assets/showAll.png'
+import myLocationImg from '../assets/myLocation.png'
 
 const fetcher = (...args) => fetch(...args).then(response => response.json());
-
-//const MarkerCluster = ({ children }) => children;
 
 const containerStyle = {
   width: '100vw',
@@ -19,22 +20,27 @@ const containerStyle = {
 const mapCenter = {
   lat: 38,
   lng: 24.4
-}
+};
 
 const MapButton = ({ text }) => (
-  <div className='table'>
+  <div>
     {text}
   </div>
 );
 
+const libraries = ['places'];
+
 export default function Maps() {
   // setup map
   const mapRef = useRef();
-  const onMapLoad = React.useCallback((map) => {
+  const [mapZoom, setZoom] = useState(6.8);
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  })
-  // const [bounds, setBounds] = useState(null);
-  const [mapZoom, setZoom] = useState(6.7);
+  }, [])
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, [])
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [showLiveMarkers, setLiveMarkers] = useState(true);
   const [showPlannedMarkers, setPlannedMarkers] = useState(true);
@@ -44,110 +50,25 @@ export default function Maps() {
   const { data, error } = useSwr(url, { fetcher });
   const locations = data && !error ? data : [];
 
-  // //get clusters
-  // const points = locations.map(location => ({
-  //   type: 'Feature',
-  //   properties: { cluster: false, locationId: location.id, isLive: location.isLive },
-  //   geometry: {
-  //     type: 'Point',
-  //     coordinates: [
-  //       parseFloat(location.longitude),
-  //       parseFloat(location.latitude)
-  //     ]
-  //   }
-  // }));
-
-  // const { clusters, supercluster } = useSupercluster({
-  //   points,
-  //   bounds,
-  //   zoom,
-  //   options: { radius: 75, maxZoom: 20 }
-  // });
-
   // render map
   return (
-    <LoadScript
+    <LoadScriptNext
       googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+      libraries={libraries}
     >
+      <Search panTo={panTo} />
+      <Locate panTo={panTo} />
+
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={mapCenter}
         zoom={mapZoom}
-        options={{ scrollwheel: true }}
+        options={{
+          scrollwheel: true,
+          disableDefaultUI: true
+        }}
         onLoad={onMapLoad}
-      // yesIWantToUseGoogleMapApiInternals
-      // onGoogleApiLoaded={({ map }) => {
-      //   mapRef.current = map;
-      // }}
-      // onChange={({ zoom, bounds }) => {
-      //   setZoom(zoom);
-      //   setBounds([
-      //     bounds.nw.lng,
-      //     bounds.se.lat,
-      //     bounds.se.lng,
-      //     bounds.nw.lat
-      //   ]);
-      // }}
       >
-        {/* {clusters.map(cluster => {
-          const [longitude, latitude] = cluster.geometry.coordinates;
-          const {
-            cluster: isCluster,
-            point_count: pointCount,
-            isLive: liveMarker
-          } = cluster.properties;
-
-          if (isCluster) {
-            return (
-              <MarkerCluster
-                key={`cluster-${cluster.id}`}
-                lat={latitude}
-                lng={longitude}
-              >
-                <div
-                  className="cluster-marker"
-                  style={{
-                    width: `${10 + (pointCount / points.length) * 50}px`,
-                    height: `${10 + (pointCount / points.length) * 50}px`
-                  }}
-                  onClick={() => {
-                    const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id), 40);
-                    mapRef.current.setZoom(expansionZoom);
-                    mapRef.current.panTo({ lat: latitude, lng: longitude });
-                  }}
-                >
-                  {pointCount}
-                </div>
-              </MarkerCluster>
-            );
-          }
-          if (liveMarker) {
-            return (
-              <Marker
-                key={`location-${cluster.properties.locationId}`}
-                position={{ lat: latitude, lng: longitude }}
-                icon={liveMarkerImg}
-                animation={2}
-                onClick={() => {
-                  setSelectedMarker(cluster);
-                }}
-              />
-            );
-          }
-          else {
-            return (
-              <Marker
-                key={`location-${cluster.properties.locationId}`}
-                position={{ lat: latitude, lng: longitude }}
-                icon={plannedMarkerImg}
-                animation={2}
-                onClick={() => {
-                  setSelectedMarker(cluster);
-                }}
-              />
-            );
-          }
-        })} */}
         {locations.map((location) => {
           if (location.isLive && showLiveMarkers) {
             return (
@@ -160,7 +81,7 @@ export default function Maps() {
                   setSelectedMarker(location);
                 }}
               >
-                {selectedMarker===location &&
+                {selectedMarker === location &&
                   <InfoWindow
                     onCloseClick={() => {
                       setSelectedMarker(null);
@@ -189,14 +110,14 @@ export default function Maps() {
                   setSelectedMarker(location);
                 }}
               >
-                {selectedMarker===location &&
+                {selectedMarker === location &&
                   <InfoWindow
                     onCloseClick={() => {
                       setSelectedMarker(null);
                     }}
                   >
                     <div>
-                      <h1>{selectedMarker.faultLocation}</h1>
+                      <h2>{selectedMarker.faultLocation}</h2>
                       <p>From: {selectedMarker.fromDateTime}</p>
                       <p>To: {selectedMarker.toDateTime}</p>
                       <p>Location: {selectedMarker.faultLocation}</p>
@@ -207,18 +128,21 @@ export default function Maps() {
               </Marker>
             );
           }
+          else {
+            return null;
+          }
         })}
 
         <MapButton
           text={
             <button
-              className='button'
+              className='plannedButton'
               onClick={() => {
-                setLiveMarkers(true);
-                setPlannedMarkers(false);
+                setLiveMarkers(false);
+                setPlannedMarkers(true);
               }}>
-              <img src={liveMarkerImg} alt=''></img>
-              <p>Live</p>
+              <img src={plannedMarkerImg} alt=''></img>
+              <p>Planned</p>
             </button>
           }
         />
@@ -226,13 +150,13 @@ export default function Maps() {
         <MapButton
           text={
             <button
-              className='button'
+              className='liveButton'
               onClick={() => {
-                setLiveMarkers(false);
-                setPlannedMarkers(true);
+                setLiveMarkers(true);
+                setPlannedMarkers(false);
               }}>
-              <img src={plannedMarkerImg} alt=''></img>
-              <p>Planned</p>
+              <img src={liveMarkerImg} alt=''></img>
+              <p>Live</p>
             </button>
           }
         />
@@ -250,6 +174,80 @@ export default function Maps() {
           }
         />
       </GoogleMap>
-    </LoadScript>
+    </LoadScriptNext>
+  );
+}
+
+function Locate({ panTo }) {
+  return (
+    <button
+      className="myLocation"
+      onClick={() => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            panTo({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          () => null
+        );
+      }}
+    >
+      <img src={myLocationImg} alt="Find me" />
+    </button>
+  );
+}
+
+function Search({ panTo }) {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => 38, lng: () => 24.4 },
+      radius: 500 * 1000,
+    },
+  });
+
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect = async (address) => {
+    setValue(address, false);
+    clearSuggestions();
+
+    try {
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
+      panTo({ lat, lng });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  return (
+    <div className="searchBox">
+      <Combobox onSelect={handleSelect}>
+        <ComboboxInput
+          value={value}
+          onChange={handleInput}
+          disabled={!ready}
+          placeholder="Search location and report event..."
+        />
+        <ComboboxPopover>
+          <ComboboxList>
+            {status === "OK" &&
+              data.map(({ id, description }) => (
+                <ComboboxOption key={id} value={description} />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+    </div>
   );
 }

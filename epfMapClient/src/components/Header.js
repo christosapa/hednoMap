@@ -34,32 +34,20 @@ class Header extends Component {
         const isMobile = (width <= 600);
         if (isMobile) {
             return (
-                <nav>
-                    <div className='.div-header'>
-                        <div className='div-logo'>
-                            <img onClick={() => reloadPage()}
-                                src={mainLogo192} alt='logo' />
-                        </div>
-                        <div className='div-name'>
-                            <h1>Live and planned power outages.</h1>
-                        </div>
-                    </div>
-                </nav >
+                <div className='div-logo'>
+                    <img onClick={() => reloadPage()}
+                        src={mainLogo} alt='logo' />
+                </div>
+
             )
         }
         else {
             return (
-                <nav>
-                    <div className='div-header'>
-                        <div className='div-logo'>
-                            <img onClick={() => reloadPage()}
-                                src={mainLogo} alt='logo' />
-                        </div>
-                        <div className='div-name'>
-                            <h1>Live and planned power outages.</h1>
-                        </div>
-                    </div>
-                </nav >
+                <div className='div-logo'>
+                    <img onClick={() => reloadPage()}
+                        src={mainLogo} alt='logo' />
+                </div>
+
             )
         }
     }
