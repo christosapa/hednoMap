@@ -129,13 +129,18 @@
   z-index: 10;
 }
 
-.myLocation {
+.findLocationButton {
   position: absolute;
-  top: 0.5rem;
-  left: 56%;
+  top: 9rem;
+  left: 14.5rem;
   z-index: 10;
   background: white;
   border-radius: 10%;
   border:  none;
   cursor: pointer;
+  transition-duration: 0.2s; 
+}
+
+.findLocationButton:hover {
+  background-color: #ebe5e5;
 }

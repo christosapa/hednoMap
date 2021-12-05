@@ -8,7 +8,8 @@ import './MapsGMR.css';
 import liveMarkerImg from '../assets/live.png'
 import plannedMarkerImg from '../assets/planned.png'
 import showAllImg from '../assets/showAll.png'
-import myLocationImg from '../assets/myLocation.png'
+import findLocationImg from '../assets/findLocation.png'
+import myLocationImg from '../assets/myLocation.svg'
 
 const fetcher = (...args) => fetch(...args).then(response => response.json());
 
@@ -37,13 +38,16 @@ export default function Maps() {
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, [])
+  const [myLocationMarker, setMyLocationMarker] = useState(null)
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
+    setMyLocationMarker({ lat, lng })
   }, [])
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [showLiveMarkers, setLiveMarkers] = useState(true);
   const [showPlannedMarkers, setPlannedMarkers] = useState(true);
+
 
   // load and format data
   const url = 'https://hedno-map-api.herokuapp.com/locationsAPI';
@@ -173,28 +177,39 @@ export default function Maps() {
             </button>
           }
         />
+
+        {myLocationMarker && <Marker
+          key={0}
+          position={{ lat: myLocationMarker.lat, lng: myLocationMarker.lng }}
+          icon={myLocationImg}
+          animation={2}
+        ></Marker>}
+
       </GoogleMap>
     </LoadScriptNext>
   );
 }
 
 function Locate({ panTo }) {
+
+  const handleInput = (position) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        panTo({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      () => null
+    );
+  }
+
   return (
     <button
-      className="myLocation"
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            panTo({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          },
-          () => null
-        );
-      }}
+      className="findLocationButton"
+      onClick={handleInput}
     >
-      <img src={myLocationImg} alt="Find me" />
+      <img src={findLocationImg} alt="Find me" />
     </button>
   );
 }
