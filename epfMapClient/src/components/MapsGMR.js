@@ -10,6 +10,7 @@ import plannedMarkerImg from '../assets/planned.png'
 import showAllImg from '../assets/showAll.png'
 import findLocationImg from '../assets/findLocation.png'
 import myLocationImg from '../assets/myLocation.svg'
+import searchImg from '../assets/search.png'
 
 const fetcher = (...args) => fetch(...args).then(response => response.json());
 
@@ -246,13 +247,13 @@ function Search({ panTo }) {
   };
 
   return (
-    <div className="searchBox">
+    <div className='searchBox'>
       <Combobox onSelect={handleSelect}>
         <ComboboxInput
           value={value}
           onChange={handleInput}
           disabled={!ready}
-          placeholder="Search location and report event..."
+          placeholder="Search location.."
         />
         <ComboboxPopover>
           <ComboboxList>
@@ -263,6 +264,9 @@ function Search({ panTo }) {
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
+      <span className='searchImg'>
+        <img src={searchImg} />
+      </span>
     </div>
   );
 }
