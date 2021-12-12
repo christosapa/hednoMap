@@ -24,12 +24,6 @@ const mapCenter = {
   lng: 24.4
 };
 
-const MapButton = ({ text }) => (
-  <div>
-    {text}
-  </div>
-);
-
 const libraries = ['places'];
 
 export default function Maps() {
@@ -137,47 +131,35 @@ export default function Maps() {
             return null;
           }
         })}
+        
+        <button
+          className='plannedButton'
+          onClick={() => {
+            setLiveMarkers(false);
+            setPlannedMarkers(true);
+          }}>
+          <img src={plannedMarkerImg} alt=''></img>
+          <p>Planned</p>
+        </button>
 
-        <MapButton
-          text={
-            <button
-              className='plannedButton'
-              onClick={() => {
-                setLiveMarkers(false);
-                setPlannedMarkers(true);
-              }}>
-              <img src={plannedMarkerImg} alt=''></img>
-              <p>Planned</p>
-            </button>
-          }
-        />
+        <button
+          className='liveButton'
+          onClick={() => {
+            setLiveMarkers(true);
+            setPlannedMarkers(false);
+          }}>
+          <img src={liveMarkerImg} alt=''></img>
+          <p>Live</p>
+        </button>
 
-        <MapButton
-          text={
-            <button
-              className='liveButton'
-              onClick={() => {
-                setLiveMarkers(true);
-                setPlannedMarkers(false);
-              }}>
-              <img src={liveMarkerImg} alt=''></img>
-              <p>Live</p>
-            </button>
-          }
-        />
-
-        <MapButton
-          text={
-            <button
-              className='showAllButton'
-              onClick={() => {
-                setLiveMarkers(true);
-                setPlannedMarkers(true);
-              }}>
-              <img src={showAllImg} alt=''></img>
-            </button>
-          }
-        />
+        <button
+          className='showAllButton'
+          onClick={() => {
+            setLiveMarkers(true);
+            setPlannedMarkers(true);
+          }}>
+          <img src={showAllImg} alt=''></img>
+        </button>
 
         {myLocationMarker && <Marker
           key={0}
@@ -283,7 +265,7 @@ function Search({ panTo }) {
         </ComboboxPopover>
       </Combobox>
       <span className='searchImgButton'>
-        <img src={searchImg} />
+        <img src={searchImg}  alt='search'/>
       </span>
     </div>
   );
