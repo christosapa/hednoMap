@@ -182,10 +182,28 @@ export default function Maps() {
         {myLocationMarker && <Marker
           key={0}
           position={{ lat: myLocationMarker.lat, lng: myLocationMarker.lng }}
+          onClick={() => {
+            setSelectedMarker(myLocationMarker)
+          }}
           icon={myLocationImg}
           animation={2}
-        ></Marker>}
-
+        >
+          {selectedMarker === myLocationMarker &&
+            <InfoWindow
+              onCloseClick={() => {
+                setSelectedMarker(null);
+              }}
+            >
+              <div>
+                <h2>Report Power Outage (Δήλωση Βλάβης):</h2>
+                <p>City/State (Νομός): </p>
+                <p>Number (Αρθμός Παροχής): </p>
+                <p>Owner (Ιδιοκτήτης): </p>
+                <p>Details: </p>
+              </div>
+            </InfoWindow>
+          }
+        </Marker>}
       </GoogleMap>
     </LoadScriptNext>
   );
@@ -264,7 +282,7 @@ function Search({ panTo }) {
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
-      <span className='searchImg'>
+      <span className='searchImgButton'>
         <img src={searchImg} />
       </span>
     </div>

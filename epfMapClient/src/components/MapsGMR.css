@@ -138,10 +138,13 @@
   border: none;
 }
 
-.searchImg {
+.searchImgButton {
   position: absolute;
   top: 0.45rem;
-  left: 18.2rem;
+  left: 18rem;
+  border: none;
+  cursor: pointer;
+  background: none;
 }
 
 .findLocationButton {
