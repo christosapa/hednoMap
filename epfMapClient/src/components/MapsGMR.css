@@ -162,3 +162,39 @@
 .findLocationButton:hover {
   background-color: #ebe5e5;
 }
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.reportPowerOutage {
+  color: #fff;
+  background-color: #7ac29a;
+  font-size: 15px;
+  border-radius: 50px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.reportNetworkHazard {
+  color: #fff;
+  background-color: #484541;
+  font-size: 15px;
+  border-radius: 50px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancelReport {
+  color: #fff;
+  background-color: #eb5e28;
+  font-size: 15px;
+  border-radius: 50px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+}

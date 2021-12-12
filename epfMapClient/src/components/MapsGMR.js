@@ -11,6 +11,7 @@ import showAllImg from '../assets/showAll.png'
 import findLocationImg from '../assets/findLocation.png'
 import myLocationImg from '../assets/myLocation.svg'
 import searchImg from '../assets/search.png'
+import searchedLocationImg from '../assets/searchedLocation.png'
 
 const fetcher = (...args) => fetch(...args).then(response => response.json());
 
@@ -34,10 +35,10 @@ export default function Maps() {
     mapRef.current = map;
   }, [])
   const [myLocationMarker, setMyLocationMarker] = useState(null)
-  const panTo = useCallback(({ lat, lng }) => {
+  const panTo = useCallback(({ lat, lng, isMyLocation }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
-    setMyLocationMarker({ lat, lng })
+    setMyLocationMarker({ lat, lng, isMyLocation })
   }, [])
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [showLiveMarkers, setLiveMarkers] = useState(true);
@@ -131,7 +132,7 @@ export default function Maps() {
             return null;
           }
         })}
-        
+
         <button
           className='plannedButton'
           onClick={() => {
@@ -167,7 +168,7 @@ export default function Maps() {
           onClick={() => {
             setSelectedMarker(myLocationMarker)
           }}
-          icon={myLocationImg}
+          icon={myLocationMarker.isMyLocation ? myLocationImg : searchedLocationImg}
           animation={2}
         >
           {selectedMarker === myLocationMarker &&
@@ -176,18 +177,32 @@ export default function Maps() {
                 setSelectedMarker(null);
               }}
             >
-              <div>
-                <h2>Report Power Outage (Δήλωση Βλάβης):</h2>
-                <p>City/State (Νομός): </p>
-                <p>Number (Αρθμός Παροχής): </p>
-                <p>Owner (Ιδιοκτήτης): </p>
-                <p>Details: </p>
+              <div className='flex-container'>
+                <h2>Report Power Outage (Δήλωση Βλάβης)</h2>
+                <button className='reportPowerOutage'
+                  onClick={() => {
+                    window.open("https://apps.deddie.gr/PowerCutReportWebapp/powercutreport.html", "_blank");
+                  }}>
+                  <p>Report a power outage</p>
+                </button>
+                <button className='reportNetworkHazard'
+                  onClick={() => {
+                    window.open("https://apps.deddie.gr/PowerCutReportWebapp/networkhazardreport.html", "_blank");
+                  }}>
+                  <p>Report a network hazard</p>
+                </button>
+                <button className='cancelReport'
+                  onClick={() => {
+                    window.open("https://apps.deddie.gr/PowerCutReportWebapp/powercutrecall.html", "_blank");
+                  }}>
+                  <p>Cancel report</p>
+                </button>
               </div>
             </InfoWindow>
           }
         </Marker>}
       </GoogleMap>
-    </LoadScriptNext>
+    </LoadScriptNext >
   );
 }
 
@@ -199,6 +214,7 @@ function Locate({ panTo }) {
         panTo({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
+          isMyLocation: true,
         });
       },
       () => null
@@ -265,7 +281,7 @@ function Search({ panTo }) {
         </ComboboxPopover>
       </Combobox>
       <span className='searchImgButton'>
-        <img src={searchImg}  alt='search'/>
+        <img src={searchImg} alt='search' />
       </span>
     </div>
   );
