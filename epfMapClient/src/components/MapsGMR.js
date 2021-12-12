@@ -10,6 +10,7 @@ import plannedMarkerImg from '../assets/planned.png'
 import showAllImg from '../assets/showAll.png'
 import findLocationImg from '../assets/findLocation.png'
 import myLocationImg from '../assets/myLocation.svg'
+import searchImg from '../assets/search.png'
 
 const fetcher = (...args) => fetch(...args).then(response => response.json());
 
@@ -22,12 +23,6 @@ const mapCenter = {
   lat: 38,
   lng: 24.4
 };
-
-const MapButton = ({ text }) => (
-  <div>
-    {text}
-  </div>
-);
 
 const libraries = ['places'];
 
@@ -136,55 +131,61 @@ export default function Maps() {
             return null;
           }
         })}
+        
+        <button
+          className='plannedButton'
+          onClick={() => {
+            setLiveMarkers(false);
+            setPlannedMarkers(true);
+          }}>
+          <img src={plannedMarkerImg} alt=''></img>
+          <p>Planned</p>
+        </button>
 
-        <MapButton
-          text={
-            <button
-              className='plannedButton'
-              onClick={() => {
-                setLiveMarkers(false);
-                setPlannedMarkers(true);
-              }}>
-              <img src={plannedMarkerImg} alt=''></img>
-              <p>Planned</p>
-            </button>
-          }
-        />
+        <button
+          className='liveButton'
+          onClick={() => {
+            setLiveMarkers(true);
+            setPlannedMarkers(false);
+          }}>
+          <img src={liveMarkerImg} alt=''></img>
+          <p>Live</p>
+        </button>
 
-        <MapButton
-          text={
-            <button
-              className='liveButton'
-              onClick={() => {
-                setLiveMarkers(true);
-                setPlannedMarkers(false);
-              }}>
-              <img src={liveMarkerImg} alt=''></img>
-              <p>Live</p>
-            </button>
-          }
-        />
-
-        <MapButton
-          text={
-            <button
-              className='showAllButton'
-              onClick={() => {
-                setLiveMarkers(true);
-                setPlannedMarkers(true);
-              }}>
-              <img src={showAllImg} alt=''></img>
-            </button>
-          }
-        />
+        <button
+          className='showAllButton'
+          onClick={() => {
+            setLiveMarkers(true);
+            setPlannedMarkers(true);
+          }}>
+          <img src={showAllImg} alt=''></img>
+        </button>
 
         {myLocationMarker && <Marker
           key={0}
           position={{ lat: myLocationMarker.lat, lng: myLocationMarker.lng }}
+          onClick={() => {
+            setSelectedMarker(myLocationMarker)
+          }}
           icon={myLocationImg}
           animation={2}
-        ></Marker>}
-
+        >
+          {selectedMarker === myLocationMarker &&
+            <InfoWindow
+              onCloseClick={() => {
+                setSelectedMarker(null);
+              }}
+            >
+              <div>
+                <h2>Report Power Outage (Δήλωση Βλάβης):</h2>
+                <p>City/State (Νομός): </p>
+                <p>Number (Αρθμός Παροχής): </p>
+                <p>Owner (Ιδιοκτήτης): </p>
+                <p>Details: </p>
+              </div>
+            </InfoWindow>
+          }
+        </Marker>}
       </GoogleMap>
     </LoadScriptNext>
   );
@@ -246,13 +247,13 @@ function Search({ panTo }) {
   };
 
   return (
-    <div className="searchBox">
+    <div className='searchBox'>
       <Combobox onSelect={handleSelect}>
         <ComboboxInput
           value={value}
           onChange={handleInput}
           disabled={!ready}
-          placeholder="Search location and report event..."
+          placeholder="Search location.."
         />
         <ComboboxPopover>
           <ComboboxList>
@@ -263,6 +264,9 @@ function Search({ panTo }) {
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
+      <span className='searchImgButton'>
+        <img src={searchImg}  alt='search'/>
+      </span>
     </div>
   );
 }

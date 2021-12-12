@@ -10,8 +10,8 @@
   background: rgb(255, 255, 255);
   display: inline-flex;
   position: absolute;
-  top: 9rem;
-  left: 7.3rem;
+  top: 8rem;
+  left: 8rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
@@ -46,8 +46,8 @@
   background: rgb(255, 255, 255);
   display: inline-flex;
   position: absolute;
-  top: 9rem;
-  left: 1rem;
+  top: 8rem;
+  left: 1.7rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
@@ -82,8 +82,8 @@
   background: rgb(255, 255, 255);
   display: inline-flex;
   position: absolute;
-  top: 9rem;
-  left: 11.55rem;
+  top: 8rem;
+  left: 12.25rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
@@ -121,18 +121,36 @@
 
 .searchBox {
   position: absolute;
-  top: 1rem;
+  padding: 0px 40px 0px 0px;
+  top: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 400px;
-  z-index: 10;
+  z-index: 11;
+  background: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.searchBox input {
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+}
+
+.searchImgButton {
+  position: absolute;
+  top: 0.45rem;
+  left: 18rem;
+  border: none;
+  cursor: pointer;
+  background: none;
 }
 
 .findLocationButton {
   position: absolute;
-  top: 9rem;
-  left: 14.5rem;
+  top: 8rem;
+  left: 15.1rem;
   z-index: 10;
   background: white;
   border-radius: 10%;

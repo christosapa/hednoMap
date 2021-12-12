@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/71548592/138827603-c8dab182-ab9e-41f2-be58-82b8733e6635.png" height="120"><br>
+<img src="https://user-images.githubusercontent.com/71548592/145708654-8af0cb7b-2a87-4935-8c4b-f83221a75aed.png" height="120"><br>
 Hellenic Electricity Distribution Network Operator (HEDNO) power outages map.
 </p>
 
@@ -7,7 +7,8 @@ Hellenic Electricity Distribution Network Operator (HEDNO) power outages map.
 
 - Live power outages
 - Planned power outages
-- Specific start/end time and location details 
+- Specific start/end time and location details
+- Find current location and report an event 
 
 <!-- ## Prerequisites 
 
@@ -22,11 +23,17 @@ Hellenic Electricity Distribution Network Operator (HEDNO) power outages map.
 - -->
 
 ## Screenshots
-![map](https://user-images.githubusercontent.com/71548592/138826318-9757a072-e94c-4e56-8dc3-62664cbd77d8.png)
+![map](https://user-images.githubusercontent.com/71548592/145708836-02c1256e-b899-4b4b-b852-5f342582c34b.PNG)
 
-![live](https://user-images.githubusercontent.com/71548592/138832400-c789d542-ec3e-4469-8161-63f4d8b52fba.png)
+![live](https://user-images.githubusercontent.com/71548592/145708994-1fb29f1e-cb69-48e3-8d3f-ab689a52d341.PNG)
 
-![planned](https://user-images.githubusercontent.com/71548592/138832420-8d78e907-0027-4cd6-83ad-effbdc13246e.png)
+![planned](https://user-images.githubusercontent.com/71548592/145709011-c36562ba-4c15-4d1a-89d1-c96344b2f748.PNG)
+
+![current](https://user-images.githubusercontent.com/71548592/145709356-1a5d6c24-132b-4f63-93b3-f4902134cafb.PNG)
+
+![search-location](https://user-images.githubusercontent.com/71548592/145709362-04d76bf6-cdd8-4bdb-9a36-d8d618fc59a6.png)
+
+![search-report](https://user-images.githubusercontent.com/71548592/145709363-9ca999b3-6874-4b01-b5d0-14420678280f.png)
 
 ## Disclaimer
 <b>The creator provides no warranty with this software and is not responsible for any direct or indirect damage caused due to the usage of this tool.<br>
