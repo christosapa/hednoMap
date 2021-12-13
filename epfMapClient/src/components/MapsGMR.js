@@ -12,9 +12,14 @@ import findLocationImg from '../assets/findLocation.png'
 import myLocationImg from '../assets/myLocation.svg'
 import searchImg from '../assets/search.png'
 import searchedLocationImg from '../assets/searchedLocation.png'
+import locationImg from '../assets/location.png'
+import startEndTime from '../assets/start-end-time.png'
+import detailsImg from '../assets/details.png'
 
+// fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
 
+// map style
 const containerStyle = {
   width: '100vw',
   height: '100vh'
@@ -87,12 +92,14 @@ export default function Maps() {
                       setSelectedMarker(null);
                     }}
                   >
-                    <div>
-                      <h1>{selectedMarker.faultLocation}</h1>
-                      <p>From: {selectedMarker.fromDateTime}</p>
-                      <p>To: {selectedMarker.toDateTime}</p>
-                      <p>Location: {selectedMarker.faultLocation}</p>
-                      <p>Details: {selectedMarker.locationDetails}</p>
+                    <div className='info-window'>
+                      <h1>Live Power Outage</h1>
+                      <div className='img-txt'>
+                        <img src={startEndTime} alt='time' />
+                        {selectedMarker.fromDateTime} - {selectedMarker.toDateTime}
+                      </div>
+                      <div className='img-txt'><img src={locationImg} alt='location' />{selectedMarker.faultLocation}</div>
+                      <div className='img-txt'><img src={detailsImg} alt='details' />{selectedMarker.locationDetails}</div>
                     </div>
                   </InfoWindow>
                 }
@@ -116,12 +123,14 @@ export default function Maps() {
                       setSelectedMarker(null);
                     }}
                   >
-                    <div>
-                      <h2>{selectedMarker.faultLocation}</h2>
-                      <p>From: {selectedMarker.fromDateTime}</p>
-                      <p>To: {selectedMarker.toDateTime}</p>
-                      <p>Location: {selectedMarker.faultLocation}</p>
-                      <p>Details: {selectedMarker.locationDetails}</p>
+                    <div className='info-window'>
+                      <h1>Planned Power Outage</h1>
+                      <div className='img-txt'>
+                        <img src={startEndTime} alt='time' />
+                        {selectedMarker.fromDateTime} - {selectedMarker.toDateTime}
+                      </div>
+                      <div className='img-txt'><img src={locationImg} alt='location' />{selectedMarker.faultLocation}</div>
+                      <div className='img-txt'><img src={detailsImg} alt='details' />{selectedMarker.locationDetails}</div>
                     </div>
                   </InfoWindow>
                 }
@@ -134,16 +143,6 @@ export default function Maps() {
         })}
 
         <button
-          className='plannedButton'
-          onClick={() => {
-            setLiveMarkers(false);
-            setPlannedMarkers(true);
-          }}>
-          <img src={plannedMarkerImg} alt=''></img>
-          <p>Planned</p>
-        </button>
-
-        <button
           className='liveButton'
           onClick={() => {
             setLiveMarkers(true);
@@ -151,6 +150,16 @@ export default function Maps() {
           }}>
           <img src={liveMarkerImg} alt=''></img>
           <p>Live</p>
+        </button>
+
+        <button
+          className='plannedButton'
+          onClick={() => {
+            setLiveMarkers(false);
+            setPlannedMarkers(true);
+          }}>
+          <img src={plannedMarkerImg} alt=''></img>
+          <p>Planned</p>
         </button>
 
         <button
@@ -177,8 +186,8 @@ export default function Maps() {
                 setSelectedMarker(null);
               }}
             >
-              <div className='flex-container'>
-                <h2>Report Power Outage (Δήλωση Βλάβης)</h2>
+              <div className='report-container'>
+                <h2>Report Power Outage</h2>
                 <button className='reportPowerOutage'
                   onClick={() => {
                     window.open("https://apps.deddie.gr/PowerCutReportWebapp/powercutreport.html", "_blank");

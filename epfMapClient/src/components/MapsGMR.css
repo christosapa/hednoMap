@@ -11,7 +11,7 @@
   display: inline-flex;
   position: absolute;
   top: 8rem;
-  left: 8rem;
+  left: 1.7rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
@@ -47,7 +47,7 @@
   display: inline-flex;
   position: absolute;
   top: 8rem;
-  left: 1.7rem;
+  left: 5.95rem;
   font-family: Roboto, Arial, sans-serif;
   font-size: 18px;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
@@ -163,7 +163,7 @@
   background-color: #ebe5e5;
 }
 
-.flex-container {
+.report-container {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -177,24 +177,56 @@
   padding: 5px;
   border: none;
   cursor: pointer;
+  transition-duration: 0.2s; 
+}
+
+.reportPowerOutage:hover {
+  background-color: #16bd61;
 }
 
 .reportNetworkHazard {
   color: #fff;
-  background-color: #484541;
+  background-color: #6d6b68;
   font-size: 15px;
   border-radius: 50px;
   padding: 5px;
   border: none;
   cursor: pointer;
+  transition-duration: 0.2s; 
+}
+
+.reportNetworkHazard:hover {
+  background-color: #383736;
 }
 
 .cancelReport {
   color: #fff;
-  background-color: #eb5e28;
+  background-color: #e97c50;
   font-size: 15px;
   border-radius: 50px;
   padding: 5px;
   border: none;
   cursor: pointer;
+  transition-duration: 0.2s; 
+}
+
+.cancelReport:hover {
+  background-color: #d44b14;
+}
+
+.info-window{
+  display: flex;
+  flex-direction: column;
+  font-family: Arial;
+}
+
+.img-txt{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  font-family: Arial,sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  max-width: 25rem;
 }
