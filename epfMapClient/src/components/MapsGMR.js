@@ -142,34 +142,37 @@ export default function Maps() {
           }
         })}
 
-        <button
-          className='liveButton'
-          onClick={() => {
-            setLiveMarkers(true);
-            setPlannedMarkers(false);
-          }}>
-          <img src={liveMarkerImg} alt=''></img>
-          <p>Live</p>
-        </button>
+        <div className='filter-container'>
+          <button
+            className='liveButton'
+            onClick={() => {
+              setLiveMarkers(true);
+              setPlannedMarkers(false);
+            }}>
+            <img src={liveMarkerImg} alt=''></img>
+            Live
+          </button>
 
-        <button
-          className='plannedButton'
-          onClick={() => {
-            setLiveMarkers(false);
-            setPlannedMarkers(true);
-          }}>
-          <img src={plannedMarkerImg} alt=''></img>
-          <p>Planned</p>
-        </button>
+          <button
+            className='plannedButton'
+            onClick={() => {
+              setLiveMarkers(false);
+              setPlannedMarkers(true);
+            }}>
+            <img src={plannedMarkerImg} alt=''></img>
+            Planned
+          </button>
 
-        <button
-          className='showAllButton'
-          onClick={() => {
-            setLiveMarkers(true);
-            setPlannedMarkers(true);
-          }}>
-          <img src={showAllImg} alt=''></img>
-        </button>
+          <button
+            className='showAllButton'
+            onClick={() => {
+              setLiveMarkers(true);
+              setPlannedMarkers(true);
+            }}>
+            <img src={showAllImg} alt=''></img>
+          </button>
+        </div>
+
 
         {myLocationMarker && <Marker
           key={0}
