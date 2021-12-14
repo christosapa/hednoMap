@@ -29,11 +29,11 @@ Hellenic Electricity Distribution Network Operator (HEDNO) power outages map.
 
 ![planned](https://user-images.githubusercontent.com/71548592/145709011-c36562ba-4c15-4d1a-89d1-c96344b2f748.PNG)
 
-![current](https://user-images.githubusercontent.com/71548592/145709356-1a5d6c24-132b-4f63-93b3-f4902134cafb.PNG)
+![current](https://user-images.githubusercontent.com/71548592/145716507-d0159224-597c-4009-ae5e-3fce61f9482b.PNG)
 
-![search-location](https://user-images.githubusercontent.com/71548592/145709362-04d76bf6-cdd8-4bdb-9a36-d8d618fc59a6.png)
+![search-location](https://user-images.githubusercontent.com/71548592/145717662-e83026f6-1ae6-4fac-813d-747b8df24efa.png)
 
-![search-report](https://user-images.githubusercontent.com/71548592/145709363-9ca999b3-6874-4b01-b5d0-14420678280f.png)
+![search-report](https://user-images.githubusercontent.com/71548592/145717690-91cc1edc-6a6a-4d94-bf3c-7e663b7c74e6.png)
 
 ## Disclaimer
 <b>The creator provides no warranty with this software and is not responsible for any direct or indirect damage caused due to the usage of this tool.<br>
