@@ -35,7 +35,7 @@ const findNumOfPages = async () => {
         for (cityNum of cityNumLocations) {
             // parse only the first page and collect number of pages
             for (let pageNum = 1; pageNum < 2; pageNum++) {
-                url = 'https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=' + pageNum + '&municipalityID=&prefectureID=' + cityNum;
+                url = `https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=${pageNum}&municipalityID=&prefectureID=${cityNum}`;
                 const resp = await axios.get(url);
 
                 // parse html
@@ -63,7 +63,7 @@ const findCoordsOfOutages = async () => {
     try {
         for (let i = 0; i <= cityPage.length; i++) {
 
-            url = 'https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=' + cityPage[i].page + '&municipalityID=&prefectureID=' + cityPage[i].cityNum
+            url = `https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=${cityPage[i].page}&municipalityID=&prefectureID=${cityPage[i].cityNum}`;
             const resp = await axios.get(url);
             // parse html
             const $ = cheerio.load(resp.data);
