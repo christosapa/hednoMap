@@ -23,17 +23,17 @@ Hellenic Electricity Distribution Network Operator (HEDNO) power outages map.
 - -->
 
 ## Screenshots
-![map](https://user-images.githubusercontent.com/71548592/145708836-02c1256e-b899-4b4b-b852-5f342582c34b.PNG)
+![hedno-map](https://user-images.githubusercontent.com/71548592/148527031-7686784d-995b-409b-97c5-70f956ee693f.png)
 
-![live](https://user-images.githubusercontent.com/71548592/145708994-1fb29f1e-cb69-48e3-8d3f-ab689a52d341.PNG)
+![live](https://user-images.githubusercontent.com/71548592/148527098-72071e91-06ce-48e1-8fc6-afd50046c8ec.png)
 
-![planned](https://user-images.githubusercontent.com/71548592/145709011-c36562ba-4c15-4d1a-89d1-c96344b2f748.PNG)
+![planned](https://user-images.githubusercontent.com/71548592/148527188-e17d00a0-bcc6-46dd-a2dc-94da8af25f65.png)
 
-![current](https://user-images.githubusercontent.com/71548592/145716507-d0159224-597c-4009-ae5e-3fce61f9482b.PNG)
+![current](https://user-images.githubusercontent.com/71548592/148527340-6c4d62df-6f49-4466-9979-5270ef2e89cb.png)
 
-![search-location](https://user-images.githubusercontent.com/71548592/145717662-e83026f6-1ae6-4fac-813d-747b8df24efa.png)
+![search-location](https://user-images.githubusercontent.com/71548592/148527441-efdccb91-c7a5-4797-88b3-dbd0ea7f1ff5.png)
 
-![search-report](https://user-images.githubusercontent.com/71548592/145717690-91cc1edc-6a6a-4d94-bf3c-7e663b7c74e6.png)
+![search-report](https://user-images.githubusercontent.com/71548592/148527531-d07f780d-b4d8-46b7-9b68-76b0e539b894.png)
 
 ## Disclaimer
 <b>The creator provides no warranty with this software and is not responsible for any direct or indirect damage caused due to the usage of this tool.<br>
