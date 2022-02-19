@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/hednoMap/precache-manifest.443d5f8a565108377775b327360c0bd6.js"
+  "/hednoMap/precache-manifest.2835132e34697065be5c2f806019af6d.js"
 );
 
 self.addEventListener('message', (event) => {
