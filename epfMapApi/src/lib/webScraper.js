@@ -28,6 +28,9 @@ const geocoder = NodeGeocoder(options);
 cityPage = [];
 coordsArray = [];
 locationId = 0;
+isDuplicateMultiplier = 0;
+duplicateFactor = 0;
+oldLocation = '';
 
 /* find the number of pages for each city */
 const findNumOfPages = async () => {
@@ -35,7 +38,7 @@ const findNumOfPages = async () => {
         for (cityNum of cityNumLocations) {
             // parse only the first page and collect number of pages
             for (let pageNum = 1; pageNum < 2; pageNum++) {
-                url = 'https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=' + pageNum + '&municipalityID=&prefectureID=' + cityNum;
+                url = `https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=${pageNum}&municipalityID=&prefectureID=${cityNum}`;
                 const resp = await axios.get(url);
 
                 // parse html
@@ -63,7 +66,7 @@ const findCoordsOfOutages = async () => {
     try {
         for (let i = 0; i <= cityPage.length; i++) {
 
-            url = 'https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=' + cityPage[i].page + '&municipalityID=&prefectureID=' + cityPage[i].cityNum
+            url = `https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=${cityPage[i].page}&municipalityID=&prefectureID=${cityPage[i].cityNum}`;
             const resp = await axios.get(url);
             // parse html
             const $ = cheerio.load(resp.data);
@@ -72,12 +75,22 @@ const findCoordsOfOutages = async () => {
 
                 location = $($(element).find('td')[2]).text();
 
+                // multiplier for changing longtitude of duplicate markers (=markers with same coords)
+                isDuplicateMultiplier = 0;
+                if (location == oldLocation) {
+                    isDuplicateMultiplier = 1;
+                }
+                else {
+                    duplicateFactor = 0;
+                }
+
                 // get coords from location
                 // isLive(): checks if power cut is live or planned
                 geocoder.geocode({ 'address': location + ', GR' })
                     .then(function (res) {
                         coordsArray.push({
-                            latitude: res[0].latitude, longitude: res[0].longitude,
+                            latitude: res[0].latitude,
+                            longitude: res[0].longitude + (isDuplicateMultiplier * duplicateFactor * 0.001),
                             isLive: helper.islive($($(element).find('td')[0]).text(), $($(element).find('td')[1]).text()),
                             fromDateTime: $($(element).find('td')[0]).text(),
                             toDateTime: $($(element).find('td')[1]).text(),
@@ -85,10 +98,12 @@ const findCoordsOfOutages = async () => {
                             locationDetails: $($(element).find('td')[3]).text(),
                             id: locationId++
                         })
+                        duplicateFactor++;
                     })
                     .catch(function (err) {
                         console.log(err);
                     });
+                oldLocation = location;
             });
         }
     } catch (err) {

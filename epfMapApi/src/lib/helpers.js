@@ -23,11 +23,10 @@ function string_to_slug(str) {
 }
 
 /* check if event is live or planned */
-// TODO what happens with past events in same day?
 function islive(fromDateTime, toDateTime) {
     
-    // current date and time are Greek (romanian because of 24H format)
-    var today = new Date().toLocaleString('ro-RO', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false});
+    // current date and time are Greek (am-ET because of time/date format)
+    var today = new Date().toLocaleString('am-ET', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false}, {month: 'short'});
 
     // match date ant time from today
     var currentDate = today.match(/[0-9]+.[0-9]+.[0-9]+/)[0].replace(/[.]/g, '/');
@@ -42,7 +41,6 @@ function islive(fromDateTime, toDateTime) {
     fromTime = fromDateTime.match(/[0-9]+:[0-9]+/)[0];
     toTime = toDateTime.match(/[0-9]+:[0-9]+/)[0];
 
-    // CHECK
     // convert time to hh:mm format
     (fromTime[1] == ':') && (fromTime = '0' + fromTime);
     (toTime[1] == ':') && (toTime = '0' + toTime);
