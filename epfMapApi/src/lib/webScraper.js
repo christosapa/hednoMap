@@ -98,6 +98,7 @@ const findCoordsOfOutages = async () => {
                             locationDetails: $($(element).find('td')[3]).text(),
                             id: locationId++
                         })
+                        // increment factor
                         duplicateFactor++;
                     })
                     .catch(function (err) {
