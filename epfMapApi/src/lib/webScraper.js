@@ -89,7 +89,8 @@ const findCoordsOfOutages = async () => {
                 geocoder.geocode({ 'address': location + ', GR' })
                     .then(function (res) {
                         coordsArray.push({
-                            latitude: res[0].latitude,
+                            //latitude: res[0].latitude,
+                            latitude:0,
                             longitude: res[0].longitude + (isDuplicateMultiplier * duplicateFactor * 0.001),
                             isLive: helper.islive($($(element).find('td')[0]).text(), $($(element).find('td')[1]).text()),
                             fromDateTime: $($(element).find('td')[0]).text(),
