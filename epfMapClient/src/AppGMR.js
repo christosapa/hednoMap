@@ -8,6 +8,21 @@ export default function AppGMR() {
     <div className='App'>
       <Header />
       <Maps />
+      <div className='LogIn-container'>
+          <button
+            className='LogIn'
+            onClick={() => { // goto login page
+            }}>
+            Log in
+          </button>
+
+          <button
+            className='SignUp'
+            onClick={() => { // goto signup page
+            }}>
+            Sign up
+          </button>
+        </div>
     </div>
   );
 }

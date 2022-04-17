@@ -47,7 +47,6 @@ class Header extends Component {
                     <img onClick={() => reloadPage()}
                         src={mainLogo} alt='logo' />
                 </div>
-
             )
         }
     }

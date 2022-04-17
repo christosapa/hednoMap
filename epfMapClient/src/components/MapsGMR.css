@@ -1,3 +1,11 @@
+.filter-container {
+  display: flex;
+  position: absolute;
+  top: 8rem;
+  left: 1.6rem;
+  flex-direction: row;
+}
+
 .liveButton {
   display: flex;
   flex-direction: row;
@@ -189,10 +197,50 @@
   max-width: 25rem;
 }
 
-.filter-container {
+.LogIn-container {
   display: flex;
   position: absolute;
-  top: 8rem;
-  left: 1.6rem;
+  top: 0.5rem;
+  right: 0.5rem;
   flex-direction: row;
+}
+
+.LogIn {
+  display: flex;
+  flex-direction: row;
+  background: rgb(255, 255, 255);
+  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
+  border-radius: 20% 0% 0% 20%;
+  cursor: pointer;
+  transition-duration: 0.2s; 
+  border: none;
+  color: rgb(22, 193, 243);
+  font-family: Arial;
+  font-size: 18px;
+  align-items: center;
+  padding: 10px 5px 10px 10px;
+} 
+
+.LogIn:hover {
+  background-color: #ebe5e5;
+}
+
+.SignUp {
+  display: flex;
+  flex-direction: row;
+  background: rgb(22, 193, 243);
+  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
+  border-radius: 0% 20% 20% 0%;
+  cursor: pointer;
+  transition-duration: 0.2s; 
+  border: none;
+  color: rgb(255, 255, 255);
+  font-family: Arial;
+  font-size: 18px;
+  align-items: center;
+  padding: 10px 10px 10px 5px;
+} 
+
+.SignUp:hover {
+  background-color: #58a5b8;
 }
