@@ -15,6 +15,8 @@ import searchedLocationImg from '../assets/searchedLocation.png'
 import locationImg from '../assets/location.png'
 import startEndTime from '../assets/start-end-time.png'
 import detailsImg from '../assets/details.png'
+import Login from './Login';
+import { useNavigate } from 'react-router-dom';
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -54,6 +56,14 @@ export default function Maps() {
   const url = 'http://localhost:9000/locationsAPI';
   const { data, error } = useSwr(url, { fetcher });
   const locations = data && !error ? data : [];
+
+  const navigate = useNavigate()
+  const login = () => {
+    navigate('/hednoMap/login')
+  }
+  const signup = () => {
+    navigate('/hednoMap/signup')
+  }
 
   // render map
   return (
@@ -173,8 +183,19 @@ export default function Maps() {
           </button>
         </div>
 
+        <div className='LogIn-container'>
+          <button
+            className='LogIn'
+            onClick={login}>
+            Log in
+          </button>
 
-
+          <button
+            className='SignUp'
+            onClick={signup}>
+            Sign up
+          </button>
+        </div>
 
         {myLocationMarker && <Marker
           key={0}

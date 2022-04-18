@@ -1,28 +1,19 @@
 import React from 'react'
 import './App.css';
-import Header from './components/Header';
-import Maps from './components/MapsGMR';
+import Layout from './components/Layouts';
+import { Routes, Route } from 'react-router-dom';
+import Maps from './components/MapsGMR'
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 export default function AppGMR() {
   return (
-    <div className='App'>
-      <Header />
-      <Maps />
-      <div className='LogIn-container'>
-          <button
-            className='LogIn'
-            onClick={() => { // goto login page
-            }}>
-            Log in
-          </button>
-
-          <button
-            className='SignUp'
-            onClick={() => { // goto signup page
-            }}>
-            Sign up
-          </button>
-        </div>
-    </div>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route path='/hednoMap' element={<Maps />} />
+        <Route path='/hednoMap/login' element={<Login />} />
+        <Route path='/hednoMap/signup' element={<Signup />} />
+      </Route>
+    </Routes>
   );
 }
