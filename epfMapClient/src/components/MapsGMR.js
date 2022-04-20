@@ -15,7 +15,6 @@ import searchedLocationImg from '../assets/searchedLocation.png'
 import locationImg from '../assets/location.png'
 import startEndTime from '../assets/start-end-time.png'
 import detailsImg from '../assets/details.png'
-import Login from './Login';
 import { useNavigate } from 'react-router-dom';
 
 // fetch and format data from API

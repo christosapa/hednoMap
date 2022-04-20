@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@google/markerclusterer": "^2.0.9",
     "@googlemaps/markerclustererplus": "^1.2.8",
     "@reach/combobox": "^0.16.4",
