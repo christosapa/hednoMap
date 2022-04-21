@@ -2,6 +2,7 @@ import React, {useRef, useState, useEffect } from 'react';
 import './Login.css'
 
 const Login = () => {
+
     const userRef = useRef()
     const errRef = useRef()
 
@@ -29,7 +30,7 @@ const Login = () => {
     return (
         <section className='loginSection'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Log In</h1>
+            <h1 className='loginHeader'>Log in</h1>
             <form onSubmit={handleSubmit}>
 
                 <input
@@ -54,9 +55,8 @@ const Login = () => {
                 <button className='signInButton'>Sign in</button>
                 <p>
                     Not registered?<br />
-                    <span className="line">
-                        {/*put router link here*/}
-                        <a href="#">Sign Up</a>
+                    <span>
+                        <a href="signup">Sign Up</a>
                     </span>
                 </p>
             </form>
