@@ -8,7 +8,6 @@ const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const SIGNUP_URL = '/signup';
 
-
 const Signup = () => {
 
     const userRef = useRef();
@@ -53,12 +52,14 @@ const Signup = () => {
         // if button enabled with JS hack
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
+
         if (!v1 || !v2) {
             setErrMsg("Invalid Entry");
             return;
         }
         try {
-            const response = await axios.post(SIGNUP_URL,
+            const response = await axios.post(
+                SIGNUP_URL,
                 JSON.stringify({ user, pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -85,7 +86,6 @@ const Signup = () => {
             errRef.current.focus();
         }
     }
-
 
     return (
         <>
@@ -177,6 +177,5 @@ const Signup = () => {
         </>
     )
 }
-
 
 export default Signup
