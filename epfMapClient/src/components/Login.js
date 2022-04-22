@@ -36,7 +36,7 @@ const Login = () => {
                 <input
                     type="text"
                     id="username"
-                    placeholder='Username'
+                    placeholder='Email'
                     ref={userRef}
                     autoComplete="off"
                     onChange={(e) => setUser(e.target.value)}
