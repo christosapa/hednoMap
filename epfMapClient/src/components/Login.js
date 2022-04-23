@@ -58,49 +58,32 @@ const Login = () => {
     }
 
     return (
-        <>
-            {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br />
-                    <p>
-                        <a href="/hednoMap">Go to Home</a>
-                    </p>
-                </section>
-            ) : (
-                <section className='loginSection'>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1 className='loginHeader'>Log in</h1>
-                    <form onSubmit={handleSubmit}>
-                        <input
-                            type="text"
-                            id="username"
-                            placeholder='Email'
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
-                            required
-                        />
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder='Password'
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                        />
-                        <button className='signInButton'>Sign in</button>
-                        <p>
-                            Not registered?<br />
-                            <span>
-                                <a href="signup">Sign Up</a>
-                            </span>
-                        </p>
-                    </form>
-                </section>
-            )}
-        </>
+        <section className='loginSection'>
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            <h1 className='loginHeader'>Log in</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder='Email'
+                    ref={userRef}
+                    autoComplete="off"
+                    onChange={(e) => setUser(e.target.value)}
+                    value={user}
+                    required
+                />
+                <input
+                    type="password"
+                    id="password"
+                    placeholder='Password'
+                    onChange={(e) => setPwd(e.target.value)}
+                    value={pwd}
+                    required
+                />
+                <button className='signInButton'>Sign in</button>
+            </form>
+            {success && <h1>You are logged in!</h1>}
+        </section>
     )
 }
 

@@ -3,8 +3,8 @@ import './App.css';
 import Layout from './components/Layouts';
 import { Routes, Route } from 'react-router-dom';
 import Maps from './components/MapsGMR'
-import Login from './components/Login';
-import Signup from './components/Signup';
+// import Login from './components/Login';
+// import Signup from './components/Signup';
 import RequireAuth from './components/RequireAuth';
 
 export default function AppGMR() {
@@ -12,8 +12,8 @@ export default function AppGMR() {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route path='/hednoMap' element={<Maps />} />
-        <Route path='/hednoMap/login' element={<Login />} />
-        <Route path='/hednoMap/signup' element={<Signup />} />
+        {/* <Route path='/hednoMap/login' element={<Login />} /> */}
+        {/* <Route path='/hednoMap/signup' element={<Signup />} /> */}
         <Route element={<RequireAuth />}>
           {/* <Route path='/hednoMap' element={<MapsLoggedIn />} /> */}
         </Route>

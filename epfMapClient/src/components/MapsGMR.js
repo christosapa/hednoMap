@@ -5,17 +5,19 @@ import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocom
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css';
 import './MapsGMR.css';
-import liveMarkerImg from '../assets/live.png'
-import plannedMarkerImg from '../assets/planned.png'
-import showAllImg from '../assets/showAll.png'
-import findLocationImg from '../assets/findLocation.png'
-import myLocationImg from '../assets/myLocation.svg'
-import searchImg from '../assets/search.png'
-import searchedLocationImg from '../assets/searchedLocation.png'
-import locationImg from '../assets/location.png'
-import startEndTime from '../assets/start-end-time.png'
-import detailsImg from '../assets/details.png'
+import liveMarkerImg from '../assets/live.png';
+import plannedMarkerImg from '../assets/planned.png';
+import showAllImg from '../assets/showAll.png';
+import findLocationImg from '../assets/findLocation.png';
+import myLocationImg from '../assets/myLocation.svg';
+import searchImg from '../assets/search.png';
+import searchedLocationImg from '../assets/searchedLocation.png';
+import locationImg from '../assets/location.png';
+import startEndTime from '../assets/start-end-time.png';
+import detailsImg from '../assets/details.png';
 import { useNavigate } from 'react-router-dom';
+import Login from './Login';
+import Signup from './Signup';
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -56,12 +58,23 @@ export default function Maps() {
   const { data, error } = useSwr(url, { fetcher });
   const locations = data && !error ? data : [];
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  // const login = () => {
+  //   navigate('/hednoMap/login')
+  // }
+  // const signup = () => {
+  //   navigate('/hednoMap/signup')
+  // }
+  
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+
   const login = () => {
-    navigate('/hednoMap/login')
+    setShowLogin( showLogin => !showLogin) 
   }
+
   const signup = () => {
-    navigate('/hednoMap/signup')
+    setShowSignup( showSignup => !showSignup) 
   }
 
   // render map
@@ -196,6 +209,9 @@ export default function Maps() {
           </button>
         </div>
 
+        {showLogin && <Login />}
+        {showSignup && <Signup />}
+        
         {myLocationMarker && <Marker
           key={0}
           position={{ lat: myLocationMarker.lat, lng: myLocationMarker.lng }}
