@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useContext } from 'react';
 import useSwr from 'swr';
 import { GoogleMap, LoadScriptNext, Marker, InfoWindow } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
@@ -15,9 +15,9 @@ import searchedLocationImg from '../assets/searchedLocation.png';
 import locationImg from '../assets/location.png';
 import startEndTime from '../assets/start-end-time.png';
 import detailsImg from '../assets/details.png';
-import { useNavigate } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
+import DataContext from '../context/DataContext';
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -52,22 +52,15 @@ export default function Maps() {
   const [showLiveMarkers, setLiveMarkers] = useState(true);
   const [showPlannedMarkers, setPlannedMarkers] = useState(true);
 
-
   // load and format data
   const url = 'http://localhost:9000/locationsAPI';
   const { data, error } = useSwr(url, { fetcher });
   const locations = data && !error ? data : [];
-
-  // const navigate = useNavigate()
-  // const login = () => {
-  //   navigate('/hednoMap/login')
-  // }
-  // const signup = () => {
-  //   navigate('/hednoMap/signup')
-  // }
   
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+
+  const {successfulLogin} = useContext(DataContext)
 
   const login = () => {
     setShowLogin( showLogin => !showLogin) 
@@ -75,6 +68,10 @@ export default function Maps() {
 
   const signup = () => {
     setShowSignup( showSignup => !showSignup) 
+  }
+
+  const logout = () => {
+    console.log('logout')
   }
 
   // render map
@@ -195,7 +192,7 @@ export default function Maps() {
           </button>
         </div>
 
-        <div className='LogIn-container'>
+        { !successfulLogin && <div className='LogIn-container'>
           <button
             className='LogIn'
             onClick={login}>
@@ -207,7 +204,15 @@ export default function Maps() {
             onClick={signup}>
             Sign up
           </button>
-        </div>
+        </div>}
+
+        { successfulLogin && <div className='LogIn-container'>
+          <button
+            className='LogOut'
+            onClick={logout}>
+            Log out
+          </button>
+        </div>}
 
         {showLogin && <Login />}
         {showSignup && <Signup />}

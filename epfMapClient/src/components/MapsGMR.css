@@ -18,9 +18,9 @@
   border-radius: 20% 0 0 20%;
   float: left;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
   border: none;
-} 
+}
 
 .liveButton img {
   margin: 5px 5px 5px 2px;
@@ -29,7 +29,8 @@
 }
 
 .liveButton:hover {
-  background-color: #ebe5e5;
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
 }
 
 .plannedButton {
@@ -44,9 +45,9 @@
   border-radius: 0 0% 0% 0;
   float: left;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
   border: none;
-} 
+}
 
 .plannedButton img {
   margin: 5px 5px 5px 2px;
@@ -55,7 +56,8 @@
 }
 
 .plannedButton:hover {
-  background-color: #ebe5e5;
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
 }
 
 .showAllButton {
@@ -64,9 +66,9 @@
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   border-radius: 0 20% 20% 0;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
   border: none;
-} 
+}
 
 .showAllButton img {
   margin: 2px 2px 2px 2px;
@@ -74,7 +76,7 @@
 }
 
 .showAllButton:hover {
-  background-color: #ebe5e5;
+  background-color: rgb(22, 193, 243);
 }
 
 .searchBox {
@@ -114,9 +116,9 @@
   background: white;
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   border-radius: 20%;
-  border:  none;
+  border: none;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
 }
 
 .findLocationButton img {
@@ -125,7 +127,7 @@
 }
 
 .findLocationButton:hover {
-  background-color: #ebe5e5;
+  background-color: rgb(22, 193, 243);
 }
 
 .report-container {
@@ -142,7 +144,7 @@
   padding: 5px;
   border: none;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
 }
 
 .reportPowerOutage:hover {
@@ -157,7 +159,7 @@
   padding: 5px;
   border: none;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
 }
 
 .reportNetworkHazard:hover {
@@ -172,26 +174,26 @@
   padding: 5px;
   border: none;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
 }
 
 .cancelReport:hover {
   background-color: #d44b14;
 }
 
-.info-window{
+.info-window {
   display: flex;
   gap: 5px;
   flex-direction: column;
   font-family: Arial;
 }
 
-.img-txt{
+.img-txt {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  font-family: Arial,sans-serif;
+  font-family: Arial, sans-serif;
   font-weight: 400;
   font-size: 15px;
   max-width: 25rem;
@@ -212,35 +214,58 @@
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   border-radius: 20% 0% 0% 20%;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
   border: none;
   color: rgb(22, 193, 243);
   font-family: Arial;
   font-size: 18px;
   align-items: center;
   padding: 10px 5px 10px 10px;
-} 
+}
 
 .LogIn:hover {
-  background-color: #ebe5e5;
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
 }
 
 .SignUp {
   display: flex;
   flex-direction: row;
-  background: rgb(22, 193, 243);
+  background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   border-radius: 0% 20% 20% 0%;
   cursor: pointer;
-  transition-duration: 0.2s; 
+  transition-duration: 0.2s;
   border: none;
-  color: rgb(255, 255, 255);
+  color: rgb(22, 193, 243);
   font-family: Arial;
   font-size: 18px;
   align-items: center;
   padding: 10px 10px 10px 5px;
-} 
+}
 
 .SignUp:hover {
-  background-color: #58a5b8;
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
+}
+
+.LogOut {
+  display: flex;
+  flex-direction: row;
+  background: rgb(255, 255, 255);
+  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
+  border-radius: 20% 20% 20% 20%;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  border: none;
+  color: rgb(22, 193, 243);
+  font-family: Arial;
+  font-size: 18px;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
+}
+
+.LogOut:hover {
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
 }

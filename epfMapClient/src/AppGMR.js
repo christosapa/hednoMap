@@ -6,18 +6,21 @@ import Maps from './components/MapsGMR'
 // import Login from './components/Login';
 // import Signup from './components/Signup';
 import RequireAuth from './components/RequireAuth';
+import { DataProvider } from './context/DataContext';
 
 export default function AppGMR() {
   return (
-    <Routes>
-      <Route path='/' element={<Layout />}>
-        <Route path='/hednoMap' element={<Maps />} />
-        {/* <Route path='/hednoMap/login' element={<Login />} /> */}
-        {/* <Route path='/hednoMap/signup' element={<Signup />} /> */}
-        <Route element={<RequireAuth />}>
-          {/* <Route path='/hednoMap' element={<MapsLoggedIn />} /> */}
+    <DataProvider>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path='/hednoMap' element={<Maps />} />
+          {/* <Route path='/hednoMap/login' element={<Login />} /> */}
+          {/* <Route path='/hednoMap/signup' element={<Signup />} /> */}
+          <Route element={<RequireAuth />}>
+            {/* <Route path='/hednoMap' element={<MapsLoggedIn />} /> */}
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </DataProvider>
   );
 }

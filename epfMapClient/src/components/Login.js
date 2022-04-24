@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import './Login.css'
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
+import DataContext from '../context/DataContext';
 
 const LOGIN_URL = '/auth'
 
@@ -14,7 +15,8 @@ const Login = () => {
     const [user, setUser] = useState('')
     const [pwd, setPwd] = useState('')
     const [errMsg, setErrMsg] = useState('')
-    const [success, setSuccess] = useState(false)
+
+    const {successfulLogin, setSuccessfulLogin} = useContext(DataContext)
 
     useEffect(() => {
         userRef.current.focus()
@@ -42,7 +44,7 @@ const Login = () => {
             setAuth({ user, pwd, roles, accessToken });
             setUser('');
             setPwd('');
-            setSuccess(true);
+            setSuccessfulLogin(true);
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -82,7 +84,7 @@ const Login = () => {
                 />
                 <button className='signInButton'>Sign in</button>
             </form>
-            {success && <h1>You are logged in!</h1>}
+            {successfulLogin && <h1>You are logged in!</h1>}
         </section>
     )
 }
