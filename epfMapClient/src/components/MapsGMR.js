@@ -18,6 +18,8 @@ import detailsImg from '../assets/details.png';
 import Login from './Login';
 import Signup from './Signup';
 import DataContext from '../context/DataContext';
+import { useNavigate, Link } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -56,11 +58,14 @@ export default function Maps() {
   const url = 'http://localhost:9000/locationsAPI';
   const { data, error } = useSwr(url, { fetcher });
   const locations = data && !error ? data : [];
-  
+
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
-  const {successfulLogin} = useContext(DataContext)
+  const {successfulLogin, setSuccessfulLogin} = useContext(DataContext)
+
+  const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const login = () => {
     setShowLogin( showLogin => !showLogin) 
@@ -70,9 +75,15 @@ export default function Maps() {
     setShowSignup( showSignup => !showSignup) 
   }
 
-  const logout = () => {
-    console.log('logout')
-  }
+  const logout = async () => {
+    // if used in more components, this should be in context 
+    // axios to /logout endpoint 
+    setAuth({});
+    navigate('/hednoMap');
+    login()
+    signup()
+    setSuccessfulLogin(false)
+}
 
   // render map
   return (

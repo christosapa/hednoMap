@@ -17,7 +17,7 @@ export default function AppGMR() {
           {/* <Route path='/hednoMap/login' element={<Login />} /> */}
           {/* <Route path='/hednoMap/signup' element={<Signup />} /> */}
           <Route element={<RequireAuth />}>
-            {/* <Route path='/hednoMap' element={<MapsLoggedIn />} /> */}
+            <Route path='/hednoMapHome' element={<Maps />} />
           </Route>
         </Route>
       </Routes>

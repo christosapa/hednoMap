@@ -3,12 +3,18 @@ import './Login.css'
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 import DataContext from '../context/DataContext';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const LOGIN_URL = '/auth'
 
 const Login = () => {
 
     const { setAuth } = useAuth()
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    //const from = location.state?.from?.pathname || "/hednoMap"
+
     const userRef = useRef()
     const errRef = useRef()
 
@@ -17,6 +23,10 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('')
 
     const {successfulLogin, setSuccessfulLogin} = useContext(DataContext)
+
+    const loginSuccessful = () => {
+      navigate('/hednoMapHome')
+    }
 
     useEffect(() => {
         userRef.current.focus()
@@ -45,6 +55,8 @@ const Login = () => {
             setUser('');
             setPwd('');
             setSuccessfulLogin(true);
+            loginSuccessful();
+            //navigate(from, { replace: true})
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -82,7 +94,7 @@ const Login = () => {
                     value={pwd}
                     required
                 />
-                <button className='signInButton'>Sign in</button>
+                <button className='signInButton'>Log in</button>
             </form>
             {successfulLogin && <h1>You are logged in!</h1>}
         </section>
