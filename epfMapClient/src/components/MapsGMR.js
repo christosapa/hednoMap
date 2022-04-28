@@ -20,6 +20,7 @@ import Signup from './Signup';
 import DataContext from '../context/DataContext';
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
+import useLogout from "../hooks/useLogout";
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -75,13 +76,13 @@ export default function Maps() {
     setShowSignup( showSignup => !showSignup) 
   }
 
-  const logout = async () => {
-    // if used in more components, this should be in context 
-    // axios to /logout endpoint 
-    setAuth({});
+  const logOut = useLogout()
+
+  const signOut = async () => {
+    await logOut();
     navigate('/hednoMap');
-    login()
-    signup()
+    setShowLogin(true)
+    setShowSignup(true)
     setSuccessfulLogin(false)
 }
 
@@ -220,7 +221,7 @@ export default function Maps() {
         { successfulLogin && <div className='LogIn-container'>
           <button
             className='LogOut'
-            onClick={logout}>
+            onClick={signOut}>
             Log out
           </button>
         </div>}
