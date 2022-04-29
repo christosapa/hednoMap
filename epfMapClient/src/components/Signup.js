@@ -157,7 +157,7 @@ const Signup = () => {
 
                 <button className="signupButton" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
             </form>
-            {success && <h1>Registration completed. Please verify your email.</h1>}
+            {success && <div><h1 className="registrationMsg">Registration completed.</h1> <h1 className="verifyMsg">Please verify your email.</h1></div>}
         </section>
     )
 }

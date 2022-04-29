@@ -44,7 +44,7 @@ form {
 
 .signupButton:disabled {
     background: rgb(206, 206, 206);
-    cursor:default;
+    cursor: default;
 }
 
 input[type="text"],
@@ -103,7 +103,23 @@ textarea {
     font-size: 2.2rem;
     line-height: 1.25;
     font-weight: 600;
-    color: rgba(0,0,0,0.9);
-    padding: 0 0 4px 0;
-    vertical-align: left;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.registrationMsg {
+    font-size: 1.4rem;
+    line-height: 0.5;
+    font-weight: 350;
+    padding: 0px 4px 0px 4px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.verifyMsg {
+    font-size: 1.4rem;
+    background-color: lightpink;
+    color: firebrick;
+    padding: 0.1rem;
+    margin-bottom: 0.3rem;
+    font-weight: 400;
+    padding: 0px 2px 2px 4px;
 }
