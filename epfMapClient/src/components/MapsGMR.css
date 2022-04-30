@@ -249,12 +249,61 @@
   color: rgb(255, 255, 255);
 }
 
+.menu-container {
+  display: flex;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  flex-direction: column;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  background: rgb(255, 255, 255);
+  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
+  border-radius: 20% 20% 0% 0%;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  border: none;
+  color: rgb(22, 193, 243);
+  font-family: Arial;
+  font-size: 18px;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
+}
+
+.menu:hover {
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
+}
+
+.setLocation {
+  display: flex;
+  flex-direction: row;
+  background: rgb(255, 255, 255);
+  box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  border: none;
+  color: rgb(22, 193, 243);
+  font-family: Arial;
+  font-size: 18px;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
+}
+
+.setLocation:hover {
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
+}
+
 .LogOut {
   display: flex;
   flex-direction: row;
   background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
-  border-radius: 20% 20% 20% 20%;
+  border-radius: 0% 0% 20% 20%;
   cursor: pointer;
   transition-duration: 0.2s;
   border: none;

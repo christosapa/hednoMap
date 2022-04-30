@@ -63,17 +63,17 @@ export default function Maps() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
-  const {successfulLogin, setSuccessfulLogin} = useContext(DataContext)
+  const { successfulLogin, setSuccessfulLogin } = useContext(DataContext)
 
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const login = () => {
-    setShowLogin( showLogin => !showLogin) 
+    setShowLogin(showLogin => !showLogin)
   }
 
   const signup = () => {
-    setShowSignup( showSignup => !showSignup) 
+    setShowSignup(showSignup => !showSignup)
   }
 
   const logOut = useLogout()
@@ -84,7 +84,13 @@ export default function Maps() {
     setShowLogin(true)
     setShowSignup(true)
     setSuccessfulLogin(false)
-}
+  }
+
+  const [showMenu, setShowMenu] = useState(false)
+
+  const showMenuState = () => {
+    setShowMenu(showMenu => !showMenu)
+  }
 
   // render map
   return (
@@ -204,7 +210,7 @@ export default function Maps() {
           </button>
         </div>
 
-        { !successfulLogin && <div className='LogIn-container'>
+        {!successfulLogin && <div className='LogIn-container'>
           <button
             className='LogIn'
             onClick={login}>
@@ -218,17 +224,29 @@ export default function Maps() {
           </button>
         </div>}
 
-        { successfulLogin && <div className='LogIn-container'>
+        {successfulLogin && <div className='menu-container'>
           <button
-            className='LogOut'
-            onClick={signOut}>
-            Log out
+            className='menu'
+            onClick={showMenuState}>
+            username
           </button>
+          {showMenu &&
+            <button
+              className='setLocation'
+              onClick={console.log('Choose location')}>
+              Location
+            </button>}
+          {showMenu &&
+            <button
+              className='LogOut'
+              onClick={signOut}>
+              Log out
+            </button>}
         </div>}
 
         {showLogin && <Login />}
         {showSignup && <Signup />}
-        
+
         {myLocationMarker && <Marker
           key={0}
           position={{ lat: myLocationMarker.lat, lng: myLocationMarker.lng }}
