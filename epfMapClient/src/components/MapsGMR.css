@@ -258,8 +258,6 @@
 }
 
 .menu {
-  display: flex;
-  flex-direction: row;
   background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   border-radius: 20% 20% 0% 0%;
@@ -269,7 +267,6 @@
   color: rgb(22, 193, 243);
   font-family: Arial;
   font-size: 18px;
-  align-items: center;
   padding: 10px 10px 10px 10px;
 }
 
@@ -279,8 +276,6 @@
 }
 
 .setLocation {
-  display: flex;
-  flex-direction: row;
   background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   cursor: pointer;
@@ -289,7 +284,6 @@
   color: rgb(22, 193, 243);
   font-family: Arial;
   font-size: 18px;
-  align-items: center;
   padding: 10px 10px 10px 10px;
 }
 
@@ -299,8 +293,6 @@
 }
 
 .LogOut {
-  display: flex;
-  flex-direction: row;
   background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   border-radius: 0% 0% 20% 20%;
@@ -310,7 +302,6 @@
   color: rgb(22, 193, 243);
   font-family: Arial;
   font-size: 18px;
-  align-items: center;
   padding: 10px 10px 10px 10px;
 }
 
