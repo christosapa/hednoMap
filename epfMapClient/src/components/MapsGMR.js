@@ -84,6 +84,7 @@ export default function Maps() {
     setShowLogin(true)
     setShowSignup(true)
     setSuccessfulLogin(false)
+    setMyLocationMarker(null)
   }
 
   const [showMenu, setShowMenu] = useState(false)
@@ -91,6 +92,8 @@ export default function Maps() {
   const showMenuState = () => {
     setShowMenu(showMenu => !showMenu)
   }
+
+  const {menuUser, setMenuUser} = useContext(DataContext)
 
   // render map
   return (
@@ -228,7 +231,7 @@ export default function Maps() {
           <button
             className='menu'
             onClick={showMenuState}>
-            username
+            {menuUser.split('@')[0]}
           </button>
           {showMenu &&
             <button

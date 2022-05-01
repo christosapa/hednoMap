@@ -5,10 +5,12 @@ const DataContext = createContext({});
 export const DataProvider = ({ children }) => {
 
     const [successfulLogin, setSuccessfulLogin] = useState(false)
+    const [menuUser, setMenuUser] = useState(' ')
 
     return (
         <DataContext.Provider value={{
-            successfulLogin, setSuccessfulLogin
+            successfulLogin, setSuccessfulLogin,
+            menuUser,setMenuUser
         }}>
             {children}
             </DataContext.Provider>

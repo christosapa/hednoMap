@@ -23,6 +23,7 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('')
 
     const {successfulLogin, setSuccessfulLogin} = useContext(DataContext)
+    const {menuUser, setMenuUser} = useContext(DataContext)
 
     const loginSuccessful = () => {
       navigate('/hednoMapHome')
@@ -52,6 +53,7 @@ const Login = () => {
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth({ user, pwd, roles, accessToken });
+            setMenuUser(user)
             setUser('');
             setPwd('');
             setSuccessfulLogin(true);
