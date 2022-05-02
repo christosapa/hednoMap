@@ -65,7 +65,9 @@ const Login = () => {
             } else if (err.response?.status === 400) {
                 setErrMsg('Missing Username or Password');
             } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
+                setErrMsg('User not found');
+            } else if (err.response?.status === 402) {
+                setErrMsg('Pending Account. Please Verify Your Email!');
             } else {
                 setErrMsg('Login Failed');
             }

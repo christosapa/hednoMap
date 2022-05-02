@@ -91,7 +91,7 @@ const Signup = () => {
         <section className="signupSection">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 className="signupHeader">Sign up</h1>
-            <form onSubmit={handleSubmit}>
+            {!success && <form onSubmit={handleSubmit}>
                 <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
                 <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
                 <input
@@ -156,7 +156,7 @@ const Signup = () => {
                 </p>
 
                 <button className="signupButton" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
-            </form>
+            </form>}
             {success && <div><h1 className="registrationMsg">Registration completed.</h1> <h1 className="verifyMsg">Please verify your email.</h1></div>}
         </section>
     )
