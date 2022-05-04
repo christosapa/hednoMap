@@ -28,6 +28,8 @@ const Signup = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const [userRegistered, setuserRegistered] = useState('');
+
     useEffect(() => {
         userRef.current.focus();
     }, [])
@@ -72,6 +74,7 @@ const Signup = () => {
             setSuccess(true);
             //clear state and controlled inputs
             //need value attrib on inputs for this
+            setuserRegistered(user)
             setUser('');
             setPwd('');
             setMatchPwd('');
@@ -79,7 +82,7 @@ const Signup = () => {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Username Taken');
+                setErrMsg('Email Taken');
             } else {
                 setErrMsg('Registration Failed')
             }
@@ -157,7 +160,12 @@ const Signup = () => {
 
                 <button className="signupButton" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
             </form>}
-            {success && <div><h1 className="registrationMsg">Registration completed.</h1> <h1 className="verifyMsg">Please verify your email.</h1></div>}
+            {success && <div>
+                <p className="registrationMsg">Registration completed.</p>
+                <p className="registrationMsg">An email has been sent to: {userRegistered}.</p> 
+                <p className="registrationMsg">Link expires in 24 hours. Resend Email</p>
+                <p className="verifyMsg">Please verify your email.</p>
+            </div>}
         </section>
     )
 }

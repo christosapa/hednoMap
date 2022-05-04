@@ -108,18 +108,17 @@ textarea {
 
 .registrationMsg {
     font-size: 1.4rem;
-    line-height: 0.5;
     font-weight: 350;
     padding: 0px 4px 0px 4px;
     color: rgba(0, 0, 0, 0.9);
+    padding: 0px 0px 0px 15%;
 }
 
 .verifyMsg {
     font-size: 1.4rem;
     background-color: lightpink;
     color: firebrick;
-    padding: 0.1rem;
     margin-bottom: 0.3rem;
     font-weight: 400;
-    padding: 0px 2px 2px 4px;
+    padding: 0px 2px 2px 15%;
 }
