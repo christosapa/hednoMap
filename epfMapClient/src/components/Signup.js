@@ -161,9 +161,9 @@ const Signup = () => {
                 <button className="signupButton" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
             </form>}
             {success && <div>
-                <p className="registrationMsg">Registration completed.</p>
+                <p className="registrationMsg">Registration completed!</p>
                 <p className="registrationMsg">An email has been sent to: {userRegistered}.</p> 
-                <p className="registrationMsg">Link expires in 24 hours. Resend Email</p>
+                <p className="registrationMsg">Link expires in 24 hours.</p>
                 <p className="verifyMsg">Please verify your email.</p>
             </div>}
         </section>
