@@ -10,7 +10,7 @@ const handleLogin = async (req, res) => {
     if (!foundUser) return res.sendStatus(401); //Unauthorized 
 
     // check if user has a confirmed email
-    if (user.status != "Active") {
+    if (foundUser.status != "Active") {
         return res.status(402).send({
             message: "Pending Account. Please Verify Your Email!",
         });
