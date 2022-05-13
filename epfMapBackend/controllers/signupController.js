@@ -44,13 +44,6 @@ const handleNewUser = async (req, res) => {
             })
         )
 
-        var mailOptions = {
-            from: 'no-reply@example.com',
-            to: user,
-            subject: 'Account Verification Link',
-            text: 'Hello ,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/\/confirmation\/' + user + '\/' + confirmationToken + '\n\nThank You!\n'
-        };
-
         transporter.sendMail({
             from: 'xristosstbuilt@gmail.com',
             to: user,
@@ -58,7 +51,7 @@ const handleNewUser = async (req, res) => {
             html: `<h2> You're on your way! Let's confirm your email address.</h2>
                    Hello ${user},
                    <p>Thank you for subscribing. Please confirm your email by clicking on the following link:</p>
-                   <a href=http://localhost:3500/confirm/${confirmationToken}> Confirm Email Address</a>`,
+                   <a href=http://localhost:3000/hednoMap/confirm/${confirmationToken}> Confirm Email Address</a>`,
         }).catch(err => console.log(err));
 
         res.status(201).json({ 'success': `New user ${user} created!` });
