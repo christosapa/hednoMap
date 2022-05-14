@@ -260,7 +260,7 @@
 .menu {
   background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
-  border-radius: 20% 20% 0% 0%;
+  border-radius: 20% 20% 20% 20%;
   cursor: pointer;
   transition-duration: 0.2s;
   border: none;
@@ -278,6 +278,7 @@
 .setLocation {
   background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
+  border-radius: 20% 20% 0% 0%;
   cursor: pointer;
   transition-duration: 0.2s;
   border: none;
