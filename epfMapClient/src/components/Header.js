@@ -1,56 +1,21 @@
 import React from 'react'
-import { Component } from 'react';
 import mainLogo from '../assets/logo_tr.png';
-import mainLogo192 from '../assets/logo_tr192.png';
 import './Header.css'
+import { useNavigate } from 'react-router-dom';
 
-function reloadPage() {
-    window.location.reload()
-}
+const Header = () => {
 
-class Header extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            width: window.innerWidth
-        };
+    const navigate = useNavigate()
+    const homePage = () => {
+        navigate('/hednoMap')
     }
 
-    componentDidMount() {
-        window.addEventListener('resize', this.handleWindowSizeChange);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowSizeChange);
-    }
-
-    handleWindowSizeChange = () => {
-        this.setState({ width: window.innerWidth });
-    };
-
-    render() {
-        const { width } = this.state;
-        const isMobile = (width <= 600);
-        if (isMobile) {
-            return (
-                <div className='div-logo'>
-                    <img onClick={() => reloadPage()}
-                        src={mainLogo} alt='logo' />
-                </div>
-
-            )
-        }
-        else {
-            return (
-                <div className='div-logo'>
-                    <img onClick={() => reloadPage()}
-                        src={mainLogo} alt='logo' />
-                </div>
-
-            )
-        }
-    }
+    return (
+        <div className='div-logo'>
+            <img onClick={homePage}
+                src={mainLogo} alt='logo' />
+        </div>
+    )
 }
 
 export default Header;

@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+.signupSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 352px;
+    min-height: 520px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border: none;
+    padding: 24px 0px;
+    z-index: 11;
+    position: absolute;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    line-height: 1.5;
+    max-width: 300px;
+    max-height: 100%;
+}
+
+.signupButton {
+    background: rgb(22, 193, 243);
+    color: #fff;
+    border: none;
+    border-radius: 28px;
+    font-size: 1.2rem;
+    line-height: 48px;
+    padding: 0 16px;
+    width: 332px;
+    cursor: pointer;
+    max-width: 300px;
+}
+
+.signupButton:disabled {
+    background: rgb(206, 206, 206);
+    cursor: default;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    border-radius: 0.5rem;
+    display: inline-block;
+    padding: 10px 15px;
+    border: 0.1px solid rgb(151, 151, 151);
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions>svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.signupHeader {
+    font-size: 2.2rem;
+    line-height: 1.25;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.registrationMsg {
+    font-size: 1.4rem;
+    font-weight: 350;
+    padding: 0px 4px 0px 4px;
+    color: rgba(0, 0, 0, 0.9);
+    padding: 0px 0px 0px 15%;
+}
+
+.verifyMsg {
+    font-size: 1.4rem;
+    background-color: lightpink;
+    color: firebrick;
+    margin-bottom: 0.3rem;
+    font-weight: 400;
+    padding: 0px 2px 2px 15%;
+}

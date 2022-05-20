@@ -1,20 +1,26 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useContext } from 'react';
 import useSwr from 'swr';
 import { GoogleMap, LoadScriptNext, Marker, InfoWindow } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css';
 import './MapsGMR.css';
-import liveMarkerImg from '../assets/live.png'
-import plannedMarkerImg from '../assets/planned.png'
-import showAllImg from '../assets/showAll.png'
-import findLocationImg from '../assets/findLocation.png'
-import myLocationImg from '../assets/myLocation.svg'
-import searchImg from '../assets/search.png'
-import searchedLocationImg from '../assets/searchedLocation.png'
-import locationImg from '../assets/location.png'
-import startEndTime from '../assets/start-end-time.png'
-import detailsImg from '../assets/details.png'
+import liveMarkerImg from '../assets/live.png';
+import plannedMarkerImg from '../assets/planned.png';
+import showAllImg from '../assets/showAll.png';
+import findLocationImg from '../assets/findLocation.png';
+import myLocationImg from '../assets/myLocation.svg';
+import searchImg from '../assets/search.png';
+import searchedLocationImg from '../assets/searchedLocation.png';
+import locationImg from '../assets/location.png';
+import startEndTime from '../assets/start-end-time.png';
+import detailsImg from '../assets/details.png';
+import Login from './Login';
+import Signup from './Signup';
+import DataContext from '../context/DataContext';
+import { useNavigate, Link } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
+import useLogout from "../hooks/useLogout";
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -49,11 +55,45 @@ export default function Maps() {
   const [showLiveMarkers, setLiveMarkers] = useState(true);
   const [showPlannedMarkers, setPlannedMarkers] = useState(true);
 
-
   // load and format data
   const url = 'https://hedno-map-api.herokuapp.com/locationsAPI';
   const { data, error } = useSwr(url, { fetcher });
   const locations = data && !error ? data : [];
+
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+
+  const { successfulLogin, setSuccessfulLogin } = useContext(DataContext)
+
+  const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const login = () => {
+    setShowLogin(showLogin => !showLogin)
+  }
+
+  const signup = () => {
+    setShowSignup(showSignup => !showSignup)
+  }
+
+  const logOut = useLogout()
+
+  const signOut = async () => {
+    await logOut();
+    navigate('/hednoMap');
+    setShowLogin(true)
+    setShowSignup(true)
+    setSuccessfulLogin(false)
+    setMyLocationMarker(null)
+  }
+
+  const [showMenu, setShowMenu] = useState(false)
+
+  const showMenuState = () => {
+    setShowMenu(showMenu => !showMenu)
+  }
+
+  const {menuUser, setMenuUser} = useContext(DataContext)
 
   // render map
   return (
@@ -173,6 +213,42 @@ export default function Maps() {
           </button>
         </div>
 
+        {!successfulLogin && <div className='LogIn-container'>
+          <button
+            className='LogIn'
+            onClick={login}>
+            Log in
+          </button>
+
+          <button
+            className='SignUp'
+            onClick={signup}>
+            Sign up
+          </button>
+        </div>}
+
+        {successfulLogin && <div className='menu-container'>
+          <button
+            className='menu'
+            onClick={showMenuState}>
+            {menuUser.split('@')[0]}
+          </button>
+          {showMenu &&
+            <button
+              className='setLocation'
+              onClick={console.log('Choose location')}>
+              Location
+            </button>}
+          {showMenu &&
+            <button
+              className='LogOut'
+              onClick={signOut}>
+              Log out
+            </button>}
+        </div>}
+
+        {showLogin && <Login />}
+        {showSignup && <Signup />}
 
         {myLocationMarker && <Marker
           key={0}
