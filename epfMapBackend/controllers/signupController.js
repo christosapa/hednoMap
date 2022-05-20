@@ -51,7 +51,7 @@ const handleNewUser = async (req, res) => {
             html: `<h2> You're on your way! Let's confirm your email address.</h2>
                    Hello ${user},
                    <p>Thank you for subscribing. Please confirm your email by clicking on the following link:</p>
-                   <a href=http://localhost:3000/hednoMap/confirm/${confirmationToken}> Confirm Email Address</a>`,
+                   <a href=https://christosapa.github.io/hednoMap/confirm/${confirmationToken}> Confirm Email Address</a>`,
         }).catch(err => console.log(err));
 
         res.status(201).json({ 'success': `New user ${user} created!` });
