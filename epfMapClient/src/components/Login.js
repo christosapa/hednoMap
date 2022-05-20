@@ -47,16 +47,18 @@ const Login = () => {
                     withCredentials: true
                 }
             );
+
             console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
+
             setAuth({ user, pwd, roles, accessToken });
             setMenuUser(user)
             setUser('');
             setPwd('');
             setSuccessfulLogin(true);
             loginSuccessful();
-            //navigate(from, { replace: true})
+
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -98,7 +100,6 @@ const Login = () => {
                 />
                 <button className='signInButton'>Log in</button>
             </form>
-            {successfulLogin && <h1>You are logged in!</h1>}
         </section>
     )
 }
