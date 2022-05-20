@@ -20,7 +20,7 @@ const Login = () => {
     const [pwd, setPwd] = useState('')
     const [errMsg, setErrMsg] = useState('')
 
-    const {successfulLogin, setSuccessfulLogin} = useContext(DataContext)
+    const {setSuccessfulLogin} = useContext(DataContext)
     const {setMenuUser} = useContext(DataContext)
 
     const loginSuccessful = () => {
