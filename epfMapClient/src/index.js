@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import AppGMR from './AppGMR';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthProvider';
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <HashRouter>
             <AuthProvider>
                 <Routes>
                     <Route path="/*" element={<AppGMR />} />
                 </Routes>
             </AuthProvider>
-        </BrowserRouter>
+        </HashRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );
