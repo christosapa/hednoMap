@@ -7,7 +7,6 @@ import '@reach/combobox/styles.css';
 import './MapsGMR.css';
 import liveMarkerImg from '../assets/live.png';
 import plannedMarkerImg from '../assets/planned.png';
-import showAllImg from '../assets/showAll.png';
 import findLocationImg from '../assets/findLocation.png';
 import myLocationImg from '../assets/myLocation.svg';
 import searchImg from '../assets/search.png';
@@ -18,8 +17,7 @@ import detailsImg from '../assets/details.png';
 import Login from './Login';
 import Signup from './Signup';
 import DataContext from '../context/DataContext';
-import { useNavigate, Link } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 
 // fetch and format data from API
@@ -65,7 +63,6 @@ export default function Maps() {
 
   const { successfulLogin, setSuccessfulLogin } = useContext(DataContext)
 
-  const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const login = () => {
@@ -77,7 +74,7 @@ export default function Maps() {
   }
 
   const logOut = useLogout()
-
+  
   const signOut = async () => {
     await logOut();
     navigate('/hednoMap');
@@ -93,7 +90,11 @@ export default function Maps() {
     setShowMenu(showMenu => !showMenu)
   }
 
-  const {menuUser, setMenuUser} = useContext(DataContext)
+  const { menuUser } = useContext(DataContext)
+
+  const saveLocation = () => {
+    console.log('sfdsdf')
+  }
 
   // render map
   return (
@@ -209,7 +210,7 @@ export default function Maps() {
               setLiveMarkers(true);
               setPlannedMarkers(true);
             }}>
-            <img src={showAllImg} alt=''></img>
+            All
           </button>
         </div>
 
@@ -285,8 +286,16 @@ export default function Maps() {
                   }}>
                   <p>Cancel report</p>
                 </button>
+
+                {successfulLogin &&
+                  <button className='savePrefferedLocation'
+                    onClick={saveLocation}>
+                    <p>Save location</p>
+                  </button>
+                }
               </div>
             </InfoWindow>
+
           }
         </Marker>}
       </GoogleMap>

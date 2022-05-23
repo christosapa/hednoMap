@@ -68,15 +68,13 @@
   cursor: pointer;
   transition-duration: 0.2s;
   border: none;
-}
-
-.showAllButton img {
-  margin: 2px 2px 2px 2px;
-  width: 30px;
+  color: rgb(92, 92, 92);
+  padding: 10px;
 }
 
 .showAllButton:hover {
   background-color: rgb(22, 193, 243);
+  color: #ffffff;
 }
 
 .searchBox {
@@ -179,6 +177,29 @@
 
 .cancelReport:hover {
   background-color: #d44b14;
+}
+
+.savePrefferedLocation {
+  color: rgb(22, 193, 243);
+  background-color: #ffffff;
+  font-size: 15px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  border-radius: 20% ;
+  max-width: fit-content;
+  align-self: center;
+  border: rgb(22, 193, 243) solid 1px;
+}
+
+.savePrefferedLocation:hover {
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
+}
+
+.horizontal{
+  background-color:black;
+  height:20px;
+  width:3px;
 }
 
 .info-window {
