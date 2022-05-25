@@ -19,6 +19,7 @@ import Signup from './Signup';
 import DataContext from '../context/DataContext';
 import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
+import axios from '../api/axios';
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -36,10 +37,12 @@ const mapCenter = {
 
 const libraries = ['places'];
 
+const LOCATION_URL = '/location';
+
 export default function Maps() {
   // setup map
   const mapRef = useRef();
-  const [mapZoom, setZoom] = useState(6.8);
+  const [mapZoom] = useState(6.8);
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, [])
@@ -74,7 +77,7 @@ export default function Maps() {
   }
 
   const logOut = useLogout()
-  
+
   const signOut = async () => {
     await logOut();
     navigate('/hednoMap');
@@ -92,8 +95,24 @@ export default function Maps() {
 
   const { menuUser } = useContext(DataContext)
 
-  const saveLocation = () => {
-    console.log('sfdsdf')
+  const saveLocation = async () => {
+    try {
+      const response = await axios.post(
+        LOCATION_URL,
+        JSON.stringify(myLocationMarker),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
+      console.log(response?.data);
+      console.log(JSON.stringify(response))
+    } catch (err) {
+      console.log(err)
+      if (!err?.response) {
+        console.log('No Server Response');
+      }
+    }
   }
 
   // render map
