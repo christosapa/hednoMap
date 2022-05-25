@@ -20,13 +20,15 @@ const userSchema = new Schema({
     refreshToken: String,
     prefferedLocation: String,
     status: {
-        type: String, 
+        type: String,
         enum: ['Pending', 'Active'],
         default: 'Pending'
-      },
-      confirmationCode: { 
-        type: String, 
-        unique: true }
+    },
+    confirmationCode: {
+        type: String,
+        unique: true
+    },
+
 })
 
 module.exports = mongoose.model('User', userSchema);
