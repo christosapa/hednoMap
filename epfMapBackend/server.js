@@ -11,10 +11,14 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn')
+const notifyUsers = require('./middleware/notifyUsers')
 const PORT = process.env.PORT || 3500;
 
 // connect to MongoDB
 connectDB();
+
+// notify users
+notifyUsers();
 
 // custom middleware logger
 app.use(logger)
