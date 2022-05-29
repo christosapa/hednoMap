@@ -112,4 +112,36 @@ const findCoordsOfOutages = async () => {
     }
 };
 
-module.exports = { findNumOfPages, findCoordsOfOutages };
+/* create array of event location */
+const createLocationArraysOfOutages = async () => {
+    try {
+        for (let i = 0; i <= cityPage.length; i++) {
+
+            url = `https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=${cityPage[i].page}&municipalityID=&prefectureID=${cityPage[i].cityNum}`;
+            const resp = await axios.get(url);
+            // parse html
+            const $ = cheerio.load(resp.data);
+
+            $('body > div > div > table > tbody > tr').each((index, element) => {
+
+                location = $($(element).find('td')[2]).text();
+
+                // get location
+                // isLive(): checks if power cut is live or planned
+                coordsArray.push({
+                    isLive: helper.islive($($(element).find('td')[0]).text(), $($(element).find('td')[1]).text()),
+                    fromDateTime: $($(element).find('td')[0]).text(),
+                    toDateTime: $($(element).find('td')[1]).text(),
+                    faultLocation: $($(element).find('td')[2]).text(),
+                    locationDetails: $($(element).find('td')[3]).text(),
+                    id: locationId++
+                })
+            });
+        }
+    } catch (err) {
+        // Handle Error Here
+        console.error(err);
+    }
+};
+
+module.exports = { findNumOfPages, findCoordsOfOutages, createLocationArraysOfOutages };
