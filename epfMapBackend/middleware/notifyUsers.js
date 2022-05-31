@@ -42,7 +42,6 @@ const notifyUsers = () => {
         for (let i = 0; i < locations.length; i++) {
             let foundUser = await User.findOne({ prefferedLocation: locations[i].faultLocation.trim() }).exec();
             if (foundUser) {
-                console.log('found')
                 transporter.sendMail({
                     from: 'xristosstbuilt@gmail.com',
                     to: foundUser.username,
