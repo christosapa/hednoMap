@@ -11,7 +11,7 @@ run2functions();
 
 // send coords
 router.get('/', function (req, res, next) {
-    res.send(JSON.stringify(coordsArray));
+    res.send(JSON.stringify(locationsArray));
 });
 
 module.exports = router;

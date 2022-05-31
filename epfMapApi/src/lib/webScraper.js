@@ -27,6 +27,7 @@ const geocoder = NodeGeocoder(options);
 
 cityPage = [];
 coordsArray = [];
+locationsArray = [];
 locationId = 0;
 isDuplicateMultiplier = 0;
 duplicateFactor = 0;
@@ -128,7 +129,7 @@ const createLocationArraysOfOutages = async () => {
 
                 // get location
                 // isLive(): checks if power cut is live or planned
-                coordsArray.push({
+                locationsArray.push({
                     isLive: helper.islive($($(element).find('td')[0]).text(), $($(element).find('td')[1]).text()),
                     fromDateTime: $($(element).find('td')[0]).text(),
                     toDateTime: $($(element).find('td')[1]).text(),
