@@ -20,7 +20,7 @@ const saveLocation = async (req, res) => {
                 if (data.results.length > 0) {
                     const place = data.results[0];
                     foundUser.prefferedLocation = place.components.municipality
-                    res.status(201).json({ 'success': `Location ${myLocationMarker.lat},${myLocationMarker.lng} saved!` });
+                    res.status(201).json({ 'success': 'Location ' + place.components.municipality + ' saved!' });
                     const result = await foundUser.save();
                     console.log(result);
                 } else {

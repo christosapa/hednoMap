@@ -45,18 +45,18 @@ const notifyUsers = () => {
             let foundUser = await User.findOne({ prefferedLocation: location }).exec();
 
             if (foundUser) {
-                // transporter.sendMail({
-                //     from: 'xristosstbuilt@gmail.com',
-                //     to: foundUser.username,
-                //     subject: "HEDNOmap: Power outage alert!",
-                //     html: `<h2> Important information for your saved location.</h2>
-                //            Hello ${foundUser.username},
-                //            <p>A power outage is planned in municipality "${locations[i].faultLocation.trim()}" 
-                //            from ${locations[i].fromDateTime} to ${locations[i].toDateTime}.</p>
-                //            <p>Location details: ${locations[i].locationDetails}</p>`,
-                // }).catch(err => console.log(err));
-                // console.log(foundUser.username)
-                // console.log('Sending emails...')
+                transporter.sendMail({
+                    from: 'xristosstbuilt@gmail.com',
+                    to: foundUser.username,
+                    subject: "HEDNOmap: Power outage alert!",
+                    html: `<h2> Important information for your saved location.</h2>
+                           Hello ${foundUser.username},
+                           <p>A power outage is planned in municipality "${locations[i].faultLocation.trim()}" 
+                           from ${locations[i].fromDateTime} to ${locations[i].toDateTime}.</p>
+                           <p>Location details: ${locations[i].locationDetails}</p>`,
+                }).catch(err => console.log(err));
+                console.log('Sending emails...')
+                console.log(foundUser.username)
                 console.log(location)
             }
         }
