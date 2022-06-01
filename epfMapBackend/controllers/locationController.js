@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const opencage = require('opencage-api-client');
 
 const saveLocation = async (req, res) => {
 
@@ -12,10 +13,28 @@ const saveLocation = async (req, res) => {
     const myLocationMarker = req.body
 
     try {
-        foundUser.prefferedLocation = `${myLocationMarker.lat},${myLocationMarker.lng}`
-        res.status(201).json({ 'success': `Location ${myLocationMarker.lat},${myLocationMarker.lng} saved!` });
-        const result = await foundUser.save();
-        console.log(result);
+        opencage
+            .geocode({ q: `${myLocationMarker.lat}, ${myLocationMarker.lng}`, language: 'el' })
+            .then(async (data) => {
+                // console.log(JSON.stringify(data));
+                if (data.results.length > 0) {
+                    const place = data.results[0];
+                    foundUser.prefferedLocation = place.components.municipality
+                    res.status(201).json({ 'success': `Location ${myLocationMarker.lat},${myLocationMarker.lng} saved!` });
+                    const result = await foundUser.save();
+                    console.log(result);
+                } else {
+                    console.log('status', data.status.message);
+                    console.log('total_results', data.total_results);
+                }
+            })
+            .catch((error) => {
+                console.log('error', error.message);
+                if (error.status.code === 402) {
+                    console.log('hit free trial daily limit');
+                    console.log('become a customer: https://opencagedata.com/pricing');
+                }
+            });
 
     } catch (err) {
         console.log(err)
