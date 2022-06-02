@@ -5,7 +5,7 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 // get location data from locationsAPI
 const options = {
-    url: 'http://localhost:9000/locationsAPInoGC',
+    url: 'http://localhost:9000/locationsAPI',
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -58,6 +58,7 @@ const notifyUsers = () => {
                 console.log('Sending emails...')
                 console.log(foundUser.username)
                 console.log(location)
+
             }
         }
     }).catch(function (err) {

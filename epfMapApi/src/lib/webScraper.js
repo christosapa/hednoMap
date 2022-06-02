@@ -3,8 +3,9 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const colors = require('colors');
 var _ = require('underscore');
-const NodeGeocoder = require('node-geocoder');
 const helper = require('../lib/helpers');
+const opencage = require('opencage-api-client');
+var greekUtils = require('greek-utils');
 
 /* numbers of cities according to hedno site */
 /* value='9' > ΑΡΤΑΣ value='10'> ΑΤΤΙΚΗΣ value='11' > ΑΧΑΙΑΣ value='12' > ΒΟΙΩΤΙΑΣ value='13' > ΓΡΕΒΕΝΩΝ value='14' > ΔΡΑΜΑΣ value='15' > ΔΩΔΕΚΑΝΗΣΟΥ
@@ -15,15 +16,6 @@ const helper = require('../lib/helpers');
    value='43' > ΠΕΛΛΗΣ value='44' > ΠΙΕΡΙΑΣ value='45' > ΠΡΕΒΕΖΗΣ value='46' > ΡΕΘΥΜΝΟΥ value='47' > ΡΟΔΟΠΗΣ value='48' > ΣΑΜΟΥ value='49' > ΣΕΡΡΩΝ
    value='50' > ΤΡΙΚΑΛΩΝ value='51' > ΦΘΙΩΤΙΔΑΣ value='52' > ΦΛΩΡΙΝΑΣ value='53' > ΦΩΚΙΔΑΣ value='54' > ΧΑΛΚΙΔΙΚΗΣ value='55' > ΧΑΝΙΩΝ value='56' > ΧΙΟΥ */
 cityNumLocations = [67, 30, 96, 62].concat(_.range(6, 22), _.range(23, 32), _.range(33, 42), _.range(43, 57));
-
-/* options for geocoder */
-const options = {
-    provider: 'google',
-    apiKey: process.env.API_KEY, // for Mapquest, OpenCage, Google Premier
-    formatter: null // 'gpx', 'string', ...
-};
-
-const geocoder = NodeGeocoder(options);
 
 cityPage = [];
 coordsArray = [];
@@ -87,22 +79,33 @@ const findCoordsOfOutages = async () => {
 
                 // get coords from location
                 // isLive(): checks if power cut is live or planned
-                geocoder.geocode({ 'address': location + ', GR' })
-                    .then(function (res) {
-                        coordsArray.push({
-                            latitude: res[0].latitude,
-                            longitude: res[0].longitude + (isDuplicateMultiplier * duplicateFactor * 0.001),
-                            isLive: helper.islive($($(element).find('td')[0]).text(), $($(element).find('td')[1]).text()),
-                            fromDateTime: $($(element).find('td')[0]).text(),
-                            toDateTime: $($(element).find('td')[1]).text(),
-                            faultLocation: $($(element).find('td')[2]).text(),
-                            locationDetails: $($(element).find('td')[3]).text(),
-                            id: locationId++
-                        })
-                        duplicateFactor++;
+                opencage
+                    .geocode({ q: greekUtils.toGreeklish(location) + ' ,Greece' })
+                    .then((data) => {
+                        if (data.results.length > 0) {
+                            const place = data.results[0];
+                            coordsArray.push({
+                                latitude: place.geometry.lat,
+                                longitude: place.geometry.lng + (isDuplicateMultiplier * duplicateFactor * 0.001),
+                                isLive: helper.islive($($(element).find('td')[0]).text(), $($(element).find('td')[1]).text()),
+                                fromDateTime: $($(element).find('td')[0]).text(),
+                                toDateTime: $($(element).find('td')[1]).text(),
+                                faultLocation: $($(element).find('td')[2]).text(),
+                                locationDetails: $($(element).find('td')[3]).text(),
+                                id: locationId++
+                            })
+                            duplicateFactor++;
+                        } else {
+                            console.log('Status', data.status.message);
+                            console.log('total_results', data.total_results);
+                        }
                     })
-                    .catch(function (err) {
-                        console.log(err);
+                    .catch((error) => {
+                        console.log('Error', error.message);
+                        if (error.status.code === 402) {
+                            console.log('hit free trial daily limit');
+                            console.log('become a customer: https://opencagedata.com/pricing');
+                        }
                     });
                 oldLocation = location;
             });
@@ -113,36 +116,4 @@ const findCoordsOfOutages = async () => {
     }
 };
 
-/* create array of event location */
-const createLocationArraysOfOutages = async () => {
-    try {
-        for (let i = 0; i <= cityPage.length; i++) {
-
-            url = `https://siteapps.deddie.gr/Outages2Public/Home/OutagesPartial?page=${cityPage[i].page}&municipalityID=&prefectureID=${cityPage[i].cityNum}`;
-            const resp = await axios.get(url);
-            // parse html
-            const $ = cheerio.load(resp.data);
-
-            $('body > div > div > table > tbody > tr').each((index, element) => {
-
-                location = $($(element).find('td')[2]).text();
-
-                // get location
-                // isLive(): checks if power cut is live or planned
-                locationsArray.push({
-                    isLive: helper.islive($($(element).find('td')[0]).text(), $($(element).find('td')[1]).text()),
-                    fromDateTime: $($(element).find('td')[0]).text(),
-                    toDateTime: $($(element).find('td')[1]).text(),
-                    faultLocation: $($(element).find('td')[2]).text(),
-                    locationDetails: $($(element).find('td')[3]).text(),
-                    id: locationId++
-                })
-            });
-        }
-    } catch (err) {
-        // Handle Error Here
-        console.error(err);
-    }
-};
-
-module.exports = { findNumOfPages, findCoordsOfOutages, createLocationArraysOfOutages };
+module.exports = { findNumOfPages, findCoordsOfOutages};

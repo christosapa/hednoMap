@@ -1,5 +1,6 @@
 const User = require('../model/User');
 const opencage = require('opencage-api-client');
+var greekUtils = require('greek-utils');
 
 const saveLocation = async (req, res) => {
 
@@ -16,10 +17,9 @@ const saveLocation = async (req, res) => {
         opencage
             .geocode({ q: `${myLocationMarker.lat}, ${myLocationMarker.lng}`, language: 'el' })
             .then(async (data) => {
-                // console.log(JSON.stringify(data));
                 if (data.results.length > 0) {
                     const place = data.results[0];
-                    foundUser.prefferedLocation = place.components.municipality
+                    foundUser.prefferedLocation = greekUtils.sanitizeDiacritics(place.components.municipality).toUpperCase()
                     res.status(201).json({ 'success': 'Location ' + place.components.municipality + ' saved!' });
                     const result = await foundUser.save();
                     console.log(result);
