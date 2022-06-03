@@ -29,6 +29,7 @@ const saveLocation = async (req, res) => {
                 }
             })
             .catch((error) => {
+                res.status(500).json({ 'message': error.message });
                 console.log('error', error.message);
                 if (error.status.code === 402) {
                     console.log('hit free trial daily limit');
