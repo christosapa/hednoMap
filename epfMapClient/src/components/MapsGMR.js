@@ -95,6 +95,10 @@ export default function Maps() {
 
   const { menuUser } = useContext(DataContext)
 
+  const [saveSuccessful, setSaveSuccessful] = useState(null)
+  const [saveUnsuccessful, setSaveUnsuccessful] = useState(null)
+
+
   const saveLocation = async () => {
     try {
       const response = await axios.post(
@@ -107,7 +111,10 @@ export default function Maps() {
       );
       console.log(response?.data);
       console.log(JSON.stringify(response))
+      response?.data ? setSaveSuccessful(true) : setSaveSuccessful(false)
     } catch (err) {
+      setSaveSuccessful(false)
+      setSaveUnsuccessful(true)
       console.log(err)
       if (!err?.response) {
         console.log('No Server Response');
@@ -133,6 +140,10 @@ export default function Maps() {
           disableDefaultUI: true
         }}
         onLoad={onMapLoad}
+        onClick={(event) => {
+          setMyLocationMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() })
+        }
+        }
       >
         {locations.map((location) => {
           if (location.isLive && showLiveMarkers) {
@@ -275,6 +286,8 @@ export default function Maps() {
           position={{ lat: myLocationMarker.lat, lng: myLocationMarker.lng }}
           onClick={() => {
             setSelectedMarker(myLocationMarker)
+            setSaveSuccessful(false)
+            setSaveUnsuccessful(false)
           }}
           icon={myLocationMarker.isMyLocation ? myLocationImg : searchedLocationImg}
           animation={2}
@@ -311,6 +324,20 @@ export default function Maps() {
                     onClick={saveLocation}>
                     <p>Save location</p>
                   </button>
+                }
+
+                {saveSuccessful &&
+                  <div>
+                    Location saved!
+                    {console.log('saved')}
+                  </div>
+                }
+
+                {saveUnsuccessful &&
+                  <div>
+                    Location was not saved!
+                    {console.log('not saved')}
+                  </div>
                 }
               </div>
             </InfoWindow>
