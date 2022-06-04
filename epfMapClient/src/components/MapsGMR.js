@@ -110,8 +110,7 @@ export default function Maps() {
         }
       );
       console.log(response?.data);
-      console.log(JSON.stringify(response))
-      response?.data ? setSaveSuccessful(true) : setSaveSuccessful(false)
+      response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
     } catch (err) {
       setSaveSuccessful(false)
       setSaveUnsuccessful(true)
@@ -299,7 +298,6 @@ export default function Maps() {
               }}
             >
               <div className='report-container'>
-                <h2>Report Power Outage</h2>
                 <button className='reportPowerOutage'
                   onClick={() => {
                     window.open("https://apps.deddie.gr/PowerCutReportWebapp/powercutreport.html", "_blank");
@@ -327,17 +325,17 @@ export default function Maps() {
                 }
 
                 {saveSuccessful &&
-                  <div>
-                    Location saved!
-                    {console.log('saved')}
-                  </div>
+                  <span className='locationSaved'>
+                    {saveSuccessful.data.success}
+                    {console.log(saveSuccessful.data.success)}
+                  </span>
                 }
 
                 {saveUnsuccessful &&
-                  <div>
+                  <span className='locationNotSaved'>
                     Location was not saved!
                     {console.log('not saved')}
-                  </div>
+                  </span>
                 }
               </div>
             </InfoWindow>
