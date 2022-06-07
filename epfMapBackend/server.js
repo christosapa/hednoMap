@@ -12,13 +12,16 @@ const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn')
 const notifyUsers = require('./middleware/notifyUsers')
+const schedule = require('node-schedule');
 const PORT = process.env.PORT || 3500;
 
 // connect to MongoDB
 connectDB();
 
 // notify users
-notifyUsers();
+const job = schedule.scheduleJob('0 22 * * *', function(){
+  notifyUsers();
+});
 
 // custom middleware logger
 app.use(logger)

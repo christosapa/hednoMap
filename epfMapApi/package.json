@@ -23,6 +23,7 @@
     "json-schema": "^0.4.0",
     "morgan": "~1.9.1",
     "node-geocoder": "^3.14.0",
+    "node-schedule": "^2.1.0",
     "nth-check": "^2.0.1",
     "opencage-api-client": "^1.0.0",
     "puppeteer": "^10.4.0",

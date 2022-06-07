@@ -55,10 +55,7 @@ const notifyUsers = () => {
                            from ${locations[i].fromDateTime} to ${locations[i].toDateTime}.</p>
                            <p>Location details: ${locations[i].locationDetails}</p>`,
                 }).catch(err => console.log(err));
-                console.log('Sending emails...')
-                console.log(foundUser.username)
-                console.log(location)
-
+                console.log('Sending emails to "' + foundUser.username + '" for "' + location + '"')
             }
         }
     }).catch(function (err) {
