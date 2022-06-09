@@ -87,6 +87,12 @@ export default function Maps() {
     setMyLocationMarker(null)
   }
 
+  const [showLocations, setShowLocations] = useState(false)
+
+  const showLocationsTable = () => {
+    setShowLocations(showLocations => !showLocations)
+  }
+
   const [showMenu, setShowMenu] = useState(false)
 
   const showMenuState = () => {
@@ -265,9 +271,9 @@ export default function Maps() {
           </button>
           {showMenu &&
             <button
-              className='setLocation'
-              onClick={console.log('Choose location')}>
-              Location
+              className='showLocations'
+              onClick={showLocationsTable}>
+              Locations
             </button>}
           {showMenu &&
             <button
@@ -275,6 +281,15 @@ export default function Maps() {
               onClick={signOut}>
               Log out
             </button>}
+          {showLocations &&
+            <table>
+              <tbody>
+                <tr>
+                  <td>Battery</td>
+                </tr>
+              </tbody>
+            </table>
+          }
         </div>}
 
         {showLogin && <Login />}
