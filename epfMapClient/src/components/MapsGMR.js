@@ -38,6 +38,7 @@ const mapCenter = {
 const libraries = ['places'];
 
 const LOCATION_URL = '/location';
+const SHOW_LOCATIONS_URL = '/showLocations'
 
 export default function Maps() {
   // setup map
@@ -89,8 +90,25 @@ export default function Maps() {
 
   const [showLocations, setShowLocations] = useState(false)
 
-  const showLocationsTable = () => {
+  const showLocationsTable = async () => {
     setShowLocations(showLocations => !showLocations)
+    try {
+      const response = await axios.post(
+        SHOW_LOCATIONS_URL,
+        JSON.stringify(myLocationMarker),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
+      console.log(response?.data);
+      response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
+    } catch (err) {
+      console.log(err)
+      if (!err?.response) {
+        console.log('No Server Response');
+      }
+    }
   }
 
   const [showMenu, setShowMenu] = useState(false)
@@ -281,16 +299,19 @@ export default function Maps() {
               onClick={signOut}>
               Log out
             </button>}
-          {showLocations &&
-            <table>
-              <tbody>
-                <tr>
-                  <td>Battery</td>
-                </tr>
-              </tbody>
-            </table>
-          }
         </div>}
+
+        {showLocations &&
+          <table className='locationsTable'>
+            <caption>Saved Locations</caption>
+            <tbody>
+              <tr>
+                <td>Athens</td>
+                <td><button>X</button></td>
+              </tr>
+            </tbody>
+          </table>
+        }
 
         {showLogin && <Login />}
         {showSignup && <Signup />}
