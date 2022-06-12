@@ -39,6 +39,7 @@ const libraries = ['places'];
 
 const LOCATION_URL = '/location';
 const SHOW_LOCATIONS_URL = '/showLocations'
+const DELETE_LOCATION_URL = '/deleteLocation'
 
 export default function Maps() {
   // setup map
@@ -90,6 +91,7 @@ export default function Maps() {
 
   const [showLocations, setShowLocations] = useState(false)
   const [savedLocation, setSavedLocation] = useState('')
+  const [closeButton, setCloseButton] = useState(false)
 
   const showLocationsTable = async () => {
     setShowLocations(showLocations => !showLocations)
@@ -99,6 +101,7 @@ export default function Maps() {
           withCredentials: true
         });
         setSavedLocation(response?.data.locations)
+        setCloseButton(true)
       } catch (err) {
         console.log(err)
         if (!err?.response) {
@@ -115,10 +118,8 @@ export default function Maps() {
   }
 
   const { menuUser } = useContext(DataContext)
-
   const [saveSuccessful, setSaveSuccessful] = useState(null)
   const [saveUnsuccessful, setSaveUnsuccessful] = useState(null)
-
 
   const saveLocation = async () => {
     try {
@@ -134,6 +135,30 @@ export default function Maps() {
     } catch (err) {
       setSaveSuccessful(false)
       setSaveUnsuccessful(true)
+      console.log(err)
+      if (!err?.response) {
+        console.log('No Server Response');
+      }
+    }
+  }
+
+  const deleteLocation = async () => {
+    try {
+      // const response = await axios.post(
+      //   DELETE_LOCATION_URL,
+      //   JSON.stringify(savedLocation),
+      //   {
+      //     headers: { 'Content-Type': 'application/json' },
+      //     withCredentials: true
+      //   }
+      // );
+      // response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
+      setSavedLocation('')
+      setCloseButton(false)
+      setShowLocations(false)
+    } catch (err) {
+      // setSaveSuccessful(false)
+      // setSaveUnsuccessful(true)
       console.log(err)
       if (!err?.response) {
         console.log('No Server Response');
@@ -299,11 +324,17 @@ export default function Maps() {
 
         {showLocations &&
           <table className='locationsTable'>
-            <caption>Saved Locations</caption>
             <tbody>
               <tr>
                 <td>{savedLocation}</td>
-                <td><button className='deleteLocation' title='Delete location'>x</button></td>
+                <td>
+                  {closeButton && <button
+                    className='deleteLocation'
+                    title='Delete location'
+                    onClick={deleteLocation}>
+                    x
+                  </button>}
+                </td>
               </tr>
             </tbody>
           </table>
