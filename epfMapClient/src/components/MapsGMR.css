@@ -365,3 +365,20 @@
   font-size: 18px;
   cursor:default;
 }
+
+td {
+  padding: 5px 10px;
+}
+
+.deleteLocation {
+  border: solid 1px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: rgb(255, 255, 255);
+  color: rgb(119, 214, 243);
+}
+
+.deleteLocation:hover {
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
+}

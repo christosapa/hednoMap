@@ -89,24 +89,21 @@ export default function Maps() {
   }
 
   const [showLocations, setShowLocations] = useState(false)
+  const [savedLocation, setSavedLocation] = useState('')
 
   const showLocationsTable = async () => {
     setShowLocations(showLocations => !showLocations)
-    try {
-      const response = await axios.post(
-        SHOW_LOCATIONS_URL,
-        JSON.stringify(myLocationMarker),
-        {
-          headers: { 'Content-Type': 'application/json' },
+    if (!showLocations) {
+      try {
+        const response = await axios.get(SHOW_LOCATIONS_URL, {
           withCredentials: true
+        });
+        setSavedLocation(response?.data.locations)
+      } catch (err) {
+        console.log(err)
+        if (!err?.response) {
+          console.log('No Server Response');
         }
-      );
-      console.log(response?.data);
-      response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
-    } catch (err) {
-      console.log(err)
-      if (!err?.response) {
-        console.log('No Server Response');
       }
     }
   }
@@ -133,7 +130,6 @@ export default function Maps() {
           withCredentials: true
         }
       );
-      console.log(response?.data);
       response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
     } catch (err) {
       setSaveSuccessful(false)
@@ -306,8 +302,8 @@ export default function Maps() {
             <caption>Saved Locations</caption>
             <tbody>
               <tr>
-                <td>Athens</td>
-                <td><button>X</button></td>
+                <td>{savedLocation}</td>
+                <td><button className='deleteLocation' title='Delete location'>x</button></td>
               </tr>
             </tbody>
           </table>
@@ -355,6 +351,7 @@ export default function Maps() {
 
                 {successfulLogin &&
                   <button className='savePrefferedLocation'
+                    title='Activate email notifications for this location'
                     onClick={saveLocation}>
                     <p>Save location</p>
                   </button>
