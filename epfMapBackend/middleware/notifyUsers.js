@@ -46,7 +46,7 @@ const notifyUsers = () => {
 
             if (foundUser) {
                 transporter.sendMail({
-                    from: 'xristosstbuilt@gmail.com',
+                    from: 'hednomap@gmail.com',
                     to: foundUser.username,
                     subject: "HEDNOmap: Power outage alert!",
                     html: `<h2> Important information for your saved location.</h2>
