@@ -20,8 +20,8 @@ const saveLocation = async (req, res) => {
                 if (data.results.length > 0) {
                     const place = data.results[0];
                     foundUser.prefferedLocation = greekUtils.sanitizeDiacritics(place.components.municipality).toUpperCase()
-                    res.status(201).json({ 'success': 'Location "' + place.components.municipality + '" saved!' });
                     const result = await foundUser.save();
+                    res.status(201).json({ 'success': 'Location "' + place.components.municipality + '" saved!' });
                     console.log(result);
                 } else {
                     console.log('status', data.status.message);

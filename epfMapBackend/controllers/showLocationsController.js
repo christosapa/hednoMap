@@ -1,6 +1,4 @@
 const User = require('../model/User');
-const opencage = require('opencage-api-client');
-var greekUtils = require('greek-utils');
 
 const showLocations = async (req, res) => {
 
