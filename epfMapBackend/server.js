@@ -19,8 +19,8 @@ const PORT = process.env.PORT || 3500;
 connectDB();
 
 // notify users
-const job = schedule.scheduleJob('0 22 * * *', function(){
-  notifyUsers();
+const job = schedule.scheduleJob('05 21 * * *', function () {
+    notifyUsers();
 });
 
 // custom middleware logger
@@ -54,6 +54,7 @@ app.use('/logout', require('./routes/logout'))
 app.use('/confirm', require('./routes/verify'))
 app.use('/location', require('./routes/location'))
 app.use('/showLocations', require('./routes/showLocations'))
+app.use('/deleteLocation', require('./routes/deleteLocation'))
 
 app.use(verifyJWT)
 
