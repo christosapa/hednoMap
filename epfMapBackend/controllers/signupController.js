@@ -45,7 +45,7 @@ const handleNewUser = async (req, res) => {
         )
 
         transporter.sendMail({
-            from: 'xristosstbuilt@gmail.com',
+            from: 'hednomap@gmail.com',
             to: user,
             subject: "Welcome to HEDNOmap! Confirm Your Email",
             html: `<h2> You're on your way! Let's confirm your email address.</h2>
