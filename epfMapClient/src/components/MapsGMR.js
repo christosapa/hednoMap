@@ -144,14 +144,14 @@ export default function Maps() {
 
   const deleteLocation = async () => {
     try {
-      // const response = await axios.post(
-      //   DELETE_LOCATION_URL,
-      //   JSON.stringify(savedLocation),
-      //   {
-      //     headers: { 'Content-Type': 'application/json' },
-      //     withCredentials: true
-      //   }
-      // );
+      const response = await axios.post(
+        DELETE_LOCATION_URL,
+        JSON.stringify({savedLocation}),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
       // response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
       setSavedLocation('')
       setCloseButton(false)
