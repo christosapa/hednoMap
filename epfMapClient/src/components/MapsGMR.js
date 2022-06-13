@@ -7,7 +7,6 @@ import '@reach/combobox/styles.css';
 import './MapsGMR.css';
 import liveMarkerImg from '../assets/live.png';
 import plannedMarkerImg from '../assets/planned.png';
-import showAllImg from '../assets/showAll.png';
 import findLocationImg from '../assets/findLocation.png';
 import myLocationImg from '../assets/myLocation.svg';
 import searchImg from '../assets/search.png';
@@ -18,9 +17,9 @@ import detailsImg from '../assets/details.png';
 import Login from './Login';
 import Signup from './Signup';
 import DataContext from '../context/DataContext';
-import { useNavigate, Link } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
+import axios from '../api/axios';
 
 // fetch and format data from API
 const fetcher = (...args) => fetch(...args).then(response => response.json());
@@ -38,10 +37,14 @@ const mapCenter = {
 
 const libraries = ['places'];
 
+const LOCATION_URL = '/location';
+const SHOW_LOCATIONS_URL = '/showLocations'
+const DELETE_LOCATION_URL = '/deleteLocation'
+
 export default function Maps() {
   // setup map
   const mapRef = useRef();
-  const [mapZoom, setZoom] = useState(6.8);
+  const [mapZoom] = useState(6.8);
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, [])
@@ -65,7 +68,6 @@ export default function Maps() {
 
   const { successfulLogin, setSuccessfulLogin } = useContext(DataContext)
 
-  const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const login = () => {
@@ -87,13 +89,82 @@ export default function Maps() {
     setMyLocationMarker(null)
   }
 
+  const [showLocations, setShowLocations] = useState(false)
+  const [savedLocation, setSavedLocation] = useState('')
+  const [closeButton, setCloseButton] = useState(false)
+
+  const showLocationsTable = async () => {
+    setShowLocations(showLocations => !showLocations)
+    if (!showLocations) {
+      try {
+        const response = await axios.get(SHOW_LOCATIONS_URL, {
+          withCredentials: true
+        });
+        setSavedLocation(response?.data.locations)
+        setCloseButton(true)
+      } catch (err) {
+        console.log(err)
+        if (!err?.response) {
+          console.log('No Server Response');
+        }
+      }
+    }
+  }
+
   const [showMenu, setShowMenu] = useState(false)
 
   const showMenuState = () => {
     setShowMenu(showMenu => !showMenu)
   }
 
-  const {menuUser, setMenuUser} = useContext(DataContext)
+  const { menuUser } = useContext(DataContext)
+  const [saveSuccessful, setSaveSuccessful] = useState(null)
+  const [saveUnsuccessful, setSaveUnsuccessful] = useState(null)
+
+  const saveLocation = async () => {
+    try {
+      const response = await axios.post(
+        LOCATION_URL,
+        JSON.stringify(myLocationMarker),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
+      response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
+    } catch (err) {
+      setSaveSuccessful(false)
+      setSaveUnsuccessful(true)
+      console.log(err)
+      if (!err?.response) {
+        console.log('No Server Response');
+      }
+    }
+  }
+
+  const deleteLocation = async () => {
+    try {
+      const response = await axios.post(
+        DELETE_LOCATION_URL,
+        JSON.stringify({savedLocation}),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
+      // response?.data ? setSaveSuccessful(response) : setSaveSuccessful(false)
+      setSavedLocation('')
+      setCloseButton(false)
+      setShowLocations(false)
+    } catch (err) {
+      // setSaveSuccessful(false)
+      // setSaveUnsuccessful(true)
+      console.log(err)
+      if (!err?.response) {
+        console.log('No Server Response');
+      }
+    }
+  }
 
   // render map
   return (
@@ -113,6 +184,10 @@ export default function Maps() {
           disableDefaultUI: true
         }}
         onLoad={onMapLoad}
+        onClick={(event) => {
+          setMyLocationMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() })
+        }
+        }
       >
         {locations.map((location) => {
           if (location.isLive && showLiveMarkers) {
@@ -209,7 +284,7 @@ export default function Maps() {
               setLiveMarkers(true);
               setPlannedMarkers(true);
             }}>
-            <img src={showAllImg} alt=''></img>
+            All
           </button>
         </div>
 
@@ -235,9 +310,9 @@ export default function Maps() {
           </button>
           {showMenu &&
             <button
-              className='setLocation'
-              onClick={console.log('Choose location')}>
-              Location
+              className='showLocations'
+              onClick={showLocationsTable}>
+              Locations
             </button>}
           {showMenu &&
             <button
@@ -247,6 +322,24 @@ export default function Maps() {
             </button>}
         </div>}
 
+        {showLocations &&
+          <table className='locationsTable'>
+            <tbody>
+              <tr>
+                <td>{savedLocation}</td>
+                <td>
+                  {closeButton && <button
+                    className='deleteLocation'
+                    title='Delete location'
+                    onClick={deleteLocation}>
+                    x
+                  </button>}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        }
+
         {showLogin && <Login />}
         {showSignup && <Signup />}
 
@@ -255,6 +348,8 @@ export default function Maps() {
           position={{ lat: myLocationMarker.lat, lng: myLocationMarker.lng }}
           onClick={() => {
             setSelectedMarker(myLocationMarker)
+            setSaveSuccessful(false)
+            setSaveUnsuccessful(false)
           }}
           icon={myLocationMarker.isMyLocation ? myLocationImg : searchedLocationImg}
           animation={2}
@@ -266,7 +361,6 @@ export default function Maps() {
               }}
             >
               <div className='report-container'>
-                <h2>Report Power Outage</h2>
                 <button className='reportPowerOutage'
                   onClick={() => {
                     window.open("https://apps.deddie.gr/PowerCutReportWebapp/powercutreport.html", "_blank");
@@ -285,8 +379,31 @@ export default function Maps() {
                   }}>
                   <p>Cancel report</p>
                 </button>
+
+                {successfulLogin &&
+                  <button className='savePrefferedLocation'
+                    title='Activate email notifications for this location'
+                    onClick={saveLocation}>
+                    <p>Save location</p>
+                  </button>
+                }
+
+                {saveSuccessful &&
+                  <span className='locationSaved'>
+                    {saveSuccessful.data.success}
+                    {console.log(saveSuccessful.data.success)}
+                  </span>
+                }
+
+                {saveUnsuccessful &&
+                  <span className='locationNotSaved'>
+                    Location was not saved!
+                    {console.log('not saved')}
+                  </span>
+                }
               </div>
             </InfoWindow>
+
           }
         </Marker>}
       </GoogleMap>

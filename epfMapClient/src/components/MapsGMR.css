@@ -68,15 +68,13 @@
   cursor: pointer;
   transition-duration: 0.2s;
   border: none;
-}
-
-.showAllButton img {
-  margin: 2px 2px 2px 2px;
-  width: 30px;
+  color: rgb(92, 92, 92);
+  padding: 10px;
 }
 
 .showAllButton:hover {
   background-color: rgb(22, 193, 243);
+  color: #ffffff;
 }
 
 .searchBox {
@@ -181,6 +179,45 @@
   background-color: #d44b14;
 }
 
+.savePrefferedLocation {
+  color: #fff;
+  background-color: rgb(89, 215, 253);
+  font-size: 15px;
+  border-radius: 50px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.savePrefferedLocation:hover {
+  background-color: rgb(0, 195, 255);
+}
+
+.locationSaved {
+  background-color: rgb(182, 255, 182);
+  color: rgb(26, 156, 26);
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.locationNotSaved {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.horizontal {
+  background-color: black;
+  height: 20px;
+  width: 3px;
+}
+
 .info-window {
   display: flex;
   gap: 5px;
@@ -275,7 +312,7 @@
   color: rgb(255, 255, 255);
 }
 
-.setLocation {
+.showLocations {
   background: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 40%) 0px 1px 4px -1px;
   border-radius: 20% 20% 0% 0%;
@@ -288,7 +325,7 @@
   padding: 10px 10px 10px 10px;
 }
 
-.setLocation:hover {
+.showLocations:hover {
   background-color: rgb(22, 193, 243);
   color: rgb(255, 255, 255);
 }
@@ -307,6 +344,41 @@
 }
 
 .LogOut:hover {
+  background-color: rgb(22, 193, 243);
+  color: rgb(255, 255, 255);
+}
+
+.locationsTable {
+  display: flex;
+  flex-direction: column;
+  z-index: 11;
+  position: absolute;
+  top: 9rem;
+  right: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  padding: 15px;
+  color: rgb(22, 193, 243);
+  align-items: center;
+  font-family: Arial;
+  font-size: 18px;
+  cursor:default;
+}
+
+td {
+  padding: 5px 10px;
+}
+
+.deleteLocation {
+  border: solid 1px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: rgb(255, 255, 255);
+  color: rgb(119, 214, 243);
+}
+
+.deleteLocation:hover {
   background-color: rgb(22, 193, 243);
   color: rgb(255, 255, 255);
 }

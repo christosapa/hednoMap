@@ -26,7 +26,7 @@ function string_to_slug(str) {
 function islive(fromDateTime, toDateTime) {
     
     // current date and time are Greek (am-ET because of time/date format)
-    var today = new Date().toLocaleString('am-ET', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false}, {month: 'short'});
+    var today = new Date().toLocaleString('en-IE', {timeZone: 'Europe/Athens'}, {timeStyle: 'short'}, {hour12: false}, {month: 'short'});
 
     // match date ant time from today
     var currentDate = today.match(/[0-9]+.[0-9]+.[0-9]+/)[0].replace(/[.]/g, '/');
@@ -50,11 +50,12 @@ function islive(fromDateTime, toDateTime) {
         fromTimeHH = String(parseInt(fromTime) + 12);
         fromTime = fromTimeHH + fromTime.match(/:[0-9]{2}/)[0];
     }
+    
     if (toDateTime.match(/[α-ω]{2}/)[0] == 'μμ' && toTime < '12:00') {
         toTimeHH = String(parseInt(toTime) + 12);
         toTime = toTimeHH + toTime.match(/:[0-9]{2}/)[0];
     }
-
+    
     if (currentDate >= fromDate && currentDate <= toDate) {
         if (currentTime >= fromTime && currentTime <= toTime) {
             return true;

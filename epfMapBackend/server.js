@@ -11,10 +11,17 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn')
-const PORT = process.env.PORT;
+const notifyUsers = require('./middleware/notifyUsers')
+const schedule = require('node-schedule');
+const PORT = process.env.PORT || 3500;
 
 // connect to MongoDB
 connectDB();
+
+// notify users
+const job = schedule.scheduleJob('05 21 * * *', function () {
+    notifyUsers();
+});
 
 // custom middleware logger
 app.use(logger)
@@ -45,6 +52,9 @@ app.use('/auth', require('./routes/auth'))
 app.use('/refresh', require('./routes/refresh'))
 app.use('/logout', require('./routes/logout'))
 app.use('/confirm', require('./routes/verify'))
+app.use('/location', require('./routes/location'))
+app.use('/showLocations', require('./routes/showLocations'))
+app.use('/deleteLocation', require('./routes/deleteLocation'))
 
 app.use(verifyJWT)
 

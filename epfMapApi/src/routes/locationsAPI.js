@@ -1,13 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const webScraper = require('../lib/webScraper');
+const schedule = require('node-schedule');
 
 run2functions = async () => {
     await webScraper.findNumOfPages();
     await webScraper.findCoordsOfOutages();
 };
 
-run2functions();
+const job = schedule.scheduleJob('0 21 * * *', function () {
+    run2functions();
+});
 
 // send coords
 router.get('/', function (req, res, next) {
