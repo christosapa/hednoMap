@@ -5,7 +5,7 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 // get location data from locationsAPI
 const options = {
-    url: 'http://localhost:9000/locationsAPI',
+    url: 'https://hedno-map-api.herokuapp.com/locationsAPI',
     method: 'GET',
     headers: {
         'Accept': 'application/json',
