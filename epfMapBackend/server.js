@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3500;
 connectDB();
 
 // notify users
-const job = schedule.scheduleJob('15 9 * * *', function () {
+const job = schedule.scheduleJob('25 9 * * *', function () {
     notifyUsers();
 });
 
