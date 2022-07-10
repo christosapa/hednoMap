@@ -8,7 +8,9 @@ Hellenic Electricity Distribution Network Operator (HEDNO) power outages map.
 - Live power outages
 - Planned power outages
 - Specific start/end time and location details
-- Find current location and report an event 
+- Find the current location and report an event 
+- Create an account and save locations of interest.
+- Receive email notifications with upcoming power outages.
 
 <!-- ## Prerequisites 
 
