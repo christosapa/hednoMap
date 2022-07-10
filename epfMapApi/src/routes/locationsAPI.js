@@ -8,7 +8,7 @@ run2functions = async () => {
     await webScraper.findCoordsOfOutages();
 };
 
-const job = schedule.scheduleJob('1 * * * *', function () {
+const job = schedule.scheduleJob('* 1 * * *', function () {
     run2functions();
 });
 
