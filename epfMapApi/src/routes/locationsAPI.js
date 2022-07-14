@@ -8,9 +8,10 @@ run2functions = async () => {
     await webScraper.findCoordsOfOutages();
 };
 
-const job = schedule.scheduleJob('* 1 * * *', function () {
-    run2functions();
-});
+// const job = schedule.scheduleJob('* 1 * * *', function () {
+//     run2functions();
+// });
+run2functions();
 
 // send coords
 router.get('/', function (req, res, next) {
