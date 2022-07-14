@@ -19,9 +19,10 @@ const PORT = process.env.PORT || 3500;
 connectDB();
 
 // notify users
-const job = schedule.scheduleJob('25 9 * * *', function () {
-    notifyUsers();
-});
+// const job = schedule.scheduleJob('25 9 * * *', function () {
+//     notifyUsers();
+// });
+notifyUsers();
 
 // custom middleware logger
 app.use(logger)
